@@ -1,0 +1,145 @@
+/* Slide 03 — Scoring Matrix */
+.slide {
+  padding: 34px 50px 48px;
+  display: flex;
+  flex-direction: column;
+}
+
+.slide-header { margin-bottom: 20px; }
+.slide-subtitle { max-width: 700px; }
+
+.content-split {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  grid-template-columns: 280px 1fr;
+  gap: 28px;
+  flex: 1;
+  min-height: 0;
+}
+
+.param-definitions {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  opacity: 0;
+  animation: fadeUp 0.7s ease-out 0.4s forwards;
+}
+
+.param-def {
+  padding: 8px 12px;
+  border-radius: 8px;
+  background: rgba(139,92,246,0.04);
+  border-left: 2px solid var(--param-color, rgba(139,92,246,0.3));
+}
+
+.param-def-name {
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: 700;
+  font-size: 11.5px;
+  color: var(--text);
+  margin-bottom: 2px;
+}
+
+.param-def-desc { font-size: 9.5px; color: var(--dim); line-height: 1.4; }
+
+.matrix-wrapper {
+  opacity: 0;
+  animation: fadeUp 0.7s ease-out 0.6s forwards;
+  display: flex;
+  flex-direction: column;
+}
+
+.matrix-table { width: 100%; border-collapse: separate; border-spacing: 0; }
+
+.matrix-table thead th {
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: 700;
+  font-size: 12px;
+  padding: 10px 8px;
+  text-align: center;
+  border-bottom: 1px solid rgba(139,92,246,0.1);
+  color: var(--muted);
+}
+
+.matrix-table thead th:first-child { text-align: left; width: 140px; }
+
+.matrix-table thead th .persona-label {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+}
+
+.persona-emoji { font-size: 16px; }
+
+.persona-col-name {
+  font-size: 10px;
+  font-weight: 700;
+  color: var(--col-color, var(--text));
+}
+
+.persona-col-type {
+  font-family: 'Space Mono', monospace;
+  font-size: 7px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--dim);
+}
+
+.matrix-table tbody td {
+  padding: 9px 8px;
+  text-align: center;
+  border-bottom: 1px solid rgba(139,92,246,0.04);
+  font-size: 12px;
+}
+
+.matrix-table tbody td:first-child {
+  text-align: left;
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 600;
+  font-size: 11.5px;
+  color: var(--muted);
+}
+
+.score-dots { display: flex; gap: 4px; justify-content: center; align-items: center; }
+
+.score-dot {
+  width: 10px; height: 10px;
+  border-radius: 50%;
+  border: 1.5px solid var(--dot-color, rgba(139,92,246,0.3));
+  background: transparent;
+  transition: all 0.3s;
+}
+
+.score-dot.filled {
+  background: var(--dot-color, var(--purple));
+  border-color: var(--dot-color, var(--purple));
+  box-shadow: 0 0 6px var(--dot-glow, rgba(139,92,246,0.3));
+}
+
+.matrix-table tbody tr.total-row td {
+  border-top: 2px solid rgba(139,92,246,0.15);
+  border-bottom: none;
+  padding-top: 12px;
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: 800;
+  font-size: 18px;
+}
+
+.total-row td:first-child {
+  font-size: 12px !important;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  font-family: 'Space Mono', monospace !important;
+}
+
+.total-score { color: var(--total-color, var(--text)); }
+
+.total-score .out-of { font-size: 11px; font-weight: 400; color: var(--dim); }
+
+/* Column colour tokens */
+.col-zoe { --dot-color: #d946ef; --dot-glow: rgba(217,70,239,0.3); --col-color: #f472b6; --total-color: #f472b6; }
+.col-max { --dot-color: #22d3ee; --dot-glow: rgba(34,211,238,0.3); --col-color: #22d3ee; --total-color: #22d3ee; }
+.col-kai { --dot-color: #10b981; --dot-glow: rgba(16,185,129,0.3); --col-color: #34d399; --total-color: #34d399; }
+.col-tom { --dot-color: #fbbf24; --dot-glow: rgba(251,191,36,0.3); --col-color: #fbbf24; --total-color: #fbbf24; }

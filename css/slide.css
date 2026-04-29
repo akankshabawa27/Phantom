@@ -1,0 +1,139 @@
+/* Fixed 1280×720 canvas */
+.slide {
+  width: 1280px;
+  height: 720px;
+  background: var(--bg);
+  position: relative;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+/* Cosmic nebula blobs */
+.nebula1 {
+  position: absolute;
+  top: -200px; right: -200px;
+  width: 800px; height: 800px;
+  background: radial-gradient(circle, rgba(139,92,246,0.12) 0%, rgba(217,70,239,0.06) 40%, transparent 70%);
+  border-radius: 50%;
+  animation: pulse 6s ease-in-out infinite;
+}
+
+.nebula2 {
+  position: absolute;
+  bottom: -300px; left: -100px;
+  width: 600px; height: 600px;
+  background: radial-gradient(circle, rgba(34,211,238,0.08) 0%, transparent 60%);
+  border-radius: 50%;
+  animation: pulse 8s ease-in-out infinite reverse;
+}
+
+/* Star field canvas — every slide has exactly one #stars */
+#stars {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+
+/* Film grain overlay */
+.grain {
+  position: absolute;
+  inset: 0;
+  z-index: 10;
+  pointer-events: none;
+  opacity: 0.03;
+  background-image: url('../assets/grain.svg');
+  background-repeat: repeat;
+  background-size: 256px;
+}
+
+/* Shared header components */
+.section-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: 'Space Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 6px;
+}
+
+.section-badge::before {
+  content: '';
+  width: 18px; height: 2px;
+  background: linear-gradient(135deg, #8b5cf6, #d946ef);
+  border-radius: 2px;
+}
+
+.slide-header {
+  position: relative;
+  z-index: 2;
+  margin-bottom: 18px;
+  flex-shrink: 0;
+  opacity: 0;
+  animation: fadeUp 0.7s ease-out 0.2s forwards;
+}
+
+.slide-title {
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: 800;
+  font-size: 32px;
+  letter-spacing: -1px;
+  line-height: 1.1;
+}
+
+.slide-subtitle {
+  font-size: 12.5px;
+  color: var(--dim);
+  margin-top: 5px;
+  line-height: 1.5;
+}
+
+/* Footer bar — default 40px; individual slides can override */
+.bottom-bar {
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 50px;
+  border-top: 1px solid rgba(139,92,246,0.06);
+  z-index: 3;
+}
+
+.footer-brand {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.footer-revolut-text {
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 700;
+  font-size: 12px;
+  letter-spacing: 1.5px;
+  text-transform: lowercase;
+  color: rgba(139,92,246,0.6);
+}
+
+.footer-divider {
+  color: rgba(139,92,246,0.2);
+  font-size: 14px;
+  margin: 0 2px;
+}
+
+.footer-product-text {
+  font-family: 'Space Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 1px;
+  color: var(--dim);
+}
+
+.slide-number {
+  font-family: 'Space Mono', monospace;
+  font-size: 10px;
+  color: var(--dim);
+  letter-spacing: 2px;
+}

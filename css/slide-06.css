@@ -1,0 +1,129 @@
+/* Slide 06 — Positioning + CVP */
+.slide {
+  padding: 44px 60px 52px;
+  display: flex;
+  flex-direction: column;
+}
+
+.bottom-bar { padding: 0 60px; }
+
+.s6-content {
+  position: relative;
+  z-index: 2;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 40px;
+}
+
+.s6-pos {
+  opacity: 0;
+  animation: fadeUp .7s ease-out .3s forwards;
+}
+
+.s6-label {
+  font-family: 'Space Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--purple);
+  margin-bottom: 18px;
+}
+
+.s6-statement {
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 500;
+  font-size: 22px;
+  line-height: 2.6;
+  color: var(--text);
+  max-width: 1050px;
+}
+
+/* Coloured underline annotations */
+.anno {
+  position: relative;
+  border-bottom: 2.5px solid var(--ac);
+  padding-bottom: 1px;
+}
+
+.anno-label {
+  position: absolute;
+  bottom: -20px; left: 0;
+  font-family: 'Space Mono', monospace;
+  font-size: 8px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--ac);
+  white-space: nowrap;
+  display: flex;
+  align-items: center;
+  gap: 3px;
+}
+
+.anno-label::before {
+  content: '';
+  display: inline-block;
+  width: 0; height: 0;
+  border-left: 3.5px solid transparent;
+  border-right: 3.5px solid transparent;
+  border-bottom: 4px solid var(--ac);
+  transform: rotate(180deg);
+}
+
+.a1 { --ac: #d946ef; }
+.a2 { --ac: #22d3ee; }
+.a3 { --ac: #fbbf24; }
+.a4 { --ac: #34d399; }
+.a5 { --ac: #fb923c; }
+
+.s6-template {
+  margin-top: 8px;
+  font-family: 'Space Mono', monospace;
+  font-size: 10px;
+  color: var(--dim);
+  line-height: 1.8;
+}
+
+.tpl { padding: 2px 7px; border-radius: 3px; font-size: 9px; font-weight: 700; }
+.tpl-1 { background: rgba(217,70,239,0.12);  color: #d946ef; }
+.tpl-2 { background: rgba(34,211,238,0.12);  color: #22d3ee; }
+.tpl-3 { background: rgba(251,191,36,0.12);  color: #fbbf24; }
+.tpl-4 { background: rgba(52,211,153,0.12);  color: #34d399; }
+.tpl-5 { background: rgba(251,146,60,0.12);  color: #fb923c; }
+
+.s6-cvp {
+  opacity: 0;
+  animation: fadeUp .7s ease-out .7s forwards;
+}
+
+.s6-cvp-label {
+  font-family: 'Space Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 14px;
+}
+
+.s6-cvp-text {
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 500;
+  font-size: 22px;
+  line-height: 1.55;
+  color: var(--text);
+  max-width: 900px;
+}
+
+.s6-cvp-text .cvp-em {
+  font-weight: 700;
+  background: linear-gradient(90deg, #c4b5fd, #e879f9, #fbbf24);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.s6-divider {
+  width: 100%; height: 1px;
+  background: linear-gradient(90deg, rgba(139,92,246,0.15), transparent 70%);
+}

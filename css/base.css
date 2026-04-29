@@ -1,0 +1,87 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;0,9..40,800;1,9..40,400&family=Space+Grotesk:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap');
+
+*, *::before, *::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  /* Primary tokens */
+  --bg: #06060e;
+  --purple: #8b5cf6;
+  --magenta: #d946ef;
+  --cyan: #22d3ee;
+  --gold: #fbbf24;
+  --green: #34d399;
+  --orange: #fb923c;
+  --text: #f0eef6;
+  --muted: #8a85a0;
+  --dim: #5a5670;
+  /* Aliases for backward compatibility with older slide naming */
+  --bg-deep: #06060e;
+  --purple-glow: #8b5cf6;
+  --cyan-accent: #22d3ee;
+  --warm-gold: #fbbf24;
+  --green-accent: #10b981;
+  --text-primary: #f0eef6;
+  --text-muted: #8a85a0;
+  --text-dim: #5a5670;
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'DM Sans', sans-serif;
+  overflow: hidden;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Gradient text utility */
+.gradient {
+  background: linear-gradient(135deg, #c4b5fd 0%, #e879f9 50%, #fbbf24 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Shared keyframes */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: .6; transform: scale(1); }
+  50%       { opacity: 1; transform: scale(1.1); }
+}
+
+@keyframes shimmer {
+  0%   { background-position: 100% 0; }
+  50%  { background-position: 0 0; }
+  100% { background-position: 100% 0; }
+}
+
+@keyframes holo {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+
+@keyframes cardReveal {
+  from { opacity: 0; transform: translateY(40px) scale(0.96); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+@keyframes spin {
+  from { transform: translate(-50%, -50%) rotate(0deg); }
+  to   { transform: translate(-50%, -50%) rotate(360deg); }
+}

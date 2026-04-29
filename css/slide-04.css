@@ -1,0 +1,158 @@
+/* Slide 04 — ICP Recommendation */
+.slide {
+  padding: 34px 50px 48px;
+  display: flex;
+  flex-direction: column;
+}
+
+.slide-header { margin-bottom: 20px; }
+
+.picks-section {
+  position: relative;
+  z-index: 2;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.picks-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 18px;
+  opacity: 0;
+  animation: fadeUp 0.7s ease-out 0.4s forwards;
+}
+
+.pick-card {
+  border-radius: 14px;
+  padding: 22px 24px;
+  position: relative;
+  overflow: hidden;
+}
+
+.pick-card.primary {
+  background: linear-gradient(135deg, rgba(217,70,239,0.08), rgba(244,114,182,0.04));
+  border: 1.5px solid rgba(217,70,239,0.25);
+}
+
+.pick-card.secondary {
+  background: linear-gradient(135deg, rgba(251,191,36,0.06), rgba(249,115,22,0.03));
+  border: 1.5px solid rgba(251,191,36,0.2);
+}
+
+.pick-badge {
+  display: inline-block;
+  font-family: 'Space Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  padding: 3px 10px;
+  border-radius: 100px;
+  margin-bottom: 10px;
+}
+
+.pick-card.primary .pick-badge  { background: rgba(217,70,239,0.15); color: #f472b6; }
+.pick-card.secondary .pick-badge { background: rgba(251,191,36,0.12); color: #fbbf24; }
+
+.pick-header { display: flex; align-items: center; gap: 12px; margin-bottom: 10px; }
+
+.pick-avatar {
+  width: 40px; height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  flex-shrink: 0;
+}
+
+.pick-card.primary .pick-avatar  { background: rgba(217,70,239,0.12); border: 2px solid rgba(217,70,239,0.3); }
+.pick-card.secondary .pick-avatar { background: rgba(251,191,36,0.1);  border: 2px solid rgba(251,191,36,0.3); }
+
+.pick-name { font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 22px; }
+
+.pick-type { font-family: 'Space Mono', monospace; font-size: 9px; letter-spacing: 1.5px; text-transform: uppercase; }
+
+.pick-card.primary  .pick-type { color: #f472b6; }
+.pick-card.secondary .pick-type { color: #fbbf24; }
+
+.pick-score { font-family: 'Space Grotesk', sans-serif; font-weight: 800; font-size: 28px; margin-left: auto; }
+
+.pick-card.primary .pick-score {
+  background: linear-gradient(135deg, #d946ef, #f472b6);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.pick-card.secondary .pick-score {
+  background: linear-gradient(135deg, #fbbf24, #f97316);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.pick-score .out-of { font-size: 14px; font-weight: 400; opacity: 0.5; }
+
+.pick-rationale { font-size: 12px; color: var(--muted); line-height: 1.55; }
+
+.pick-strengths { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 10px; }
+
+.strength-tag { padding: 4px 10px; border-radius: 100px; font-size: 9.5px; font-weight: 600; }
+
+.pick-card.primary  .strength-tag { background: rgba(217,70,239,0.08); border: 1px solid rgba(217,70,239,0.15); color: #f472b6; }
+.pick-card.secondary .strength-tag { background: rgba(251,191,36,0.08); border: 1px solid rgba(251,191,36,0.15); color: #fbbf24; }
+
+.others-row {
+  display: flex;
+  gap: 18px;
+  opacity: 0;
+  animation: fadeUp 0.7s ease-out 0.7s forwards;
+}
+
+.other-card {
+  flex: 1;
+  padding: 14px 18px;
+  border-radius: 10px;
+  background: rgba(255,255,255,0.02);
+  border: 1px solid rgba(255,255,255,0.05);
+  opacity: 0.5;
+}
+
+.other-header { display: flex; align-items: center; gap: 8px; margin-bottom: 4px; }
+.other-name   { font-family: 'Space Grotesk', sans-serif; font-weight: 600; font-size: 14px; color: var(--dim); }
+.other-type   { font-family: 'Space Mono', monospace; font-size: 7.5px; letter-spacing: 1.5px; text-transform: uppercase; color: var(--dim); }
+.other-score  { font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 16px; color: var(--dim); margin-left: auto; }
+.other-note   { font-size: 10px; color: var(--dim); line-height: 1.4; margin-top: 2px; }
+
+.closing-statement {
+  position: relative;
+  z-index: 2;
+  margin-top: auto;
+  padding: 18px 24px;
+  border-radius: 12px;
+  background: linear-gradient(135deg, rgba(139,92,246,0.06), rgba(217,70,239,0.03));
+  border: 1px solid rgba(139,92,246,0.12);
+  opacity: 0;
+  animation: fadeUp 0.7s ease-out 1s forwards;
+}
+
+.closing-label {
+  font-family: 'Space Mono', monospace;
+  font-size: 8px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--purple);
+  margin-bottom: 6px;
+}
+
+.closing-text { font-family: 'Space Grotesk', sans-serif; font-weight: 600; font-size: 15px; line-height: 1.5; color: var(--text); }
+
+.closing-text .highlight {
+  background: linear-gradient(90deg, #c4b5fd, #e879f9, #fbbf24);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  font-weight: 800;
+}

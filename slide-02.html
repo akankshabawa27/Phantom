@@ -1,0 +1,733 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Phantom — ICP Personas</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Space+Mono:wght@400;700&family=Syne:wght@400;500;600;700;800&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --bg-deep: #06060e;
+    --purple-glow: #8b5cf6;
+    --magenta: #d946ef;
+    --cyan-accent: #22d3ee;
+    --warm-gold: #fbbf24;
+    --green-accent: #10b981;
+    --text-primary: #f0eef6;
+    --text-muted: #8a85a0;
+    --text-dim: #5a5670;
+  }
+
+  body {
+    background: var(--bg-deep);
+    color: var(--text-primary);
+    font-family: 'Outfit', sans-serif;
+    overflow: hidden;
+    width: 100vw; height: 100vh;
+    display: flex; align-items: center; justify-content: center;
+  }
+
+  .slide {
+    width: 1280px; height: 720px;
+    background: var(--bg-deep);
+    position: relative; overflow: hidden;
+    padding: 30px 44px 48px;
+    display: flex; flex-direction: column;
+  }
+
+  /* BG */
+  .nebula1 {
+    position: absolute; top: -300px; right: -200px;
+    width: 700px; height: 700px;
+    background: radial-gradient(circle, rgba(139,92,246,0.1) 0%, transparent 65%);
+    border-radius: 50%; animation: pulse 6s ease-in-out infinite;
+  }
+  .nebula2 {
+    position: absolute; bottom: -250px; left: -150px;
+    width: 550px; height: 550px;
+    background: radial-gradient(circle, rgba(217,70,239,0.06) 0%, transparent 60%);
+    border-radius: 50%; animation: pulse 8s ease-in-out infinite reverse;
+  }
+  @keyframes pulse { 0%,100%{opacity:.6;transform:scale(1)} 50%{opacity:1;transform:scale(1.08)} }
+
+  canvas#starsCanvas { position: absolute; inset: 0; z-index: 0; }
+
+  .grain {
+    position: absolute; inset: 0; z-index: 10; pointer-events: none; opacity: 0.03;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    background-repeat: repeat; background-size: 256px;
+  }
+
+  /* Header */
+  .slide-header {
+    position: relative; z-index: 2;
+    margin-bottom: 18px; flex-shrink: 0;
+    opacity: 0; animation: fadeUp 0.7s ease-out 0.2s forwards;
+  }
+
+  .section-badge {
+    display: inline-flex; align-items: center; gap: 6px;
+    font-family: 'Space Mono', monospace;
+    font-size: 10px; letter-spacing: 3px; text-transform: uppercase;
+    color: var(--text-muted); margin-bottom: 6px;
+  }
+  .section-badge::before {
+    content: ''; width: 18px; height: 2px;
+    background: linear-gradient(135deg, #8b5cf6, #d946ef); border-radius: 2px;
+  }
+
+  .slide-title {
+    font-family: 'Syne', sans-serif; font-weight: 800;
+    font-size: 32px; letter-spacing: -1px; line-height: 1.1;
+  }
+  .slide-title .gradient {
+    background: linear-gradient(135deg, #c4b5fd 0%, #e879f9 50%, #fbbf24 100%);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+  }
+
+  .slide-subtitle {
+    font-size: 12.5px; color: var(--text-dim); margin-top: 5px;
+    line-height: 1.5;
+  }
+
+  .subtitle-highlight {
+    font-weight: 600;
+    background: linear-gradient(90deg, #c4b5fd, #e879f9, #fbbf24);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+  }
+
+  /* Grid - 4 columns */
+  .personas-grid {
+    position: relative; z-index: 2;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 14px; flex: 1; min-height: 0;
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes cardReveal {
+    from { opacity: 0; transform: translateY(40px) scale(0.96); }
+    to { opacity: 1; transform: translateY(0) scale(1); }
+  }
+
+  .persona-card {
+    background: rgba(10,10,22,0.8);
+    border: 1px solid var(--border-color);
+    border-radius: 14px;
+    display: flex; flex-direction: column;
+    position: relative; overflow: hidden;
+    backdrop-filter: blur(10px);
+    opacity: 0;
+    animation: cardReveal 0.9s cubic-bezier(0.22,1,0.36,1) var(--delay) forwards;
+  }
+
+  .persona-card::before {
+    content: '';
+    position: absolute; top: 0; left: 0; right: 0;
+    height: 3px; background: var(--accent-gradient);
+    border-radius: 14px 14px 0 0;
+  }
+
+  /* Portrait */
+  .portrait-section {
+    position: relative;
+    height: 110px;
+    overflow: hidden;
+    background: var(--portrait-bg);
+    display: flex; align-items: flex-end; justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .portrait-section::after {
+    content: '';
+    position: absolute; bottom: 0; left: 0; right: 0;
+    height: 40px;
+    background: linear-gradient(to top, rgba(10,10,22,0.95), transparent);
+    z-index: 1;
+  }
+
+  .portrait-svg {
+    position: relative; z-index: 0;
+    width: 100px; height: 100px;
+    margin-bottom: -4px;
+  }
+
+  .persona-identity {
+    position: absolute; bottom: 6px; left: 12px; z-index: 2;
+  }
+
+  .persona-name {
+    font-family: 'Syne', sans-serif; font-weight: 700;
+    font-size: 17px; line-height: 1.1;
+  }
+
+  .persona-type {
+    font-family: 'Space Mono', monospace;
+    font-size: 8px; letter-spacing: 1.5px; text-transform: uppercase;
+    color: var(--type-color); margin-top: 1px;
+  }
+
+  /* Content */
+  .card-content {
+    padding: 10px 12px 12px;
+    display: flex; flex-direction: column;
+    flex: 1;
+  }
+
+  .persona-quote {
+    font-size: 10px; font-style: italic;
+    color: var(--text-muted); line-height: 1.45;
+    padding: 7px 9px;
+    background: rgba(139,92,246,0.04);
+    border-left: 2px solid var(--quote-border);
+    border-radius: 0 6px 6px 0;
+    margin-bottom: 9px;
+  }
+
+  .persona-section { margin-bottom: 7px; }
+
+  .section-label {
+    font-family: 'Space Mono', monospace;
+    font-size: 7.5px; letter-spacing: 2px; text-transform: uppercase;
+    color: var(--text-dim); margin-bottom: 4px;
+  }
+
+  .behavior-tags { display: flex; flex-wrap: wrap; gap: 3px; }
+
+  .behavior-tag {
+    padding: 2px 6px; border-radius: 100px;
+    font-size: 8.5px; font-weight: 500;
+    background: rgba(139,92,246,0.06);
+    border: 1px solid rgba(139,92,246,0.1);
+    color: var(--text-muted);
+  }
+
+  .pain-list { list-style: none; }
+
+  .pain-list li {
+    font-size: 9.5px; color: var(--text-muted);
+    line-height: 1.35; padding: 1.5px 0;
+    padding-left: 12px; position: relative;
+  }
+
+  .pain-list li::before {
+    content: '\00d7'; position: absolute; left: 0; top: 1px;
+    color: #f87171; font-weight: 700; font-size: 10px;
+  }
+
+  /* Phantom solve */
+  .phantom-solve {
+    margin-top: auto;
+    padding: 8px 10px;
+    background: linear-gradient(135deg, rgba(139,92,246,0.08), rgba(217,70,239,0.04));
+    border: 1px solid rgba(139,92,246,0.1);
+    border-radius: 8px;
+  }
+
+  .solve-label {
+    font-family: 'Space Mono', monospace;
+    font-size: 7px; letter-spacing: 2px; text-transform: uppercase;
+    color: var(--purple-glow); margin-bottom: 2px;
+  }
+
+  .solve-text {
+    font-family: 'Syne', sans-serif; font-weight: 600;
+    font-size: 10.5px; line-height: 1.3;
+    background: linear-gradient(135deg, #c4b5fd, #e879f9);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+  }
+
+  .solve-pitch {
+    font-size: 9px; color: var(--text-dim); margin-top: 2px;
+    font-style: italic;
+  }
+
+  /* Demographics strip */
+  .demo-strip {
+    display: flex; gap: 6px; margin-bottom: 8px;
+    flex-wrap: wrap;
+  }
+
+  .demo-item {
+    display: flex; align-items: center; gap: 4px;
+    font-size: 8.5px; color: var(--text-muted);
+  }
+
+  .demo-icon {
+    font-size: 9px; opacity: 0.6;
+  }
+
+  .demo-value {
+    font-family: 'Space Mono', monospace;
+    font-size: 8px; letter-spacing: 0.5px;
+  }
+
+  /* Card variants */
+  .persona-card.zoe {
+    --delay: 0.4s;
+    --border-color: rgba(217,70,239,0.15);
+    --accent-gradient: linear-gradient(90deg, #d946ef, #f472b6);
+    --portrait-bg: linear-gradient(135deg, rgba(217,70,239,0.12), rgba(244,114,182,0.06));
+    --type-color: #f472b6;
+    --quote-border: rgba(217,70,239,0.3);
+  }
+
+  .persona-card.max {
+    --delay: 0.8s;
+    --border-color: rgba(34,211,238,0.15);
+    --accent-gradient: linear-gradient(90deg, #22d3ee, #8b5cf6);
+    --portrait-bg: linear-gradient(135deg, rgba(34,211,238,0.1), rgba(139,92,246,0.06));
+    --type-color: #22d3ee;
+    --quote-border: rgba(34,211,238,0.3);
+  }
+
+  .persona-card.kai {
+    --delay: 1.2s;
+    --border-color: rgba(16,185,129,0.15);
+    --accent-gradient: linear-gradient(90deg, #10b981, #34d399);
+    --portrait-bg: linear-gradient(135deg, rgba(16,185,129,0.1), rgba(52,211,153,0.06));
+    --type-color: #34d399;
+    --quote-border: rgba(16,185,129,0.3);
+  }
+
+  .persona-card.tom {
+    --delay: 1.6s;
+    --border-color: rgba(251,191,36,0.15);
+    --accent-gradient: linear-gradient(90deg, #fbbf24, #f97316);
+    --portrait-bg: linear-gradient(135deg, rgba(251,191,36,0.1), rgba(249,115,22,0.06));
+    --type-color: #fbbf24;
+    --quote-border: rgba(251,191,36,0.3);
+  }
+
+  /* Footer */
+  .bottom-bar {
+    position: absolute; bottom: 0; left: 0; right: 0;
+    height: 40px; display: flex; align-items: center;
+    justify-content: space-between; padding: 0 44px;
+    border-top: 1px solid rgba(139,92,246,0.06); z-index: 3;
+  }
+  .footer-brand { display: flex; align-items: center; gap: 8px; }
+  .footer-revolut-text {
+    font-family: 'Outfit', sans-serif; font-weight: 700; font-size: 12px;
+    letter-spacing: 1.5px; text-transform: lowercase; color: rgba(139,92,246,0.6);
+  }
+  .footer-divider { color: rgba(139,92,246,0.2); font-size: 14px; margin: 0 2px; }
+  .footer-product-text {
+    font-family: 'Space Mono', monospace; font-size: 9px;
+    letter-spacing: 1px; color: var(--text-dim);
+  }
+  .slide-number {
+    font-family: 'Space Mono', monospace; font-size: 10px;
+    color: var(--text-dim); letter-spacing: 2px;
+  }
+
+  @media (max-width:1300px) { .slide{transform:scale(0.75);transform-origin:center} }
+  @media (max-width:900px) { .slide{transform:scale(0.5);transform-origin:center} }
+</style>
+</head>
+<body>
+
+<div class="slide">
+  <div class="grain"></div>
+  <div class="nebula1"></div>
+  <div class="nebula2"></div>
+  <canvas id="starsCanvas"></canvas>
+
+  <div class="slide-header">
+    <div>
+      <div class="section-badge">02 / Audience</div>
+      <h2 class="slide-title">Meet the Potential ICPs for <span class="gradient">Phantom</span></h2>
+      <p class="slide-subtitle">Four existing Revolut customer personas. All active online shoppers. None using single-use cards yet.<br><span class="subtitle-highlight">Here's why they need a Phantom in their life.</span></p>
+    </div>
+  </div>
+
+  <div class="personas-grid">
+
+    <!-- ZOE -->
+    <div class="persona-card zoe">
+      <div class="portrait-section">
+        <svg class="portrait-svg" viewBox="0 0 120 120" fill="none">
+          <ellipse cx="60" cy="115" rx="30" ry="16" fill="url(#zS)"/>
+          <rect x="53" y="78" width="14" height="10" rx="5" fill="#e8b89a"/>
+          <ellipse cx="60" cy="58" rx="24" ry="26" fill="#f0c8a8"/>
+          <path d="M36 52c0-17 11-32 24-32s24 15 24 32c0 2-.5 5-1.5 7 0-13-9-26-22.5-26S38 46 38 59c-1-2-2-5-2-7z" fill="#3d1f0a"/>
+          <path d="M34 54c-1 5-1 12 1 20 1 5 2 8 2 8" stroke="#3d1f0a" stroke-width="7" stroke-linecap="round" fill="none"/>
+          <path d="M86 54c1 5 1 11-1 18-1 4-2 7-2 7" stroke="#3d1f0a" stroke-width="6" stroke-linecap="round" fill="none"/>
+          <ellipse cx="48" cy="56" rx="3" ry="3.5" fill="#2d1810"/>
+          <ellipse cx="72" cy="56" rx="3" ry="3.5" fill="#2d1810"/>
+          <circle cx="49.2" cy="55" r="1" fill="white"/>
+          <circle cx="73.2" cy="55" r="1" fill="white"/>
+          <path d="M43 49c2-2 4-2.5 7-1.5" stroke="#3d1f0a" stroke-width="1.3" stroke-linecap="round" fill="none"/>
+          <path d="M70 47.5c2.5-1 5-.5 7 1.5" stroke="#3d1f0a" stroke-width="1.3" stroke-linecap="round" fill="none"/>
+          <path d="M57 62c1 2 3 2 4 0" stroke="#d4a080" stroke-width="1.2" stroke-linecap="round" fill="none"/>
+          <path d="M50 69c4 4 12 5 18 1" stroke="#c47a5a" stroke-width="1.5" stroke-linecap="round" fill="none"/>
+          <circle cx="33" cy="63" r="2.2" fill="#d946ef" opacity="0.7"/>
+          <circle cx="87" cy="63" r="2.2" fill="#d946ef" opacity="0.7"/>
+          <rect x="80" y="96" width="10" height="17" rx="2" fill="#1a1a2e" stroke="#d946ef" stroke-width="0.7" opacity="0.5"/>
+          <defs><linearGradient id="zS" x1="30" y1="99" x2="90" y2="128"><stop stop-color="#d946ef" stop-opacity=".7"/><stop offset="1" stop-color="#f472b6" stop-opacity=".5"/></linearGradient></defs>
+        </svg>
+        <div class="persona-identity">
+          <div class="persona-name">Zoe</div>
+          <div class="persona-type">The Impulse Explorer</div>
+        </div>
+      </div>
+      <div class="card-content">
+        <div class="demo-strip">
+          <div class="demo-item"><span class="demo-icon">Age</span> <span class="demo-value">24-29</span></div>
+          <div class="demo-item"><span class="demo-icon">Role</span> <span class="demo-value">Marketing / Creator</span></div>
+          <div class="demo-item"><span class="demo-icon">Income</span> <span class="demo-value">35K-55K</span></div>
+        </div>
+        <div class="persona-quote">"I found this lamp on an Instagram ad at midnight. The site looked fine? I just entered my card and hoped for the best."</div>
+        <div class="persona-section">
+          <div class="section-label">Shopping Behaviour</div>
+          <div class="behavior-tags">
+            <span class="behavior-tag">Instagram / TikTok ads</span>
+            <span class="behavior-tag">DTC brands</span>
+            <span class="behavior-tag">4-6x / week</span>
+          </div>
+        </div>
+        <div class="persona-section">
+          <div class="section-label">Pain Points</div>
+          <ul class="pain-list">
+            <li>30+ sites have her card saved. Forgotten most of them.</li>
+            <li>Mystery charges from sites she cannot even recall.</li>
+            <li>Card compromised once. Updating everything was painful.</li>
+          </ul>
+        </div>
+        <div class="phantom-solve">
+          <div class="solve-label">Why Phantom</div>
+          <div class="solve-text">Shop impulsively, without the anxiety tax.</div>
+          <div class="solve-pitch">"Shop fearlessly. Your card forgets, even if you don't."</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- MAX -->
+    <div class="persona-card max">
+      <div class="portrait-section">
+        <svg class="portrait-svg" viewBox="0 0 120 120" fill="none">
+          <ellipse cx="60" cy="115" rx="30" ry="16" fill="url(#mS)"/>
+          <rect x="53" y="78" width="14" height="10" rx="5" fill="#d4a47a"/>
+          <ellipse cx="60" cy="58" rx="23" ry="25" fill="#deb896"/>
+          <!-- Messy longer hair under beanie -->
+          <path d="M38 50c0-14 10-26 22-26s22 12 22 26c0 1-.3 3-.8 4-1-12-8-20-21.2-20S40 42 40 54c-.8-1.5-2-3-2-4z" fill="#5a3a1a"/>
+          <!-- Hair poking out sides -->
+          <path d="M36 52c-1 4 0 10 2 16" stroke="#5a3a1a" stroke-width="5" stroke-linecap="round" fill="none"/>
+          <path d="M84 52c1 4 0 10-2 14" stroke="#5a3a1a" stroke-width="4" stroke-linecap="round" fill="none"/>
+          <!-- Beanie -->
+          <path d="M34 46c0-16 12-28 26-28s26 12 26 28" fill="#22d3ee" opacity="0.7"/>
+          <rect x="33" y="42" width="54" height="8" rx="4" fill="#1a9ab5" opacity="0.8"/>
+          <!-- Beanie fold lines -->
+          <line x1="38" y1="45" x2="82" y2="45" stroke="#168a9f" stroke-width="0.6" opacity="0.5"/>
+          <!-- Stubble/scruff -->
+          <ellipse cx="60" cy="73" rx="15" ry="7" fill="#c49470" opacity="0.25"/>
+          <ellipse cx="52" cy="70" rx="5" ry="4" fill="#c49470" opacity="0.15"/>
+          <ellipse cx="68" cy="70" rx="5" ry="4" fill="#c49470" opacity="0.15"/>
+          <!-- Eyes -->
+          <ellipse cx="49" cy="55" rx="2.8" ry="3.2" fill="#1a3a2e"/>
+          <ellipse cx="71" cy="55" rx="2.8" ry="3.2" fill="#1a3a2e"/>
+          <circle cx="50" cy="54" r=".9" fill="white"/>
+          <circle cx="72" cy="54" r=".9" fill="white"/>
+          <!-- Eyebrows -->
+          <path d="M43 48c2-2 4.5-2.5 7-1.5" stroke="#5a3a1a" stroke-width="1.5" stroke-linecap="round" fill="none"/>
+          <path d="M70 46.5c2.5-1 5-.5 7 1.5" stroke="#5a3a1a" stroke-width="1.5" stroke-linecap="round" fill="none"/>
+          <!-- Nose -->
+          <path d="M57 62c1 2 3 2 4 0" stroke="#c49070" stroke-width="1.2" stroke-linecap="round" fill="none"/>
+          <!-- Relaxed smile -->
+          <path d="M50 69c4 3 14 4 20 0" stroke="#b07858" stroke-width="1.4" stroke-linecap="round" fill="none"/>
+          <!-- Backpack straps both sides -->
+          <path d="M38 90c-3-2-7 1-9 7" stroke="#22d3ee" stroke-width="3" stroke-linecap="round" opacity="0.45" fill="none"/>
+          <path d="M82 90c3-2 7 1 9 7" stroke="#22d3ee" stroke-width="3" stroke-linecap="round" opacity="0.45" fill="none"/>
+          <!-- Camera strap hint -->
+          <path d="M45 88c4 2 8 3 14 3s10-1 14-3" stroke="#8b5cf6" stroke-width="1.5" stroke-linecap="round" opacity="0.3" fill="none"/>
+          <defs><linearGradient id="mS" x1="30" y1="99" x2="90" y2="128"><stop stop-color="#22d3ee" stop-opacity=".6"/><stop offset="1" stop-color="#8b5cf6" stop-opacity=".4"/></linearGradient></defs>
+        </svg>
+        <div class="persona-identity">
+          <div class="persona-name">Max</div>
+          <div class="persona-type">The Borderless Buyer</div>
+        </div>
+      </div>
+      <div class="card-content">
+        <div class="demo-strip">
+          <div class="demo-item"><span class="demo-icon">Age</span> <span class="demo-value">26-33</span></div>
+          <div class="demo-item"><span class="demo-icon">Role</span> <span class="demo-value">Freelance Photographer</span></div>
+          <div class="demo-item"><span class="demo-icon">Income</span> <span class="demo-value">30K-50K</span></div>
+        </div>
+        <div class="persona-quote">"I paid for a street food tour in Marrakech, a scooter rental in Bali, and a hostel in Tbilisi. All on different local sites. All in the last two weeks. Every one of them has my real card number."</div>
+        <div class="persona-section">
+          <div class="section-label">Shopping Behaviour</div>
+          <div class="behavior-tags">
+            <span class="behavior-tag">Street-side vendors</span>
+            <span class="behavior-tag">Local booking sites</span>
+            <span class="behavior-tag">Foreign transport apps</span>
+            <span class="behavior-tag">10-15x / month</span>
+          </div>
+        </div>
+        <div class="persona-section">
+          <div class="section-label">Pain Points</div>
+          <ul class="pain-list">
+            <li>Pays on local sites with zero security standards.</li>
+            <li>Charged 3x by a tuk-tuk app in Bangkok. No support page.</li>
+            <li>Cannot track which vendor in which country has his details.</li>
+          </ul>
+        </div>
+        <div class="phantom-solve">
+          <div class="solve-label">Why Phantom</div>
+          <div class="solve-text">Every new city, every street vendor gets a card that dies when he moves on.</div>
+          <div class="solve-pitch">"Travel everywhere. Leave nothing behind."</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- KAI -->
+    <div class="persona-card kai">
+      <div class="portrait-section">
+        <svg class="portrait-svg" viewBox="0 0 120 120" fill="none">
+          <ellipse cx="60" cy="115" rx="30" ry="16" fill="url(#kS)"/>
+          <rect x="53" y="78" width="14" height="10" rx="5" fill="#e0c0a0"/>
+          <ellipse cx="60" cy="58" rx="23" ry="25" fill="#ecd0b0"/>
+          <!-- Buzz cut / fade -->
+          <path d="M37 48c0-15 10-28 23-28s23 13 23 28c0 1-.3 3-.8 4.5 0-12-9-21-22.2-21S39 40 39 52c-.8-1.5-2-3-2-4z" fill="#2a1a10"/>
+          <rect x="37" y="36" width="46" height="14" rx="8" fill="#2a1a10" opacity="0.7"/>
+          <!-- Eyes -->
+          <ellipse cx="49" cy="56" rx="2.8" ry="3.2" fill="#1a2a1a"/>
+          <ellipse cx="71" cy="56" rx="2.8" ry="3.2" fill="#1a2a1a"/>
+          <circle cx="50" cy="55" r=".9" fill="white"/>
+          <circle cx="72" cy="55" r=".9" fill="white"/>
+          <!-- Eyebrows -->
+          <path d="M43 49c2-1.5 4.5-2 7-1" stroke="#2a1a10" stroke-width="1.5" stroke-linecap="round" fill="none"/>
+          <path d="M70 48c2.5-.8 5-.3 7 1" stroke="#2a1a10" stroke-width="1.5" stroke-linecap="round" fill="none"/>
+          <path d="M57 63c1 1.5 3 1.5 4 0" stroke="#c4a080" stroke-width="1.2" stroke-linecap="round" fill="none"/>
+          <!-- Smirk -->
+          <path d="M53 69c2 2 8 3 14 0" stroke="#b08060" stroke-width="1.4" stroke-linecap="round" fill="none"/>
+          <!-- Headphones around neck -->
+          <ellipse cx="35" cy="82" rx="6" ry="7" stroke="#10b981" stroke-width="2" fill="none" opacity="0.5"/>
+          <ellipse cx="85" cy="82" rx="6" ry="7" stroke="#10b981" stroke-width="2" fill="none" opacity="0.5"/>
+          <path d="M35 75c0-8 5-14 11-14" stroke="#10b981" stroke-width="2" fill="none" opacity="0.4"/>
+          <path d="M85 75c0-8-5-14-11-14" stroke="#10b981" stroke-width="2" fill="none" opacity="0.4"/>
+          <!-- Light stubble -->
+          <ellipse cx="60" cy="72" rx="14" ry="6" fill="#d4b090" opacity="0.2"/>
+          <defs><linearGradient id="kS" x1="30" y1="99" x2="90" y2="128"><stop stop-color="#10b981" stop-opacity=".6"/><stop offset="1" stop-color="#34d399" stop-opacity=".4"/></linearGradient></defs>
+        </svg>
+        <div class="persona-identity">
+          <div class="persona-name">Kai</div>
+          <div class="persona-type">The High-Stakes Player</div>
+        </div>
+      </div>
+      <div class="card-content">
+        <div class="demo-strip">
+          <div class="demo-item"><span class="demo-icon">Age</span> <span class="demo-value">22-28</span></div>
+          <div class="demo-item"><span class="demo-icon">Role</span> <span class="demo-value">Developer / Designer</span></div>
+          <div class="demo-item"><span class="demo-icon">Income</span> <span class="demo-value">40K-65K</span></div>
+        </div>
+        <div class="persona-quote">"I bid on a vintage watch on an auction site I had never heard of. Won it for 180 euros. Great price. But now some random platform in Estonia has my full card details."</div>
+        <div class="persona-section">
+          <div class="section-label">Shopping Behaviour</div>
+          <div class="behavior-tags">
+            <span class="behavior-tag">Auction sites</span>
+            <span class="behavior-tag">Resale platforms</span>
+            <span class="behavior-tag">P2P marketplaces</span>
+            <span class="behavior-tag">3-8x / month</span>
+          </div>
+        </div>
+        <div class="persona-section">
+          <div class="section-label">Pain Points</div>
+          <ul class="pain-list">
+            <li>Paying strangers on unverified platforms with real card details.</li>
+            <li>No way to know how securely a marketplace stores data.</li>
+            <li>Double-charged by a resale site with zero customer support.</li>
+          </ul>
+        </div>
+        <div class="phantom-solve">
+          <div class="solve-label">Why Phantom</div>
+          <div class="solve-text">Win the bid, get the item, leave no trace to exploit.</div>
+          <div class="solve-pitch">"Play anywhere. Trust no one. Pay everything."</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- TOM -->
+    <div class="persona-card tom">
+      <div class="portrait-section">
+        <svg class="portrait-svg" viewBox="0 0 120 120" fill="none">
+          <ellipse cx="60" cy="115" rx="30" ry="16" fill="url(#tS)"/>
+          <rect x="53" y="78" width="14" height="10" rx="5" fill="#f0c8a8"/>
+          <ellipse cx="60" cy="58" rx="23" ry="25" fill="#f5d4b8"/>
+          <!-- Messy curly hair -->
+          <path d="M37 48c0-15 10-28 23-28s23 13 23 28c0 2-.5 4-1.5 6 0-13-9-23-21.5-23S39 41 39 54c-1-2-2-4-2-6z" fill="#6b3a1f"/>
+          <circle cx="41" cy="35" r="4.5" fill="#6b3a1f"/>
+          <circle cx="52" cy="29" r="5.5" fill="#6b3a1f"/>
+          <circle cx="65" cy="27" r="5.5" fill="#6b3a1f"/>
+          <circle cx="76" cy="31" r="4.5" fill="#6b3a1f"/>
+          <circle cx="81" cy="38" r="3.5" fill="#6b3a1f"/>
+          <!-- Glasses -->
+          <rect x="40" y="50" width="14" height="12" rx="5.5" stroke="#8a85a0" stroke-width="1.3" fill="rgba(100,120,200,0.05)"/>
+          <rect x="66" y="50" width="14" height="12" rx="5.5" stroke="#8a85a0" stroke-width="1.3" fill="rgba(100,120,200,0.05)"/>
+          <line x1="54" y1="55.5" x2="66" y2="55.5" stroke="#8a85a0" stroke-width="1"/>
+          <line x1="40" y1="55" x2="36" y2="53" stroke="#8a85a0" stroke-width="1"/>
+          <line x1="80" y1="55" x2="84" y2="53" stroke="#8a85a0" stroke-width="1"/>
+          <ellipse cx="47" cy="56" rx="2.2" ry="2.8" fill="#3a2a1a"/>
+          <ellipse cx="73" cy="56" rx="2.2" ry="2.8" fill="#3a2a1a"/>
+          <circle cx="47.8" cy="55" r=".7" fill="white"/>
+          <circle cx="73.8" cy="55" r=".7" fill="white"/>
+          <path d="M42 47c1.5-1.5 4-2 6.5-1" stroke="#6b3a1f" stroke-width="1.3" stroke-linecap="round" fill="none"/>
+          <path d="M71.5 46c2.5-.8 4.5-.3 6 1" stroke="#6b3a1f" stroke-width="1.3" stroke-linecap="round" fill="none"/>
+          <path d="M57 63c1 1.5 3 1.5 4 0" stroke="#d4a080" stroke-width="1.1" stroke-linecap="round" fill="none"/>
+          <!-- Skeptical expression -->
+          <path d="M52 69c2 1.5 6 2 10 0" stroke="#c47a5a" stroke-width="1.3" stroke-linecap="round" fill="none"/>
+          <path d="M44 90c2-3 6-5 16-5s14 2 16 5" stroke="#f97316" stroke-width="1.8" opacity="0.35" fill="none"/>
+          <defs><linearGradient id="tS" x1="30" y1="99" x2="90" y2="128"><stop stop-color="#fbbf24" stop-opacity=".6"/><stop offset="1" stop-color="#f97316" stop-opacity=".4"/></linearGradient></defs>
+        </svg>
+        <div class="persona-identity">
+          <div class="persona-name">Tom</div>
+          <div class="persona-type">The Subscription Skeptic</div>
+        </div>
+      </div>
+      <div class="card-content">
+        <div class="demo-strip">
+          <div class="demo-item"><span class="demo-icon">Age</span> <span class="demo-value">25-32</span></div>
+          <div class="demo-item"><span class="demo-icon">Role</span> <span class="demo-value">UX Designer / Startup Ops</span></div>
+          <div class="demo-item"><span class="demo-icon">Income</span> <span class="demo-value">45K-70K</span></div>
+        </div>
+        <div class="persona-quote">"Wanted to try a fitness app for 7 days free. Three months later they had been charging me 14.99 a month. Did not even open it after day 2."</div>
+        <div class="persona-section">
+          <div class="section-label">Shopping Behaviour</div>
+          <div class="behavior-tags">
+            <span class="behavior-tag">Free trials</span>
+            <span class="behavior-tag">SaaS tools</span>
+            <span class="behavior-tag">Streaming apps</span>
+            <span class="behavior-tag">2-3x / month</span>
+          </div>
+        </div>
+        <div class="persona-section">
+          <div class="section-label">Pain Points</div>
+          <ul class="pain-list">
+            <li>Auto-renewals from trials he forgot to cancel.</li>
+            <li>Cancellation flows designed to be deliberately confusing.</li>
+            <li>Monthly statements full of small mystery charges.</li>
+          </ul>
+        </div>
+        <div class="phantom-solve">
+          <div class="solve-label">Why Phantom</div>
+          <div class="solve-text">The trial ends when HE decides. Not when he remembers to cancel.</div>
+          <div class="solve-pitch">"Free trials that are actually free."</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Footer -->
+  <div class="bottom-bar">
+    <div class="footer-brand">
+      <svg viewBox="0 0 24 24" fill="none" width="16" height="16">
+        <circle cx="12" cy="12" r="11" stroke="rgba(139,92,246,0.4)" stroke-width="1.5"/>
+        <path d="M9 7h4.5a3 3 0 0 1 0 6H12l3.5 4.5" stroke="rgba(139,92,246,0.6)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+        <line x1="9" y1="7" x2="9" y2="17.5" stroke="rgba(139,92,246,0.6)" stroke-width="1.8" stroke-linecap="round"/>
+      </svg>
+      <span class="footer-revolut-text">revolut</span>
+      <span class="footer-divider">|</span>
+      <span class="footer-product-text">Phantom / Single-Use Card</span>
+    </div>
+    <span class="slide-number">02 / 08</span>
+  </div>
+</div>
+
+<script>
+  const sc = document.getElementById('starsCanvas');
+  const ctx = sc.getContext('2d');
+  sc.width = 1280; sc.height = 720;
+
+  const stars = Array.from({length: 50}, () => ({
+    x: Math.random()*1280, y: Math.random()*720,
+    r: 0.3+Math.random()*1, phase: Math.random()*Math.PI*2,
+    speed: 0.3+Math.random()*0.5
+  }));
+
+  function draw(t) {
+    ctx.clearRect(0,0,1280,720);
+    stars.forEach(s => {
+      const a = (Math.sin(s.phase + t*0.001*s.speed) + 1) / 2 * 0.4;
+      ctx.beginPath();
+      ctx.arc(s.x, s.y, s.r, 0, Math.PI*2);
+      ctx.fillStyle = `rgba(255,255,255,${a})`;
+      ctx.fill();
+    });
+    requestAnimationFrame(draw);
+  }
+  requestAnimationFrame(draw);
+</script>
+
+<style id="phantom-nav-style">
+#phantom-nav{position:fixed;bottom:18px;left:50%;transform:translateX(-50%);z-index:99999;display:flex;align-items:center;gap:0;background:rgba(6,6,14,0.87);border:1px solid rgba(139,92,246,0.28);border-radius:40px;padding:5px 7px;backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);box-shadow:0 4px 32px rgba(139,92,246,0.14),0 0 0 1px rgba(255,255,255,0.04);user-select:none;}
+.pnav-btn{background:none;border:none;color:#8a85a0;font-family:'Space Mono',monospace;font-size:14px;cursor:pointer;width:30px;height:30px;border-radius:50%;display:flex;align-items:center;justify-content:center;transition:color .15s,background .15s;padding:0;line-height:1;}
+.pnav-btn:hover:not(:disabled){color:#f0eef6;background:rgba(139,92,246,0.22);}
+.pnav-btn:disabled{opacity:.22;cursor:not-allowed;}
+.pnav-label{font-family:'Space Mono',monospace;font-size:10px;color:#8a85a0;letter-spacing:2px;padding:0 10px;min-width:64px;text-align:center;white-space:nowrap;}
+</style>
+<script id="phantom-nav-script">
+(function(){
+  var P="slide-01.html",N="slide-03.html",S=[{"label": "02 / 08", "id": null}],idx=0;
+  // Detect target slide from hash, then clean the hash
+  if(S.length>1&&location.hash){
+    var h=location.hash.slice(1);
+    for(var i=0;i<S.length;i++){if(S[i].id===h){idx=i;break;}}
+    history.replaceState(null,'',location.pathname+location.search);
+  }
+  // Build nav pill
+  var nav=document.createElement('div');
+  nav.id='phantom-nav';
+  nav.innerHTML=
+    '<button class="pnav-btn" id="pnav-prev">&#8592;</button>'+
+    '<span class="pnav-label" id="pnav-lbl">'+S[0].label+'</span>'+
+    '<button class="pnav-btn" id="pnav-next">&#8594;</button>';
+  document.body.appendChild(nav);
+  function upd(){
+    document.getElementById('pnav-lbl').textContent=S[idx].label;
+    document.getElementById('pnav-prev').disabled=(idx===0&&!P);
+    document.getElementById('pnav-next').disabled=(idx===S.length-1&&!N);
+  }
+  function goSlide(i){
+    idx=i;
+    if(S[i].id){var el=document.getElementById(S[i].id);if(el)el.scrollIntoView({behavior:'smooth'});}
+    upd();
+  }
+  function goPrev(){if(idx>0)goSlide(idx-1);else if(P)location.href=P;}
+  function goNext(){if(idx<S.length-1)goSlide(idx+1);else if(N)location.href=N;}
+  document.getElementById('pnav-prev').addEventListener('click',goPrev);
+  document.getElementById('pnav-next').addEventListener('click',goNext);
+  document.addEventListener('keydown',function(e){
+    if(e.key==='ArrowLeft')goPrev();
+    if(e.key==='ArrowRight')goNext();
+  });
+  // Multi-slide: scroll to initial + track scroll position
+  if(S.length>1){
+    if(idx>0)setTimeout(function(){goSlide(idx);},100);
+    var t=false;
+    window.addEventListener('scroll',function(){
+      if(!t){
+        requestAnimationFrame(function(){
+          var m=window.scrollY+window.innerHeight*0.5,ni=0;
+          for(var i=0;i<S.length;i++){
+            var el=document.getElementById(S[i].id);
+            if(el&&el.offsetTop<=m)ni=i;
+          }
+          if(ni!==idx){idx=ni;upd();}
+          t=false;
+        });
+        t=true;
+      }
+    });
+  }
+  upd();
+})();
+</script>
+</body>
+</html>

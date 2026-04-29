@@ -1,4 +1,4 @@
-const CACHE  = 'phantom-v3';
+const CACHE  = 'phantom-v4';
 const ASSETS = [
   './', './index.html',
   /* Slides */

@@ -1,0 +1,210 @@
+/* Slide 07 — The Creative Pitch */
+
+.slide {
+  padding: 36px 54px 48px;
+  display: flex;
+  flex-direction: column;
+}
+
+.slide-header { margin-bottom: 20px; }
+
+.s7-body {
+  flex: 1;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 48px;
+  position: relative;
+  z-index: 2;
+  min-height: 0;
+}
+
+/* ── Left column ─────────────────────── */
+
+.s7-left {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  opacity: 0;
+  animation: fadeUp 0.7s ease-out 0.4s forwards;
+}
+
+.s7-block-label {
+  font-family: 'Space Mono', monospace;
+  font-size: 8px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--purple);
+  margin-bottom: 6px;
+}
+
+.s7-concept-text {
+  font-size: 13.5px;
+  line-height: 1.7;
+  color: var(--muted);
+}
+
+.s7-concept-text .em {
+  color: var(--text);
+  font-weight: 700;
+}
+
+.s7-sep {
+  height: 1px;
+  background: linear-gradient(90deg, rgba(139,92,246,0.2), transparent);
+  flex-shrink: 0;
+}
+
+.s7-master {
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: 800;
+  font-size: 54px;
+  line-height: 1.0;
+  letter-spacing: -2px;
+  background: linear-gradient(135deg, #c4b5fd 0%, #e879f9 50%, #fbbf24 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: 6px;
+}
+
+.s7-variant {
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: 700;
+  font-size: 17px;
+  letter-spacing: 3px;
+  background: linear-gradient(90deg, var(--magenta), var(--purple), var(--cyan));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  background-size: 200% 100%;
+  animation: shimmer 3s ease-in-out infinite;
+  margin-bottom: 6px;
+}
+
+.s7-tagline-note {
+  font-size: 10.5px;
+  color: var(--dim);
+  line-height: 1.55;
+  font-style: italic;
+}
+
+.s7-zoe {
+  padding: 12px 16px;
+  border-radius: 8px;
+  background: rgba(217,70,239,0.04);
+  border: 1px solid rgba(217,70,239,0.1);
+  flex-shrink: 0;
+}
+
+.s7-zoe-tag {
+  font-family: 'Space Mono', monospace;
+  font-size: 8px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--magenta);
+  margin-bottom: 6px;
+}
+
+.s7-zoe-body {
+  font-size: 11px;
+  color: var(--muted);
+  line-height: 1.55;
+}
+
+.s7-zoe-body em {
+  color: var(--text);
+  font-style: normal;
+  font-weight: 600;
+}
+
+/* ── Right column — rationale chain ───── */
+
+.s7-right {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  opacity: 0;
+  animation: fadeUp 0.7s ease-out 0.55s forwards;
+}
+
+.s7-chain-label {
+  font-family: 'Space Mono', monospace;
+  font-size: 8px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 14px;
+  flex-shrink: 0;
+}
+
+.s7-chain {
+  display: flex;
+  flex-direction: column;
+}
+
+.s7-step {
+  display: flex;
+  gap: 14px;
+  align-items: flex-start;
+}
+
+.s7-node {
+  width: 26px; height: 26px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Space Mono', monospace;
+  font-size: 9px;
+  font-weight: 700;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.s7-step-insight .s7-node  { background: rgba(139,92,246,0.12); border: 1.5px solid rgba(139,92,246,0.5); color: #8b5cf6; }
+.s7-step-tension .s7-node  { background: rgba(248,113,113,0.1); border: 1.5px solid rgba(248,113,113,0.5); color: #f87171; }
+.s7-step-truth .s7-node    { background: rgba(34,211,238,0.1);  border: 1.5px solid rgba(34,211,238,0.5);  color: #22d3ee; }
+.s7-step-leap .s7-node     { background: rgba(251,191,36,0.1);  border: 1.5px solid rgba(251,191,36,0.5);  color: #fbbf24; }
+.s7-step-tagline .s7-node  { background: rgba(217,70,239,0.14); border: 1.5px solid rgba(217,70,239,0.6);  color: #d946ef; font-size: 13px; }
+
+.s7-step-body { flex: 1; }
+
+.s7-step-type {
+  font-family: 'Space Mono', monospace;
+  font-size: 7.5px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  margin-bottom: 4px;
+}
+
+.s7-step-insight .s7-step-type { color: #8b5cf6; }
+.s7-step-tension .s7-step-type { color: #f87171; }
+.s7-step-truth .s7-step-type   { color: #22d3ee; }
+.s7-step-leap .s7-step-type    { color: #fbbf24; }
+.s7-step-tagline .s7-step-type { color: #d946ef; }
+
+.s7-step-text {
+  font-size: 11px;
+  color: var(--muted);
+  line-height: 1.5;
+}
+
+.s7-step-tagline .s7-step-text {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 22px;
+  font-weight: 800;
+  letter-spacing: -0.5px;
+  line-height: 1.1;
+  background: linear-gradient(135deg, #c4b5fd, #e879f9, #fbbf24);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.s7-connector {
+  width: 1px;
+  height: 16px;
+  margin: 6px 0 6px 12px;
+  background: linear-gradient(180deg, rgba(139,92,246,0.35), rgba(139,92,246,0.05));
+  flex-shrink: 0;
+}

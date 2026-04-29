@@ -1,5 +1,5 @@
 /* Slide 01 — card lifecycle: stars (90) + particles + 7-phase state machine */
-
+(function () {
 var sc   = document.getElementById('stars');
 var sctx = sc.getContext('2d');
 sc.width = 1280; sc.height = 720;
@@ -184,3 +184,4 @@ requestAnimationFrame(function (now) {
   enterPhase(0, now);
   requestAnimationFrame(tick);
 });
+})();

@@ -1,13 +1,15 @@
-const CACHE  = 'phantom-v2';
+const CACHE  = 'phantom-v3';
 const ASSETS = [
   './', './index.html',
   /* Slides */
   './slides/slide-01.html', './slides/slide-02.html', './slides/slide-03.html',
   './slides/slide-04.html', './slides/slide-05.html', './slides/slide-06.html',
+  './slides/slide-07.html', './slides/slide-08.html',
   /* CSS */
   './css/base.css', './css/slide.css', './css/nav.css',
   './css/slide-01.css', './css/slide-02.css', './css/slide-03.css',
   './css/slide-04.css', './css/slide-05.css', './css/slide-06.css',
+  './css/slide-07.css', './css/slide-08.css',
   /* JS */
   './js/stars.js', './js/nav.js', './js/scaler.js', './js/pwa.js',
   './js/slide-01.js', './js/slide-03.js',

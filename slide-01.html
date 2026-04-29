@@ -324,10 +324,14 @@
     background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
     background-repeat: repeat; background-size: 256px;
   }
-
-  @media (max-width:1300px) { .slide{transform:scale(0.75);transform-origin:center} }
-  @media (max-width:900px) { .slide{transform:scale(0.5);transform-origin:center} }
 </style>
+  <meta name="theme-color" content="#06060e">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Phantom">
+  <meta name="mobile-web-app-capable" content="yes">
+  <link rel="manifest" href="manifest.json">
+  <link rel="apple-touch-icon" href="icon-192.svg">
 </head>
 <body>
 
@@ -713,6 +717,52 @@ requestAnimationFrame((now) => {
   }
   upd();
 })();
+</script>
+<style id="pwa-nav-mobile">
+@media (max-width:768px){
+  .pnav-btn{width:44px!important;height:44px!important;font-size:18px!important;}
+  #phantom-nav{bottom:14px;padding:6px 8px;}
+  .pnav-label{font-size:9px;min-width:56px;}
+}
+</style>
+<script id="phantom-pwa">
+// Proportional slide scaler — fits any screen while preserving 16:9
+(function(){
+  function scale(){
+    var s=document.querySelector('.slide');
+    if(!s)return;
+    var sc=Math.min(window.innerWidth/1280,window.innerHeight/720);
+    s.style.transform='scale('+sc+')';
+    s.style.transformOrigin='center center';
+  }
+  window.addEventListener('resize',scale);
+  window.addEventListener('orientationchange',function(){setTimeout(scale,200);});
+  if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',scale);}
+  else{scale();}
+})();
+// Touch / swipe navigation
+(function(){
+  var sx=0,sy=0;
+  document.addEventListener('touchstart',function(e){
+    sx=e.changedTouches[0].clientX;
+    sy=e.changedTouches[0].clientY;
+  },{passive:true});
+  document.addEventListener('touchend',function(e){
+    var dx=e.changedTouches[0].clientX-sx;
+    var dy=e.changedTouches[0].clientY-sy;
+    if(Math.abs(dx)>Math.abs(dy)&&Math.abs(dx)>48){
+      var id=dx<0?'pnav-next':'pnav-prev';
+      var btn=document.getElementById(id);
+      if(btn&&!btn.disabled)btn.click();
+    }
+  },{passive:true});
+})();
+// Service worker
+if('serviceWorker' in navigator){
+  window.addEventListener('load',function(){
+    navigator.serviceWorker.register('./sw.js').catch(function(){});
+  });
+}
 </script>
 </body>
 </html>

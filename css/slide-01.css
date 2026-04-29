@@ -162,20 +162,59 @@
 
 .phantom-card {
   width: 100%; height: 100%;
-  background: linear-gradient(145deg, #13102a 0%, #1a1040 40%, #0f0d20 100%);
+  background:
+    linear-gradient(
+      118deg,
+      rgba(210,200,240,0.07) 0%,
+      transparent 18%,
+      rgba(180,165,230,0.09) 28%,
+      rgba(255,255,255,0.04) 38%,
+      transparent 50%,
+      rgba(180,165,230,0.07) 62%,
+      rgba(255,255,255,0.03) 72%,
+      transparent 85%,
+      rgba(210,200,240,0.06) 100%
+    ),
+    linear-gradient(145deg, #16122e 0%, #221a50 28%, #1b1444 50%, #20185a 72%, #110e24 100%);
   border-radius: 16px;
   position: relative;
   overflow: hidden;
-  box-shadow: 0 0 60px rgba(139,92,246,0.15), 0 0 120px rgba(217,70,239,0.08), 0 20px 60px rgba(0,0,0,0.5);
-  border: 1px solid rgba(139,92,246,0.15);
+  box-shadow: 0 0 60px rgba(139,92,246,0.18), 0 0 120px rgba(217,70,239,0.08), 0 20px 60px rgba(0,0,0,0.6),
+              inset 0 1px 0 rgba(255,255,255,0.08), inset 0 -1px 0 rgba(0,0,0,0.3);
+  border: 1px solid rgba(180,160,240,0.22);
 }
 
 .phantom-card .holo {
   position: absolute;
   inset: -50%;
   width: 200%; height: 200%;
-  background: conic-gradient(from 0deg, transparent, rgba(139,92,246,0.1), transparent, rgba(217,70,239,0.08), transparent);
+  background: conic-gradient(from 0deg,
+    transparent,
+    rgba(139,92,246,0.1),
+    rgba(255,255,255,0.04),
+    transparent,
+    rgba(217,70,239,0.08),
+    rgba(255,255,255,0.03),
+    transparent
+  );
   animation: holo 6s linear infinite;
+}
+
+/* Edges dissolve into the dark background */
+.phantom-card::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 16px;
+  background: radial-gradient(
+    ellipse 68% 58% at 50% 50%,
+    transparent 52%,
+    rgba(6,6,14,0.45) 70%,
+    rgba(6,6,14,0.86) 88%,
+    rgba(6,6,14,0.97) 100%
+  );
+  pointer-events: none;
+  z-index: 7;
 }
 
 .card-inner {

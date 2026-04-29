@@ -150,7 +150,7 @@ function enterPhase(idx, now) {
     setTimeout(function () { card.style.transform = 'scale(1)'; }, 300);
   }
   if (p === 'dissolve') {
-    status.textContent = '⇝ Card Vanishing...';
+    status.textContent = '⇝ Card Disappearing...';
     status.style.color = '#d946ef';
     check.classList.remove('show');
     amount.style.opacity = '0';

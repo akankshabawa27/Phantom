@@ -1,158 +1,295 @@
-/* Slide 04 — ICP Recommendation */
+/* Slide 04 — Primary ICP: Zoe */
 .slide {
   padding: 34px 50px 48px;
   display: flex;
   flex-direction: column;
 }
 
-.slide-header { margin-bottom: 20px; }
+.slide-header { margin-bottom: 16px; }
 
-.picks-section {
+.s4-body {
+  flex: 1;
+  display: grid;
+  grid-template-columns: 26fr 38fr 36fr;
+  gap: 26px;
   position: relative;
   z-index: 2;
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
+  min-height: 0;
 }
 
-.picks-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 18px;
-  opacity: 0;
-  animation: fadeUp 0.7s ease-out 0.4s forwards;
-}
+/* ── Shared col label ───────────── */
 
-.pick-card {
-  border-radius: 14px;
-  padding: 22px 24px;
-  position: relative;
-  overflow: hidden;
-}
-
-.pick-card.primary {
-  background: linear-gradient(135deg, rgba(217,70,239,0.08), rgba(244,114,182,0.04));
-  border: 1.5px solid rgba(217,70,239,0.25);
-}
-
-.pick-card.secondary {
-  background: linear-gradient(135deg, rgba(251,191,36,0.06), rgba(249,115,22,0.03));
-  border: 1.5px solid rgba(251,191,36,0.2);
-}
-
-.pick-badge {
-  display: inline-block;
+.s4-col-label {
   font-family: 'Space Mono', monospace;
-  font-size: 9px;
-  letter-spacing: 2px;
+  font-size: 8px;
+  letter-spacing: 3px;
   text-transform: uppercase;
-  padding: 3px 10px;
-  border-radius: 100px;
-  margin-bottom: 10px;
-}
-
-.pick-card.primary .pick-badge  { background: rgba(217,70,239,0.15); color: #f472b6; }
-.pick-card.secondary .pick-badge { background: rgba(251,191,36,0.12); color: #fbbf24; }
-
-.pick-header { display: flex; align-items: center; gap: 12px; margin-bottom: 10px; }
-
-.pick-avatar {
-  width: 40px; height: 40px;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 18px;
+  color: var(--muted);
+  margin-bottom: 14px;
   flex-shrink: 0;
 }
 
-.pick-card.primary .pick-avatar  { background: rgba(217,70,239,0.12); border: 2px solid rgba(217,70,239,0.3); }
-.pick-card.secondary .pick-avatar { background: rgba(251,191,36,0.1);  border: 2px solid rgba(251,191,36,0.3); }
+/* ── Column 1: Zoe profile ──────── */
 
-.pick-name { font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 22px; }
+.s4-zoe {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px 16px;
+  border-radius: 14px;
+  background: linear-gradient(135deg, rgba(217,70,239,0.06), rgba(244,114,182,0.03));
+  border: 1.5px solid rgba(217,70,239,0.2);
+  position: relative;
+  opacity: 0;
+  animation: fadeUp 0.7s ease-out 0.35s forwards;
+}
 
-.pick-type { font-family: 'Space Mono', monospace; font-size: 9px; letter-spacing: 1.5px; text-transform: uppercase; }
-
-.pick-card.primary  .pick-type { color: #f472b6; }
-.pick-card.secondary .pick-type { color: #fbbf24; }
-
-.pick-score { font-family: 'Space Grotesk', sans-serif; font-weight: 800; font-size: 28px; margin-left: auto; }
-
-.pick-card.primary .pick-score {
+.s4-score-badge {
+  position: absolute;
+  top: 14px; right: 14px;
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: 800;
+  font-size: 20px;
   background: linear-gradient(135deg, #d946ef, #f472b6);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
 }
 
-.pick-card.secondary .pick-score {
-  background: linear-gradient(135deg, #fbbf24, #f97316);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
+.s4-score-of { font-size: 11px; font-weight: 400; opacity: 0.6; }
 
-.pick-score .out-of { font-size: 14px; font-weight: 400; opacity: 0.5; }
-
-.pick-rationale { font-size: 12px; color: var(--muted); line-height: 1.55; }
-
-.pick-strengths { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 10px; }
-
-.strength-tag { padding: 4px 10px; border-radius: 100px; font-size: 9.5px; font-weight: 600; }
-
-.pick-card.primary  .strength-tag { background: rgba(217,70,239,0.08); border: 1px solid rgba(217,70,239,0.15); color: #f472b6; }
-.pick-card.secondary .strength-tag { background: rgba(251,191,36,0.08); border: 1px solid rgba(251,191,36,0.15); color: #fbbf24; }
-
-.others-row {
+.s4-avatar-wrap {
+  width: 88px; height: 88px;
+  border-radius: 50%;
+  background: rgba(217,70,239,0.08);
+  border: 2px solid rgba(217,70,239,0.25);
   display: flex;
-  gap: 18px;
-  opacity: 0;
-  animation: fadeUp 0.7s ease-out 0.7s forwards;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  margin-bottom: 10px;
+  flex-shrink: 0;
 }
 
-.other-card {
-  flex: 1;
-  padding: 14px 18px;
-  border-radius: 10px;
-  background: rgba(255,255,255,0.02);
-  border: 1px solid rgba(255,255,255,0.05);
-  opacity: 0.5;
+.s4-zoe-name {
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: 800;
+  font-size: 26px;
+  color: var(--text);
+  margin-bottom: 2px;
 }
 
-.other-header { display: flex; align-items: center; gap: 8px; margin-bottom: 4px; }
-.other-name   { font-family: 'Space Grotesk', sans-serif; font-weight: 600; font-size: 14px; color: var(--dim); }
-.other-type   { font-family: 'Space Mono', monospace; font-size: 7.5px; letter-spacing: 1.5px; text-transform: uppercase; color: var(--dim); }
-.other-score  { font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 16px; color: var(--dim); margin-left: auto; }
-.other-note   { font-size: 10px; color: var(--dim); line-height: 1.4; margin-top: 2px; }
-
-.closing-statement {
-  position: relative;
-  z-index: 2;
-  margin-top: auto;
-  padding: 18px 24px;
-  border-radius: 12px;
-  background: linear-gradient(135deg, rgba(139,92,246,0.06), rgba(217,70,239,0.03));
-  border: 1px solid rgba(139,92,246,0.12);
-  opacity: 0;
-  animation: fadeUp 0.7s ease-out 1s forwards;
-}
-
-.closing-label {
+.s4-zoe-type {
   font-family: 'Space Mono', monospace;
   font-size: 8px;
-  letter-spacing: 3px;
+  letter-spacing: 1.5px;
   text-transform: uppercase;
-  color: var(--purple);
+  color: #f472b6;
+  margin-bottom: 12px;
+}
+
+.s4-traits {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+  justify-content: center;
+  margin-bottom: 14px;
+}
+
+.s4-trait {
+  padding: 3px 9px;
+  border-radius: 100px;
+  font-size: 9px;
+  font-weight: 600;
+  background: rgba(217,70,239,0.08);
+  border: 1px solid rgba(217,70,239,0.18);
+  color: #f472b6;
+  white-space: nowrap;
+}
+
+.s4-zoe-quote {
+  font-size: 10.5px;
+  color: var(--muted);
+  line-height: 1.6;
+  text-align: center;
+  font-style: italic;
+  border-top: 1px solid rgba(217,70,239,0.1);
+  padding-top: 12px;
+  margin-top: auto;
+}
+
+/* ── Column 2: Context / Stats ──── */
+
+.s4-context {
+  display: flex;
+  flex-direction: column;
+  opacity: 0;
+  animation: fadeUp 0.7s ease-out 0.5s forwards;
+}
+
+.s4-stat-block {
+  padding: 16px 18px;
+  border-radius: 12px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.s4-stat-purple {
+  background: rgba(139,92,246,0.05);
+  border: 1px solid rgba(139,92,246,0.18);
+}
+
+.s4-stat-red {
+  background: rgba(248,113,113,0.05);
+  border: 1px solid rgba(248,113,113,0.18);
+}
+
+.s4-stat-num {
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: 800;
+  font-size: 40px;
+  letter-spacing: -1px;
+  line-height: 1;
   margin-bottom: 6px;
 }
 
-.closing-text { font-family: 'Space Grotesk', sans-serif; font-weight: 600; font-size: 15px; line-height: 1.5; color: var(--text); }
-
-.closing-text .highlight {
-  background: linear-gradient(90deg, #c4b5fd, #e879f9, #fbbf24);
+.s4-stat-purple .s4-stat-num {
+  background: linear-gradient(135deg, #c4b5fd, #8b5cf6);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
+}
+
+.s4-stat-red .s4-stat-num {
+  background: linear-gradient(135deg, #f87171, #fb923c);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.s4-stat-desc {
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: 700;
+  font-size: 12.5px;
+  color: var(--text);
+  line-height: 1.4;
+  margin-bottom: 6px;
+}
+
+.s4-stat-sub {
+  font-size: 10px;
+  color: var(--muted);
+  line-height: 1.5;
+}
+
+.s4-source {
+  display: inline-block;
+  font-family: 'Space Mono', monospace;
+  font-size: 8px;
+  letter-spacing: 1px;
+  color: var(--dim);
+  margin-left: 4px;
+}
+
+.s4-stat-connector {
+  width: 1px;
+  height: 14px;
+  background: linear-gradient(180deg, rgba(139,92,246,0.3), rgba(248,113,113,0.3));
+  margin: 6px auto;
+  flex-shrink: 0;
+}
+
+.s4-context-insight {
+  margin-top: 8px;
+  padding: 10px 14px;
+  border-radius: 8px;
+  background: rgba(255,255,255,0.02);
+  border: 1px solid rgba(255,255,255,0.05);
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--muted);
+  font-style: italic;
+  line-height: 1.5;
+  flex-shrink: 0;
+}
+
+/* ── Column 3: Psychology ───────── */
+
+.s4-psychology {
+  display: flex;
+  flex-direction: column;
+  opacity: 0;
+  animation: fadeUp 0.7s ease-out 0.65s forwards;
+}
+
+.s4-beat {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+}
+
+.s4-beat-num {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 14px;
   font-weight: 800;
+  color: rgba(139,92,246,0.5);
+  flex-shrink: 0;
+  width: 20px;
+  margin-top: 2px;
+}
+
+.s4-beat-body { flex: 1; }
+
+.s4-beat-title {
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: 700;
+  font-size: 12.5px;
+  color: var(--text);
+  margin-bottom: 4px;
+}
+
+.s4-beat-text {
+  font-size: 10.5px;
+  color: var(--muted);
+  line-height: 1.6;
+}
+
+.s4-beat-text em {
+  font-style: normal;
+  color: var(--text);
+  font-weight: 600;
+}
+
+.s4-doubt {
+  font-style: italic;
+  color: var(--dim);
+}
+
+.s4-beat-connector {
+  width: 1px;
+  height: 14px;
+  background: linear-gradient(180deg, rgba(139,92,246,0.3), rgba(139,92,246,0.1));
+  margin: 6px 0 6px 9px;
+  flex-shrink: 0;
+}
+
+.s4-phantom-solve {
+  margin-top: auto;
+  padding: 12px 14px;
+  border-radius: 10px;
+  background: linear-gradient(135deg, rgba(139,92,246,0.08), rgba(217,70,239,0.05));
+  border: 1px solid rgba(139,92,246,0.2);
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--text);
+  line-height: 1.55;
+}
+
+.s4-solve-mark {
+  color: #8b5cf6;
+  margin-right: 4px;
 }

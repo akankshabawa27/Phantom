@@ -1,0 +1,673 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Phantom - The Magic Show</title>
+<link rel="stylesheet" href="../css/base.css">
+<link rel="stylesheet" href="../css/slide.css">
+<link rel="stylesheet" href="../css/nav.css">
+<link rel="stylesheet" href="../css/slide-10.css">
+<meta name="theme-color" content="#06060e">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Phantom">
+<meta name="mobile-web-app-capable" content="yes">
+<link rel="manifest" href="../manifest.json">
+<link rel="apple-touch-icon" href="../icon-192.svg">
+</head>
+<body data-prev="slide-12.html" data-next="slide-09.html" data-label="12 / 15">
+
+<div class="slide">
+  <div class="grain"></div>
+  <div class="nebula1"></div>
+  <div class="nebula2"></div>
+  <canvas id="stars"></canvas>
+
+  <div class="slide-header">
+    <div class="section-badge">12 / Activation</div>
+    <h2 class="slide-title">The <span class="gradient">Phantom</span> Magic Show</h2>
+  </div>
+
+  <div class="s10-body">
+
+    <!-- Left: stage animation canvas -->
+    <div class="s10-left">
+      <canvas id="s10Scene" width="520" height="390"></canvas>
+    </div>
+
+    <!-- Right: concept text -->
+    <div class="s10-right">
+
+      <div class="s10-block">
+        <div class="s10-block-label">The Concept</div>
+        <div class="s10-body-text">
+          Partner with a world-famous illusionist (<span class="em">David Blaine or Dynamo</span>) and host a Phantom Magic Show at high-footfall hotspots: Covent Garden London, Las Ramblas Barcelona, Times Square NYC. Every trick ends the same way - the card disappears. Punchline every time: <span class="em">"Powered by Phantom by Revolut. The card that is built to disappear."</span>
+        </div>
+      </div>
+
+      <div class="s10-sep"></div>
+
+      <div class="s10-block">
+        <div class="s10-block-label">How It Works</div>
+        <div class="s10-why">
+          <div class="s10-why-item">
+            <div class="s10-why-dot"></div>
+            <span>Targeted Revolut users receive the invite as a card-shaped note printed on the same dissolving paper - the product experience starts before they arrive.</span>
+          </div>
+          <div class="s10-why-item">
+            <div class="s10-why-dot s10-why-dot-gold"></div>
+            <span>Target users of Revolut who already use the virtual debit card.</span>
+          </div>
+          <div class="s10-why-item">
+            <div class="s10-why-dot"></div>
+            <span>To spread the word further, plant creators in the crowd to capture the gasps - the hero Reel goes live 48 hours post-show.</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="s10-sep"></div>
+
+      <div class="s10-kicker">
+        <div class="s10-kicker-header">
+          <span class="s10-kicker-icon">✦</span>
+          <span class="s10-kicker-tag">The Kicker</span>
+        </div>
+        <div class="s10-kicker-hero">It crumbles in their hand.</div>
+        <div class="s10-kicker-text">
+          At the end of each trick, the magician hands the audience a real Phantom card <span class="em">printed on water-soluble paper.</span> Body heat starts the timer. In 30 seconds it's gone - nothing left to hold.
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+
+  <div class="bottom-bar">
+    <div class="footer-brand">
+            <span class="footer-revolut-text">Revolut</span>
+      <span class="footer-divider">|</span>
+      <span class="footer-product-text">Phantom - A Card Built to Disappear</span>
+    </div>
+    <span class="slide-number">12 / 15</span>
+  </div>
+</div>
+
+<script src="../js/stars.js"></script>
+<script>
+/* ── Slide 10: Phantom Magic Show stage animation ── */
+(function () {
+  var canvas = document.getElementById('s10Scene');
+  var ctx    = canvas.getContext('2d');
+  var W = 520, H = 390;
+
+  /* ── Layout constants ── */
+  var FLOOR_Y  = 322;   /* stage floor */
+  var SPOT_CX  = 268;   /* spotlight center x */
+  var MAG_X    = 158;   /* magician feet x */
+  var MAG_Y    = FLOOR_Y;
+
+  /* ── Floating card geometry (stage position) ── */
+  var CARD_CX = 290, CARD_CY = 148;
+  var CARD_W  = 128,  CARD_H  = 80;
+
+  /* ── Audience hand position (card crumbles here) ── */
+  var HAND_X = 392, HAND_CARD_Y = 268;
+
+  /* ── Active card position (moves during handoff) ── */
+  var activeCX = CARD_CX, activeCY = CARD_CY;
+
+  /* ── Particle system ── */
+  var particles = [];
+  var PCOLS = ['#8b5cf6','#d946ef','#c4b5fd','#f9a8d4','#22d3ee','#fbbf24','#a78bfa'];
+
+  function spawnVanish() {
+    particles = [];
+    for (var i = 0; i < 110; i++) {
+      var a = Math.random() * Math.PI * 2, spd = 0.5 + Math.random() * 3.8;
+      particles.push({
+        x: CARD_CX + (Math.random()-0.5)*CARD_W*0.85,
+        y: CARD_CY + (Math.random()-0.5)*CARD_H*0.85,
+        vx: Math.cos(a)*spd*0.65, vy: Math.sin(a)*spd - 1.1,
+        r: 1 + Math.random()*2.8,
+        color: PCOLS[Math.floor(Math.random()*PCOLS.length)],
+        life: 1, decay: 0.007 + Math.random()*0.011, delay: Math.floor(Math.random()*12),
+        type: 'vanish'
+      });
+    }
+  }
+
+  function spawnCrumble() {
+    /* Crumble spawns at the hand position, not the stage */
+    particles = [];
+    for (var i = 0; i < 80; i++) {
+      particles.push({
+        x: HAND_X + (Math.random()-0.5)*CARD_W*0.9,
+        y: HAND_CARD_Y + (Math.random()-0.5)*CARD_H*0.9,
+        vx: (Math.random()-0.5) * 2.2,
+        vy: 0.2 + Math.random() * 1.6,     /* falls DOWN — paper crumbling */
+        r: 1.8 + Math.random() * 2.2,
+        color: 'rgba(' + Math.floor(200+Math.random()*30) + ',' + Math.floor(190+Math.random()*30) + ',240,' + (0.4+Math.random()*0.5) + ')',
+        life: 1, decay: 0.005 + Math.random()*0.009, delay: Math.floor(Math.random()*18),
+        type: 'crumble'
+      });
+    }
+  }
+
+  function tickParticles() {
+    particles.forEach(function (p) {
+      if (p.delay > 0) { p.delay--; return; }
+      p.x += p.vx; p.y += p.vy;
+      if (p.type === 'vanish') p.vy -= 0.022;
+      else                     p.vy += 0.038; /* gravity for crumble */
+      p.life -= p.decay;
+    });
+  }
+
+  function drawParticles() {
+    particles.forEach(function (p) {
+      if (p.delay > 0 || p.life <= 0) return;
+      var r = p.r * p.life;
+      if (p.type === 'crumble') {
+        /* Paper bits: small rectangles */
+        ctx.save();
+        ctx.globalAlpha = p.life * 0.82;
+        ctx.fillStyle = p.color;
+        ctx.translate(p.x, p.y);
+        ctx.rotate(p.x * 0.05 + p.vy);
+        ctx.fillRect(-r, -r*0.6, r*2, r*1.2);
+        ctx.restore();
+      } else {
+        ctx.beginPath(); ctx.arc(p.x, p.y, r, 0, Math.PI*2);
+        ctx.fillStyle = p.color; ctx.globalAlpha = p.life * 0.88; ctx.fill();
+        ctx.beginPath(); ctx.arc(p.x, p.y, r*2.5, 0, Math.PI*2);
+        ctx.fillStyle = p.color; ctx.globalAlpha = p.life * 0.09; ctx.fill();
+        ctx.globalAlpha = 1;
+      }
+      ctx.globalAlpha = 1;
+    });
+  }
+
+  /* ── Helpers ── */
+  function rr(x, y, w, h, r) {
+    ctx.beginPath();
+    ctx.moveTo(x+r,y); ctx.lineTo(x+w-r,y);
+    ctx.quadraticCurveTo(x+w,y,x+w,y+r);
+    ctx.lineTo(x+w,y+h-r); ctx.quadraticCurveTo(x+w,y+h,x+w-r,y+h);
+    ctx.lineTo(x+r,y+h); ctx.quadraticCurveTo(x,y+h,x,y+h-r);
+    ctx.lineTo(x,y+r); ctx.quadraticCurveTo(x,y,x+r,y);
+    ctx.closePath();
+  }
+  function easeOut(t)    { return 1 - Math.pow(1-t, 3); }
+  function easeIn(t)     { return t * t * t; }
+  function easeInOut(t)  { return t < 0.5 ? 4*t*t*t : 1 - Math.pow(-2*t+2,3)/2; }
+  function softStart(elapsed, dur) { return Math.min(elapsed / Math.min(dur * 0.18, 220), 1); }
+  function lerp(a, b, t) { return a + (b - a) * t; }
+
+  /* ── Draw functions ── */
+
+  function drawBackground() {
+    var bg = ctx.createLinearGradient(0, 0, 0, H);
+    bg.addColorStop(0,   '#030210');
+    bg.addColorStop(0.6, '#050418');
+    bg.addColorStop(1,   '#040314');
+    ctx.fillStyle = bg; ctx.fillRect(0, 0, W, H);
+
+    var floor = ctx.createLinearGradient(0, FLOOR_Y, 0, H);
+    floor.addColorStop(0, '#070624'); floor.addColorStop(1, '#030210');
+    ctx.fillStyle = floor; ctx.fillRect(0, FLOOR_Y, W, H-FLOOR_Y);
+
+    ctx.strokeStyle = 'rgba(139,92,246,0.06)';
+    ctx.lineWidth = 1;
+    ctx.beginPath(); ctx.moveTo(0, FLOOR_Y); ctx.lineTo(W, FLOOR_Y); ctx.stroke();
+  }
+
+  function drawSpotlight(intensity) {
+    if (intensity <= 0.01) return;
+    var sg = ctx.createRadialGradient(SPOT_CX, -10, 0, SPOT_CX, 280, 310);
+    sg.addColorStop(0,    'rgba(255,248,225,' + 0.28*intensity + ')');
+    sg.addColorStop(0.28, 'rgba(250,240,210,' + 0.14*intensity + ')');
+    sg.addColorStop(0.55, 'rgba(240,230,200,' + 0.05*intensity + ')');
+    sg.addColorStop(1,    'transparent');
+    ctx.fillStyle = sg; ctx.fillRect(0, 0, W, H);
+
+    var fp = ctx.createRadialGradient(SPOT_CX, FLOOR_Y, 0, SPOT_CX, FLOOR_Y, 130);
+    fp.addColorStop(0, 'rgba(255,245,210,' + 0.10*intensity + ')');
+    fp.addColorStop(1, 'transparent');
+    ctx.fillStyle = fp; ctx.fillRect(0, FLOOR_Y-10, W, H-FLOOR_Y+10);
+  }
+
+  /* Second spotlight that appears during handoff/crumble over the audience hand */
+  function drawHandSpotlight(intensity) {
+    if (intensity <= 0.01) return;
+    var sg = ctx.createRadialGradient(HAND_X, HAND_CARD_Y - 10, 0, HAND_X, HAND_CARD_Y + 60, 120);
+    sg.addColorStop(0,    'rgba(251,191,36,' + 0.18*intensity + ')');
+    sg.addColorStop(0.35, 'rgba(251,191,36,' + 0.07*intensity + ')');
+    sg.addColorStop(1,    'transparent');
+    ctx.fillStyle = sg; ctx.fillRect(0, 0, W, H);
+  }
+
+  function drawMagician(alpha) {
+    if (alpha <= 0.01) return;
+    ctx.save();
+    ctx.globalAlpha = alpha;
+
+    var mx = MAG_X, my = MAG_Y;
+
+    /* Cape */
+    ctx.beginPath();
+    ctx.moveTo(mx + 2,  my - 90);
+    ctx.quadraticCurveTo(mx - 30, my - 42, mx - 44, my);
+    ctx.lineTo(mx + 38, my);
+    ctx.quadraticCurveTo(mx + 26, my - 42, mx + 18, my - 90);
+    ctx.closePath();
+    ctx.fillStyle = '#040318'; ctx.fill();
+
+    ctx.beginPath();
+    ctx.moveTo(mx + 2,  my - 90);
+    ctx.quadraticCurveTo(mx - 6, my - 52, mx - 14, my - 18);
+    ctx.lineWidth = 1.5; ctx.strokeStyle = 'rgba(100,70,200,0.20)';
+    ctx.stroke();
+
+    /* Torso */
+    ctx.fillStyle = '#070722';
+    ctx.fillRect(mx - 8, my - 90, 28, 64);
+
+    /* White tie */
+    ctx.fillStyle = 'rgba(240,235,255,0.10)';
+    ctx.fillRect(mx + 5, my - 80, 4, 40);
+
+    /* Head */
+    ctx.beginPath(); ctx.arc(mx + 10, my - 103, 15, 0, Math.PI*2);
+    ctx.fillStyle = '#080824'; ctx.fill();
+
+    /* Collar */
+    ctx.beginPath();
+    ctx.arc(mx + 10, my - 87, 7, Math.PI*0.15, Math.PI*0.85);
+    ctx.strokeStyle = 'rgba(230,225,255,0.14)'; ctx.lineWidth = 2.5; ctx.stroke();
+
+    /* Top hat */
+    ctx.fillStyle = '#020212';
+    ctx.fillRect(mx - 2, my - 142, 25, 32);
+    ctx.fillRect(mx - 12, my - 112, 46, 6);
+    ctx.fillStyle = 'rgba(139,92,246,0.45)';
+    ctx.fillRect(mx - 2, my - 117, 25, 5);
+
+    /* Extended arm */
+    ctx.beginPath();
+    ctx.moveTo(mx + 18, my - 74);
+    ctx.quadraticCurveTo(mx + 56, my - 82, mx + 110, my - 120);
+    ctx.lineWidth = 7; ctx.strokeStyle = '#070722'; ctx.lineCap = 'round'; ctx.stroke();
+
+    /* White cuff */
+    ctx.beginPath(); ctx.arc(mx + 110, my - 120, 6, 0, Math.PI*2);
+    ctx.fillStyle = 'rgba(220,215,255,0.12)'; ctx.fill();
+
+    /* Floor shadow */
+    ctx.save();
+    ctx.globalAlpha = alpha * 0.35;
+    var shadow = ctx.createRadialGradient(mx + 5, FLOOR_Y, 0, mx + 5, FLOOR_Y, 55);
+    shadow.addColorStop(0, 'rgba(0,0,0,0.6)');
+    shadow.addColorStop(1, 'transparent');
+    ctx.fillStyle = shadow; ctx.fillRect(mx-55, FLOOR_Y-8, 120, 20);
+    ctx.restore();
+
+    ctx.restore();
+  }
+
+  /* ── Audience hand holding the prop card ── */
+  function drawHand(alpha, cx, cy) {
+    if (alpha <= 0.01) return;
+    ctx.save();
+    ctx.globalAlpha = alpha * 0.88;
+
+    var palmColor = '#050320';
+    var fingerColor = '#060325';
+
+    /* Fingers — 4 rounded bumps above palm */
+    var fingers = [-13, -5, 4, 12];
+    fingers.forEach(function(fx) {
+      ctx.beginPath();
+      ctx.ellipse(cx + fx, cy - 2, 5.5, 11, 0, 0, Math.PI * 2);
+      ctx.fillStyle = fingerColor;
+      ctx.fill();
+    });
+
+    /* Thumb (angled, left side) */
+    ctx.save();
+    ctx.translate(cx - 22, cy + 8);
+    ctx.rotate(-0.32);
+    ctx.beginPath();
+    ctx.ellipse(0, 0, 5, 9, 0, 0, Math.PI * 2);
+    ctx.fillStyle = fingerColor; ctx.fill();
+    ctx.restore();
+
+    /* Palm */
+    rr(cx - 22, cy + 6, 44, 28, 9);
+    ctx.fillStyle = palmColor; ctx.fill();
+
+    /* Subtle warm rim glow (body heat!) */
+    ctx.globalAlpha = alpha * 0.18;
+    rr(cx - 22, cy + 6, 44, 28, 9);
+    ctx.strokeStyle = 'rgba(251,191,36,0.7)';
+    ctx.lineWidth = 1.5; ctx.stroke();
+
+    ctx.restore();
+  }
+
+  function drawCard(cardAlpha, floatOffset, isProp, cx, cy) {
+    if (cardAlpha <= 0.01) return;
+    var useCX = (cx !== undefined) ? cx : CARD_CX;
+    var useCY = (cy !== undefined) ? cy : CARD_CY;
+    var bx = useCX - CARD_W/2;
+    var by = useCY - CARD_H/2 + floatOffset;
+    var bw = CARD_W, bh = CARD_H;
+
+    ctx.save();
+    ctx.globalAlpha = cardAlpha;
+    ctx.shadowBlur  = 38 * cardAlpha;
+    ctx.shadowColor = isProp ? 'rgba(255,220,150,0.45)' : 'rgba(139,92,246,0.55)';
+
+    /* Card fill */
+    var bg;
+    if (isProp) {
+      bg = ctx.createLinearGradient(bx, by, bx+bw, by+bh);
+      bg.addColorStop(0, '#2a2240'); bg.addColorStop(0.5, '#342850'); bg.addColorStop(1, '#1e1a3a');
+    } else {
+      bg = ctx.createLinearGradient(bx, by, bx+bw, by+bh);
+      bg.addColorStop(0, '#18133a'); bg.addColorStop(0.5, '#221a5e'); bg.addColorStop(1, '#130f28');
+    }
+    rr(bx, by, bw, bh, 8); ctx.fillStyle = bg; ctx.fill();
+
+    /* Sheen */
+    var hl = ctx.createLinearGradient(bx, by, bx+bw, by+bh);
+    hl.addColorStop(0, 'rgba(220,210,255,0.10)'); hl.addColorStop(1, 'rgba(200,190,255,0.04)');
+    rr(bx, by, bw, bh, 8); ctx.fillStyle = hl; ctx.fill();
+    ctx.shadowBlur = 0;
+
+    /* Border */
+    rr(bx, by, bw, bh, 8);
+    ctx.strokeStyle = isProp ? 'rgba(200,180,255,0.35)' : 'rgba(210,190,255,0.30)';
+    ctx.lineWidth = 1; ctx.stroke();
+
+    /* PHANTOM brand */
+    ctx.font = 'bold 9px "Space Grotesk",sans-serif';
+    ctx.fillStyle = isProp ? 'rgba(210,195,255,0.85)' : 'rgba(196,181,253,0.92)';
+    ctx.textAlign = 'left'; ctx.textBaseline = 'top';
+    ctx.fillText('PHANTOM', bx+10, by+10);
+
+    /* Revolut */
+    ctx.font = '7px "DM Sans",sans-serif';
+    ctx.fillStyle = 'rgba(240,238,246,0.25)';
+    ctx.textAlign = 'right'; ctx.fillText('revolut', bx+bw-10, by+11);
+
+    if (!isProp) {
+      /* Chip */
+      var cg = ctx.createLinearGradient(bx+10,by+30,bx+36,by+48);
+      cg.addColorStop(0,'#fbbf24'); cg.addColorStop(1,'#f59e0b');
+      rr(bx+10,by+28,24,16,3); ctx.globalAlpha=cardAlpha*0.65; ctx.fillStyle=cg; ctx.fill();
+      ctx.globalAlpha=cardAlpha;
+
+      /* Card number */
+      ctx.font='7.5px "Space Mono",monospace'; ctx.fillStyle='rgba(240,238,246,0.38)';
+      ctx.textAlign='left'; ctx.textBaseline='bottom';
+      ctx.fillText('4832  ••••  ••••  7291', bx+10, by+bh-10);
+    } else {
+      /* Prop card: water-soluble paper indicator */
+      ctx.font = 'bold 7.5px "Space Mono",monospace';
+      ctx.fillStyle = 'rgba(200,190,255,0.32)';
+      ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+      ctx.fillText('WATER-SOLUBLE', bx+bw/2, by+bh/2 + 4);
+      ctx.font = '6.5px "Space Mono",monospace';
+      ctx.fillStyle = 'rgba(251,191,36,0.22)';
+      ctx.fillText('dissolves on touch', bx+bw/2, by+bh/2 + 16);
+    }
+
+    ctx.restore();
+  }
+
+  function drawAudience(alpha, armsAlpha) {
+    if (alpha <= 0.01) return;
+    ctx.save(); ctx.globalAlpha = alpha;
+
+    var heads = [22, 64, 106, 385, 422, 458, 494];
+    heads.forEach(function (hx, i) {
+      var stagger = (i % 3) * 4;
+      var headY   = FLOOR_Y + 8 + stagger;
+      var hr      = 9 + (i % 2);
+
+      /* ── Seat back ── */
+      ctx.beginPath();
+      rr(hx - 12, headY + hr + 4, 24, 28, 4);
+      ctx.fillStyle = 'rgba(3,2,14,0.98)'; ctx.fill();
+      ctx.strokeStyle = 'rgba(139,92,246,0.07)'; ctx.lineWidth = 0.6; ctx.stroke();
+
+      /* ── Seat cushion ── */
+      ctx.beginPath();
+      ctx.ellipse(hx, headY + hr + 34, 13, 5, 0, 0, Math.PI * 2);
+      ctx.fillStyle = 'rgba(5,4,20,0.95)'; ctx.fill();
+
+      /* ── Body / torso sitting ── */
+      ctx.beginPath();
+      ctx.ellipse(hx, headY + hr + 16, 8, 11, 0, 0, Math.PI * 2);
+      ctx.fillStyle = 'rgba(4,3,16,0.97)'; ctx.fill();
+
+      /* ── Shoulder curve ── */
+      ctx.beginPath();
+      ctx.ellipse(hx, headY + hr + 3, hr + 3, 5, 0, Math.PI, Math.PI * 2);
+      ctx.fillStyle = 'rgba(5,4,18,0.96)'; ctx.fill();
+
+      /* ── Head ── */
+      ctx.beginPath(); ctx.arc(hx, headY, hr, 0, Math.PI * 2);
+      ctx.fillStyle = 'rgba(5,4,20,0.97)'; ctx.fill();
+      /* Subtle purple rim light on the head */
+      ctx.beginPath(); ctx.arc(hx, headY, hr, 0, Math.PI * 2);
+      ctx.strokeStyle = 'rgba(139,92,246,0.09)'; ctx.lineWidth = 1; ctx.stroke();
+
+      /* ── Arms up (wow phase) ── */
+      if (armsAlpha > 0.01) {
+        ctx.globalAlpha = alpha * armsAlpha;
+        ctx.beginPath();
+        ctx.moveTo(hx - hr + 1, headY + 4);
+        ctx.quadraticCurveTo(hx - hr * 2, headY - hr * 0.6, hx - hr * 2.2, headY - hr * 1.9);
+        ctx.moveTo(hx + hr - 1, headY + 4);
+        ctx.quadraticCurveTo(hx + hr * 2, headY - hr * 0.6, hx + hr * 2.2, headY - hr * 1.9);
+        ctx.strokeStyle = 'rgba(5,4,18,0.97)';
+        ctx.lineWidth = 4.5; ctx.lineCap = 'round'; ctx.stroke();
+        ctx.globalAlpha = alpha;
+      }
+    });
+
+    ctx.restore();
+  }
+
+  function drawPunchline(alpha) {
+    if (alpha <= 0.01) return;
+    ctx.save();
+    ctx.globalAlpha = alpha;
+
+    var strip = ctx.createLinearGradient(0, 248, 0, 310);
+    strip.addColorStop(0, 'transparent');
+    strip.addColorStop(0.2, 'rgba(4,3,16,0.75)');
+    strip.addColorStop(0.8, 'rgba(4,3,16,0.75)');
+    strip.addColorStop(1, 'transparent');
+    ctx.fillStyle = strip; ctx.fillRect(0, 248, W, 62);
+
+    ctx.font = 'italic 13px "DM Sans",sans-serif';
+    ctx.fillStyle = 'rgba(196,181,253,0.90)';
+    ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+    ctx.fillText('"Powered by Phantom by Revolut.', W/2, 268);
+    ctx.fillText('The card that is built to disappear."', W/2, 288);
+
+    ctx.restore();
+  }
+
+  function drawMagicSparkles(alpha) {
+    if (alpha <= 0.01) return;
+    ctx.save(); ctx.globalAlpha = alpha;
+    var pts = [
+      [CARD_CX-78, CARD_CY-30, 4],
+      [CARD_CX+82, CARD_CY-22, 3.5],
+      [CARD_CX-60, CARD_CY+52, 3],
+      [CARD_CX+70, CARD_CY+48, 4],
+      [CARD_CX,    CARD_CY-58, 5],
+      [CARD_CX-30, CARD_CY-50, 3]
+    ];
+    pts.forEach(function (p) {
+      ctx.beginPath(); ctx.arc(p[0], p[1], p[2], 0, Math.PI*2);
+      ctx.fillStyle = '#d946ef'; ctx.fill();
+      ctx.beginPath(); ctx.arc(p[0], p[1], p[2]*2.5, 0, Math.PI*2);
+      ctx.fillStyle = 'rgba(217,70,239,0.15)'; ctx.fill();
+    });
+    ctx.restore();
+  }
+
+  /* ── Phase machine ── */
+  var PHASES = [
+    { name:'summon',    dur:1400 },  /* lights + magician appear, card floats in */
+    { name:'present',   dur:1600 },  /* card glowing, magician points */
+    { name:'vanish',    dur:2200 },  /* card dissolves, burst particles */
+    { name:'punchline', dur:2400 },  /* quote text + audience visible */
+    { name:'prop',      dur:1100 },  /* dissolving paper card materializes on stage */
+    { name:'handoff',   dur:1300 },  /* card floats from stage to audience hand */
+    { name:'crumble',   dur:2200 },  /* prop card crumbles in hand, fall particles */
+    { name:'wow',       dur:1200 },  /* audience arms up */
+    { name:'pause',     dur: 700 }   /* brief dark pause before next cycle */
+  ];
+  var pi = 0, ps = 0;
+  var floatT = 0;
+
+  function enterPhase(idx, now) {
+    pi = idx; ps = now;
+    var n = PHASES[idx].name;
+    if (n === 'vanish')  spawnVanish();
+    if (n === 'crumble') spawnCrumble();
+    if (n === 'summon')  { particles = []; activeCX = CARD_CX; activeCY = CARD_CY; }
+    if (n === 'prop')    { activeCX = CARD_CX; activeCY = CARD_CY; }
+  }
+
+  /* ── Main render loop ── */
+  function tick(now) {
+    var elapsed = now - ps, dur = PHASES[pi].dur;
+    var t = Math.min(elapsed / dur, 1), n = PHASES[pi].name;
+    floatT = now * 0.0018;
+
+    if (n === 'vanish' || n === 'crumble' || n === 'punchline' || n === 'wow') {
+      tickParticles();
+    }
+
+    var spotI    = 0;
+    var handSpotI = 0;  /* second spotlight over audience hand */
+    var magA     = 0;
+    var audA     = 0;
+    var armsA    = 0;
+    var cardA    = 0;
+    var propA    = 0;
+    var handA    = 0;  /* audience hand alpha */
+    var punchA   = 0;
+    var sparkA   = 0;
+    var floatOff = 0;
+
+    var ss = softStart(elapsed, PHASES[pi].dur);  /* smooth entrance multiplier */
+
+    switch (n) {
+      case 'summon':
+        spotI  = easeInOut(t);
+        magA   = easeInOut(t);
+        audA   = easeInOut(t) * 0.5;
+        cardA  = t > 0.3 ? easeInOut((t-0.3)/0.7) : 0;
+        sparkA = t > 0.3 ? Math.sin((t-0.3)*Math.PI)*0.8 : 0;
+        break;
+      case 'present':
+        spotI  = 1; magA = 1; audA = 0.55; cardA = 1;
+        floatOff = Math.sin(floatT) * 6;
+        sparkA = Math.sin(floatT * 1.8) * 0.3 * ss;
+        break;
+      case 'vanish':
+        spotI  = 1; magA = 1; audA = 0.55;
+        cardA  = 1 - easeIn(Math.max(0, t - 0.1) / 0.9) * 0.97;
+        floatOff = Math.sin(floatT) * 4 * (1 - t * 0.5);
+        break;
+      case 'punchline':
+        spotI  = (0.7 + Math.sin(floatT*0.5)*0.15) * ss;
+        magA   = ss; audA = lerp(0.55, 0.75, easeInOut(t));
+        punchA = easeInOut(Math.min(t / 0.5, 1));
+        break;
+      case 'prop':
+        spotI  = 0.85 * ss; magA = ss; audA = 0.75;
+        punchA = easeInOut(Math.max(0, 1 - t * 1.8));
+        propA  = easeInOut(t);
+        floatOff = Math.sin(floatT) * 5;
+        activeCX = CARD_CX; activeCY = CARD_CY;
+        break;
+      case 'handoff':
+        /* Card smoothly arcs from stage to audience hand */
+        spotI  = 0.85; magA = 1; audA = 0.8;
+        propA  = 1;
+        handA  = easeInOut(t);
+        handSpotI = easeInOut(t);
+        floatOff = Math.sin(floatT) * 3 * (1 - t);
+        var et2 = easeInOut(t);
+        activeCX = lerp(CARD_CX, HAND_X, et2);
+        activeCY = lerp(CARD_CY, HAND_CARD_Y - 10, et2) + Math.sin(t * Math.PI) * (-24);
+        break;
+      case 'crumble':
+        spotI  = 0.85; magA = 1; audA = 0.75;
+        propA  = 1 - easeIn(Math.max(0, t - 0.1) / 0.9) * 0.96;
+        handA  = 1 - easeIn(t) * 0.5;
+        handSpotI = 1 - t * 0.3;
+        floatOff = 0;
+        activeCX = HAND_X; activeCY = HAND_CARD_Y;
+        break;
+      case 'wow':
+        spotI  = (0.9 + Math.sin(floatT*2)*0.1) * ss;
+        handSpotI = easeInOut(Math.max(0, 0.5 - t * 0.5));
+        magA   = ss; audA = 1; armsA = easeInOut(t);
+        break;
+      case 'pause':
+        spotI  = easeInOut(1 - t) * 0.7;
+        magA   = easeInOut(1 - t * 0.7); audA = easeInOut(1 - t * 0.6); armsA = easeInOut(1 - t);
+        break;
+    }
+
+    /* ── Composite draw ── */
+    ctx.clearRect(0, 0, W, H);
+    drawBackground();
+    drawSpotlight(spotI);
+    drawHandSpotlight(handSpotI);
+
+    drawAudience(audA, armsA);
+    drawMagician(magA);
+
+    /* Stage card */
+    if (cardA > 0.01) {
+      drawMagicSparkles(sparkA);
+      drawCard(cardA, floatOff, false, CARD_CX, CARD_CY);
+    }
+
+    /* Prop card - moves to hand during handoff/crumble */
+    if (propA > 0.01) {
+      /* Draw hand behind (below) card */
+      if (handA > 0.01 && (n === 'handoff' || n === 'crumble')) {
+        drawHand(handA, activeCX, activeCY + CARD_H/2 + 4);
+      }
+      drawCard(propA, floatOff, true, activeCX, activeCY);
+    }
+
+    drawParticles();
+    drawPunchline(punchA);
+
+    if (now - ps >= dur) enterPhase((pi+1) % PHASES.length, now);
+    requestAnimationFrame(tick);
+  }
+
+  requestAnimationFrame(function (now) {
+    ps = now; enterPhase(0, now); requestAnimationFrame(tick);
+  });
+})();
+</script>
+<script src="../js/scaler.js"></script>
+<script src="../js/nav.js"></script>
+<script src="../js/pwa.js"></script>
+</body>
+</html>

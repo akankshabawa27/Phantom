@@ -1,0 +1,148 @@
+/* Slide 15 — Closing / Future Outlook */
+
+.slide { padding: 0; display: flex; flex-direction: column; }
+
+/* ══════════════════════════════════
+   Full-bleed centre stage
+══════════════════════════════════ */
+.s15-stage {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  padding: 0 80px 60px;
+}
+
+/* Ghost card watermark behind text */
+.s15-watermark {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -52%);
+  width: 420px;
+  height: 264px;
+  border-radius: 22px;
+  border: 1px solid rgba(139,92,246,0.10);
+  background: linear-gradient(135deg, rgba(139,92,246,0.04), rgba(217,70,239,0.02));
+  pointer-events: none;
+  animation: cardBreath 5s ease-in-out infinite;
+}
+
+.s15-watermark::after {
+  content: 'PHANTOM';
+  position: absolute;
+  top: 22px; left: 28px;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-weight: 700;
+  font-size: 12px;
+  letter-spacing: 3px;
+  color: rgba(139,92,246,0.18);
+}
+
+@keyframes cardBreath {
+  0%, 100% { opacity: 0.6; transform: translate(-50%, -52%) scale(1); }
+  50%       { opacity: 1;   transform: translate(-50%, -52%) scale(1.012); }
+}
+
+/* Dissolving card number strip at watermark bottom */
+.s15-card-num {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, 106px);
+  font-family: 'Space Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 2.5px;
+  color: rgba(139,92,246,0.16);
+  pointer-events: none;
+  animation: numDissolve 3.6s ease-in-out infinite;
+}
+
+@keyframes numDissolve {
+  0%   { opacity: 0.7; letter-spacing: 2.5px; }
+  50%  { opacity: 0.15; letter-spacing: 6px; }
+  100% { opacity: 0.7; letter-spacing: 2.5px; }
+}
+
+/* Section badge */
+.s15-badge {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 10px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: rgba(139,92,246,0.55);
+  margin-bottom: 28px;
+  opacity: 0;
+  animation: fadeUp 0.5s ease-out 0.2s forwards;
+}
+
+/* Main one-liner */
+.s15-hero {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-weight: 700;
+  font-size: 36px;
+  line-height: 1.22;
+  letter-spacing: -0.5px;
+  color: rgba(240,238,246,0.96);
+  max-width: 720px;
+  margin: 0 auto 20px;
+  opacity: 0;
+  animation: fadeUp 0.75s cubic-bezier(0.22,1,0.36,1) 0.45s forwards;
+}
+
+.s15-hero .s15-dissolve {
+  background: linear-gradient(90deg, #c4b5fd, #e879f9, #22d3ee);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  position: relative;
+  display: inline-block;
+}
+
+
+/* Sub-caption */
+.s15-sub {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 14px;
+  color: var(--muted);
+  line-height: 1.6;
+  max-width: 540px;
+  margin: 0 auto 40px;
+  opacity: 0;
+  animation: fadeUp 0.6s ease-out 0.9s forwards;
+}
+
+/* Footer tag row */
+.s15-tags {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  animation: fadeUp 0.5s ease-out 1.2s forwards;
+}
+
+.s15-tag {
+  padding: 5px 13px;
+  border-radius: 100px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 10.5px;
+  font-weight: 500;
+  letter-spacing: 0.3px;
+  border: 1px solid rgba(139,92,246,0.22);
+  color: rgba(196,181,253,0.75);
+  background: rgba(139,92,246,0.06);
+}
+
+.s15-tag-dot {
+  width: 4px; height: 4px;
+  border-radius: 50%;
+  background: rgba(139,92,246,0.35);
+}
+
+/* Bottom bar override */
+.bottom-bar { padding: 0 52px; }

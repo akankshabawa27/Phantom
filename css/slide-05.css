@@ -1,114 +1,149 @@
-/* Slide 05 — Insight + JTBD */
+/* Slide 05 — Insight + JTBD (two-column redesign) */
 .slide {
-  padding: 44px 60px 52px;
+  padding: 44px 56px 52px;
   display: flex;
   flex-direction: column;
 }
 
-.bottom-bar { padding: 0 60px; }
+.bottom-bar { padding: 0 56px; }
 
 .s5-content {
   position: relative;
   z-index: 2;
   flex: 1;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
+  display: grid;
+  grid-template-columns: 1.05fr 0.95fr;
+  gap: 52px;
+  align-items: center;
+  min-height: 0;
 }
 
-.s5-header {
-  margin-bottom: 40px;
+/* ── Left column ──────────────────────── */
+
+.s5-left {
   opacity: 0;
-  animation: fadeUp .7s ease-out .2s forwards;
+  animation: fadeUp .7s ease-out .25s forwards;
+}
+
+.s5-badge {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 10px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--purple);
+  margin-bottom: 14px;
 }
 
 .s5-title {
-  font-family: 'Space Grotesk', sans-serif;
+  font-family: 'Plus Jakarta Sans', sans-serif;
   font-weight: 800;
-  font-size: 14px;
-  letter-spacing: 4px;
+  font-size: 13px;
+  letter-spacing: 1.5px;
   text-transform: uppercase;
-  color: var(--purple);
-  margin-bottom: 16px;
+  color: var(--muted);
+  margin-bottom: 24px;
+}
+
+.s5-qmark {
+  font-family: Georgia, serif;
+  font-size: 80px;
+  line-height: 0.6;
+  color: rgba(139,92,246,0.25);
+  margin-bottom: 12px;
+  display: block;
 }
 
 .s5-insight {
   font-family: 'DM Sans', sans-serif;
   font-weight: 500;
-  font-size: 26px;
+  font-size: 21px;
   line-height: 1.55;
-  color: var(--text);
-  max-width: 950px;
+  color: var(--muted);
+  margin-bottom: 18px;
 }
 
-.s5-insight .em {
+.s5-insight-em {
+  font-family: 'DM Sans', sans-serif;
   font-weight: 700;
-  background: linear-gradient(90deg, #c4b5fd, #e879f9);
+  font-size: 21px;
+  line-height: 1.55;
+  background: linear-gradient(135deg, #c4b5fd, #e879f9);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
 }
 
-.s5-tension {
-  margin-top: 20px;
-  font-family: 'DM Sans', sans-serif;
-  font-size: 15px;
-  color: var(--gold);
-  font-weight: 600;
+/* ── Right column — JTBD cards ─────────── */
+
+.s5-right {
   opacity: 0;
   animation: fadeUp .7s ease-out .5s forwards;
 }
 
-.s5-divider {
-  width: 60px; height: 2px;
-  background: linear-gradient(90deg, var(--purple), var(--magenta));
-  border-radius: 2px;
-  margin: 36px 0;
-  opacity: 0;
-  animation: fadeUp .7s ease-out .6s forwards;
-}
-
-.s5-jtbd-row {
-  opacity: 0;
-  animation: fadeUp .7s ease-out .7s forwards;
-}
-
 .s5-jtbd-label {
-  font-family: 'Space Mono', monospace;
-  font-size: 10px;
-  letter-spacing: 3px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 9px;
+  letter-spacing: 1.2px;
   text-transform: uppercase;
   color: var(--muted);
-  margin-bottom: 14px;
+  margin-bottom: 16px;
 }
 
 .s5-goals {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 16px;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
 }
 
-.s5-goal { display: flex; gap: 10px; align-items: flex-start; }
+.s5-goal-card {
+  padding: 18px 16px;
+  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
 
-.s5-goal-dot {
-  width: 8px; height: 8px;
-  border-radius: 50%;
-  margin-top: 5px;
+.s5-goal-card.fn {
+  background: rgba(139,92,246,0.07);
+  border: 1px solid rgba(139,92,246,0.2);
+}
+.s5-goal-card.pe {
+  background: rgba(217,70,239,0.07);
+  border: 1px solid rgba(217,70,239,0.2);
+}
+.s5-goal-card.so {
+  background: rgba(34,211,238,0.07);
+  border: 1px solid rgba(34,211,238,0.2);
+}
+.s5-goal-card.fi {
+  background: rgba(251,191,36,0.07);
+  border: 1px solid rgba(251,191,36,0.2);
+}
+
+.s5-goal-icon {
+  width: 36px; height: 36px;
+  border-radius: 8px;
+  display: flex; align-items: center; justify-content: center;
   flex-shrink: 0;
 }
+.fn .s5-goal-icon { background: rgba(139,92,246,0.12); color: #8b5cf6; }
+.pe .s5-goal-icon { background: rgba(217,70,239,0.12); color: #d946ef; }
+.so .s5-goal-icon { background: rgba(34,211,238,0.12);  color: #22d3ee; }
+.fi .s5-goal-icon { background: rgba(251,191,36,0.12);  color: #fbbf24; }
 
-.s5-goal-dot.fn { background: var(--purple);  box-shadow: 0 0 8px rgba(139,92,246,0.4); }
-.s5-goal-dot.pe { background: var(--magenta); box-shadow: 0 0 8px rgba(217,70,239,0.4); }
-.s5-goal-dot.so { background: var(--cyan);    box-shadow: 0 0 8px rgba(34,211,238,0.4);  }
-.s5-goal-dot.fi { background: var(--gold);    box-shadow: 0 0 8px rgba(251,191,36,0.4);  }
-
-.s5-goal-type {
-  font-family: 'Space Mono', monospace;
+.s5-goal-tag {
+  font-family: 'DM Sans', sans-serif;
   font-size: 8px;
   letter-spacing: 1.5px;
   text-transform: uppercase;
-  color: var(--dim);
-  margin-bottom: 2px;
 }
+.fn .s5-goal-tag { color: #8b5cf6; }
+.pe .s5-goal-tag { color: #d946ef; }
+.so .s5-goal-tag { color: #22d3ee; }
+.fi .s5-goal-tag { color: #fbbf24; }
 
-.s5-goal-text { font-size: 12.5px; color: var(--muted); line-height: 1.45; }
+.s5-goal-text {
+  font-size: 12px;
+  color: var(--muted);
+  line-height: 1.5;
+}

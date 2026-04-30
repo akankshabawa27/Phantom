@@ -34,7 +34,7 @@
 }
 
 .param-def-name {
-  font-family: 'Space Grotesk', sans-serif;
+  font-family: 'Plus Jakarta Sans', sans-serif;
   font-weight: 700;
   font-size: 11.5px;
   color: var(--text);
@@ -53,7 +53,7 @@
 .matrix-table { width: 100%; border-collapse: separate; border-spacing: 0; }
 
 .matrix-table thead th {
-  font-family: 'Space Grotesk', sans-serif;
+  font-family: 'Plus Jakarta Sans', sans-serif;
   font-weight: 700;
   font-size: 12px;
   padding: 10px 8px;
@@ -85,7 +85,7 @@
 }
 
 .persona-col-type {
-  font-family: 'Space Mono', monospace;
+  font-family: 'DM Sans', sans-serif;
   font-size: 7px;
   letter-spacing: 1px;
   text-transform: uppercase;
@@ -127,7 +127,7 @@
   border-top: 2px solid rgba(139,92,246,0.15);
   border-bottom: none;
   padding-top: 12px;
-  font-family: 'Space Grotesk', sans-serif;
+  font-family: 'Plus Jakarta Sans', sans-serif;
   font-weight: 800;
   font-size: 18px;
 }
@@ -136,7 +136,7 @@
   font-size: 12px !important;
   letter-spacing: 1px;
   text-transform: uppercase;
-  font-family: 'Space Mono', monospace !important;
+  font-family: 'DM Sans', sans-serif !important;
 }
 
 .total-score { color: var(--total-color, var(--text)); }

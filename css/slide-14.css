@@ -1,0 +1,600 @@
+/* Slide 14 — In-Product Discovery */
+
+.slide { padding: 28px 52px 44px; display: flex; flex-direction: column; }
+.slide-header { margin-bottom: 16px; }
+
+.s14-body {
+  flex: 1;
+  display: flex;
+  gap: 52px;
+  align-items: center;
+  min-height: 0;
+}
+
+/* ══════════════════════════
+   LEFT — insight cards
+══════════════════════════ */
+.s14-left {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 11px;
+  opacity: 0;
+  animation: fadeUp 0.6s ease-out 0.3s forwards;
+}
+
+.s14-eyebrow {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 13px;
+  color: var(--muted);
+  line-height: 1.65;
+  margin-bottom: 4px;
+}
+
+.s14-insight {
+  border-radius: 12px;
+  padding: 13px 17px;
+  background: rgba(255,255,255,0.025);
+  border: 1px solid rgba(255,255,255,0.07);
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  position: relative;
+  overflow: hidden;
+}
+
+.s14-insight::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0;
+  width: 3px; height: 100%;
+  background: var(--ia);
+}
+
+.s14-i1 { --ia: rgba(139,92,246,0.65); }
+.s14-i2 { --ia: rgba(34,211,238,0.55); }
+.s14-i3 { --ia: rgba(52,211,153,0.55); }
+
+.s14-insight-num {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 7.5px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.18);
+}
+
+.s14-insight-title {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-weight: 700;
+  font-size: 14px;
+  color: var(--text);
+  letter-spacing: -0.2px;
+}
+
+.s14-insight-body {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 11.5px;
+  color: var(--muted);
+  line-height: 1.55;
+  margin-top: 2px;
+}
+
+/* ══════════════════════════
+   RIGHT — phone mockup
+══════════════════════════ */
+.s14-right {
+  flex-shrink: 0;
+  display: flex;
+  justify-content: center;
+  opacity: 0;
+  animation: fadeUp 0.7s ease-out 0.5s forwards;
+}
+
+/* ── Phone frame ── */
+.s14-phone {
+  width: 234px;
+  height: 488px;
+  border-radius: 42px;
+  border: 9px solid #1a1a1a;
+  box-shadow:
+    0 0 0 1px rgba(255,255,255,0.08),
+    0 0 0 10px rgba(0,0,0,0.7),
+    0 28px 80px rgba(0,0,0,0.90),
+    0 0 70px rgba(109,40,217,0.20);
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  background: #1e1147;
+}
+
+/* Dynamic island */
+.s14-island {
+  width: 76px; height: 22px;
+  background: #1a1a1a;
+  border-radius: 12px;
+  margin: 8px auto 0;
+  flex-shrink: 0;
+  position: relative;
+  z-index: 10;
+}
+
+/* Status bar */
+.s14-status {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 3px 16px 0;
+  flex-shrink: 0;
+}
+
+.s14-time {
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 700;
+  font-size: 10px;
+  color: rgba(255,255,255,0.92);
+  letter-spacing: -0.3px;
+}
+
+.s14-status-right {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.s14-signal {
+  display: flex;
+  align-items: flex-end;
+  gap: 1.5px;
+  height: 9px;
+}
+
+.s14-signal-bar {
+  width: 2.5px;
+  background: rgba(255,255,255,0.85);
+  border-radius: 0.5px;
+}
+.s14-signal-bar:nth-child(1) { height: 30%; }
+.s14-signal-bar:nth-child(2) { height: 55%; }
+.s14-signal-bar:nth-child(3) { height: 80%; }
+.s14-signal-bar:nth-child(4) { height: 100%; }
+
+.s14-batt {
+  width: 16px; height: 8px;
+  border: 1px solid rgba(255,255,255,0.7);
+  border-radius: 1.5px;
+  display: flex;
+  align-items: center;
+  padding: 1.5px;
+  position: relative;
+}
+.s14-batt::after {
+  content: '';
+  position: absolute;
+  right: -4px; top: 50%;
+  transform: translateY(-50%);
+  width: 2px; height: 4px;
+  background: rgba(255,255,255,0.5);
+  border-radius: 0 1px 1px 0;
+}
+.s14-batt-fill {
+  height: 100%; width: 70%;
+  background: #4ade80;
+  border-radius: 0.5px;
+}
+
+/* App nav bar */
+.s14-app-nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 6px 14px 4px;
+  flex-shrink: 0;
+}
+
+.s14-back-icon {
+  font-size: 18px;
+  color: rgba(255,255,255,0.85);
+  line-height: 1;
+  font-family: sans-serif;
+}
+
+.s14-nav-help {
+  width: 24px; height: 24px;
+  border-radius: 50%;
+  border: 1.5px solid rgba(255,255,255,0.35);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  color: rgba(255,255,255,0.70);
+}
+
+/* ── Revolut virtual card ── */
+.s14-card-wrap {
+  padding: 6px 10px 0;
+  flex-shrink: 0;
+}
+
+.s14-revolut-card {
+  width: 100%;
+  aspect-ratio: 1.586;
+  border-radius: 14px;
+  background: linear-gradient(135deg, #5b1fe0 0%, #7c3aed 45%, #8b5cf6 100%);
+  position: relative;
+  overflow: hidden;
+  padding: 11px 14px 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  box-shadow: 0 6px 24px rgba(91,31,224,0.45);
+}
+
+.s14-revolut-card::before {
+  content: '';
+  position: absolute;
+  top: -40px; right: -20px;
+  width: 130px; height: 130px;
+  background: radial-gradient(circle, rgba(255,255,255,0.12) 0%, transparent 65%);
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.s14-card-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.s14-card-label {
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 600;
+  font-size: 10px;
+  color: rgba(255,255,255,0.88);
+  letter-spacing: 0.2px;
+}
+
+.s14-virtual-pill {
+  background: rgba(255,255,255,0.22);
+  border-radius: 10px;
+  padding: 2px 8px;
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 600;
+  font-size: 8px;
+  color: rgba(255,255,255,0.90);
+  letter-spacing: 0.3px;
+}
+
+.s14-card-bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+}
+
+.s14-card-dots {
+  font-family: 'Space Mono', monospace;
+  font-size: 10px;
+  color: rgba(255,255,255,0.80);
+  letter-spacing: 1px;
+}
+
+.s14-card-visa {
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 800;
+  font-style: italic;
+  font-size: 16px;
+  color: rgba(255,255,255,0.92);
+  letter-spacing: -0.5px;
+}
+
+/* ══════════════════════════
+   WHITE PANEL (bottom sheet)
+══════════════════════════ */
+.s14-panel {
+  flex: 1;
+  background: #fff;
+  border-radius: 18px 18px 0 0;
+  margin-top: 10px;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  position: relative;
+}
+
+.s14-panel-handle {
+  width: 34px; height: 3.5px;
+  background: rgba(0,0,0,0.12);
+  border-radius: 2px;
+  margin: 8px auto 4px;
+  flex-shrink: 0;
+}
+
+/* Three action buttons */
+.s14-actions {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  padding: 6px 10px 8px;
+  flex-shrink: 0;
+}
+
+.s14-action {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+
+.s14-action-icon {
+  width: 36px; height: 36px;
+  border-radius: 50%;
+  background: rgba(0,0,0,0.07);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.s14-action-label {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 8px;
+  color: rgba(0,0,0,0.65);
+  font-weight: 500;
+  letter-spacing: 0.1px;
+}
+
+.s14-action-icon svg {
+  width: 16px; height: 16px;
+}
+
+/* Divider */
+.s14-divider {
+  height: 1px;
+  background: rgba(0,0,0,0.07);
+  margin: 0 10px;
+  flex-shrink: 0;
+}
+
+/* ══════════════════════════
+   CARD DETAILS ROWS
+══════════════════════════ */
+.s14-details {
+  padding: 6px 14px 0;
+  flex-shrink: 0;
+}
+
+.s14-drow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 5px 0;
+  border-bottom: 1px solid rgba(0,0,0,0.055);
+  position: relative;
+}
+
+/* Card number row gets the copy-tap highlight */
+.s14-drow-num {
+  border-radius: 5px;
+  animation: rowSelect 1.2s ease-out 0.9s both;
+}
+
+@keyframes rowSelect {
+  0%   { background: transparent; }
+  25%  { background: rgba(124,58,237,0.09); }
+  70%  { background: rgba(124,58,237,0.06); }
+  100% { background: transparent; }
+}
+
+.s14-dlabel {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 8px;
+  color: rgba(0,0,0,0.38);
+  font-weight: 500;
+}
+
+.s14-dval-wrap {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  position: relative;
+}
+
+.s14-dval {
+  font-family: 'Space Mono', monospace;
+  font-size: 8px;
+  letter-spacing: 0.8px;
+  color: rgba(0,0,0,0.80);
+}
+
+/* ── Copy icon base ── */
+.s14-copy-icon {
+  width: 16px; height: 16px;
+  border-radius: 3.5px;
+  border: 1.5px solid rgba(0,0,0,0.20);
+  position: relative;
+  flex-shrink: 0;
+}
+.s14-copy-icon::before {
+  content: '';
+  position: absolute;
+  top: 2px; left: 2px;
+  width: 8px; height: 8px;
+  border: 1.5px solid rgba(0,0,0,0.18);
+  border-radius: 2px;
+}
+
+/* ── Active copy icon (card number) ── */
+.s14-copy-active {
+  border-color: rgba(124,58,237,0.6);
+  background: rgba(124,58,237,0.07);
+  animation: copyTap 1.0s cubic-bezier(0.34, 1.1, 0.64, 1) 1.05s both;
+}
+.s14-copy-active::before {
+  border-color: rgba(124,58,237,0.40);
+}
+
+@keyframes copyTap {
+  0%   { transform: scale(1);    background: rgba(124,58,237,0.07);  border-color: rgba(124,58,237,0.60); }
+  18%  { transform: scale(0.72); background: rgba(52,211,153,0.22);  border-color: rgba(52,211,153,0.80); }
+  42%  { transform: scale(1.12); background: rgba(52,211,153,0.16);  border-color: rgba(52,211,153,0.60); }
+  100% { transform: scale(1);    background: rgba(124,58,237,0.07);  border-color: rgba(124,58,237,0.60); }
+}
+
+/* ── "Copied" micro-toast ── */
+.s14-copied-toast {
+  position: absolute;
+  right: 0; bottom: 100%;
+  margin-bottom: 3px;
+  background: rgba(30,20,60,0.92);
+  color: rgba(196,181,253,0.95);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 7.5px;
+  font-weight: 600;
+  letter-spacing: 0.3px;
+  padding: 3px 7px;
+  border-radius: 5px;
+  pointer-events: none;
+  white-space: nowrap;
+  animation: toastPop 1.6s ease-out 1.15s both;
+}
+
+.s14-copied-toast::after {
+  content: '';
+  position: absolute;
+  bottom: -4px; right: 10px;
+  border: 4px solid transparent;
+  border-top-color: rgba(30,20,60,0.92);
+  border-bottom: none;
+}
+
+@keyframes toastPop {
+  0%   { opacity: 0; transform: translateY(4px) scale(0.88); }
+  15%  { opacity: 1; transform: translateY(0) scale(1); }
+  70%  { opacity: 1; }
+  100% { opacity: 0; transform: translateY(-3px); }
+}
+
+/* ══════════════════════════
+   PHANTOM NUDGE
+══════════════════════════ */
+.s14-nudge {
+  margin: 6px 10px 8px;
+  border-radius: 14px;
+  background: linear-gradient(150deg, #1a0c42 0%, #27136a 60%, #1e0f4a 100%);
+  border: 1px solid rgba(139,92,246,0.30);
+  padding: 11px 12px 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  box-shadow:
+    0 0 0 1px rgba(139,92,246,0.10),
+    0 6px 28px rgba(91,31,224,0.28),
+    0 0 40px rgba(139,92,246,0.08);
+  animation: nudgeIn 0.85s cubic-bezier(0.22, 1, 0.36, 1) 2.0s both;
+  flex-shrink: 0;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Subtle top shimmer line */
+.s14-nudge::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 20%; right: 20%; height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(196,181,253,0.35), transparent);
+}
+
+@keyframes nudgeIn {
+  0%   {
+    opacity: 0;
+    transform: translateY(22px) scale(0.95);
+    filter: blur(5px);
+  }
+  60%  {
+    filter: blur(0px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    filter: blur(0px);
+  }
+}
+
+.s14-nudge-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.s14-nudge-icon {
+  width: 28px; height: 28px;
+  border-radius: 7px;
+  background: linear-gradient(135deg, rgba(139,92,246,0.28), rgba(217,70,239,0.15));
+  border: 1px solid rgba(139,92,246,0.32);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.s14-ghost-card {
+  width: 16px; height: 10px;
+  border-radius: 2px;
+  border: 1.5px solid rgba(196,181,253,0.60);
+  animation: ghostDissolve 2.4s ease-in-out infinite;
+}
+
+@keyframes ghostDissolve {
+  0%,100% { opacity: 1;   border-color: rgba(196,181,253,0.60); }
+  45%,65% { opacity: 0.10; border-color: rgba(196,181,253,0.06); }
+}
+
+.s14-nudge-brand-wrap { flex: 1; }
+
+.s14-nudge-brand {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-weight: 800;
+  font-size: 10px;
+  letter-spacing: 1.8px;
+  background: linear-gradient(135deg, #c4b5fd 0%, #e879f9 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  display: block;
+}
+
+.s14-nudge-by {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 7px;
+  color: rgba(255,255,255,0.28);
+  letter-spacing: 0.2px;
+}
+
+.s14-nudge-copy {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 9.5px;
+  line-height: 1.5;
+  color: rgba(255,255,255,0.68);
+}
+
+.s14-nudge-copy strong {
+  color: rgba(255,255,255,0.92);
+  font-weight: 600;
+}
+
+.s14-nudge-cta {
+  background: linear-gradient(135deg, #7c3aed 0%, #a855f7 100%);
+  border-radius: 8px;
+  padding: 7px 0;
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 700;
+  font-size: 9.5px;
+  color: #fff;
+  text-align: center;
+  border: none;
+  width: 100%;
+  letter-spacing: 0.2px;
+  box-shadow: 0 3px 14px rgba(124,58,237,0.42);
+  margin-top: 1px;
+}

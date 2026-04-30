@@ -8,12 +8,12 @@
   flex-shrink: 0;
 }
 
-/* Cosmic nebula blobs */
+/* Subtle colour depth blobs — toned down to Revolut premium dark register */
 .nebula1 {
   position: absolute;
   top: -200px; right: -200px;
   width: 800px; height: 800px;
-  background: radial-gradient(circle, rgba(139,92,246,0.12) 0%, rgba(217,70,239,0.06) 40%, transparent 70%);
+  background: radial-gradient(circle, rgba(139,92,246,0.05) 0%, rgba(217,70,239,0.02) 40%, transparent 70%);
   border-radius: 50%;
   animation: pulse 6s ease-in-out infinite;
 }
@@ -22,7 +22,7 @@
   position: absolute;
   bottom: -300px; left: -100px;
   width: 600px; height: 600px;
-  background: radial-gradient(circle, rgba(34,211,238,0.08) 0%, transparent 60%);
+  background: radial-gradient(circle, rgba(34,211,238,0.03) 0%, transparent 60%);
   border-radius: 50%;
   animation: pulse 8s ease-in-out infinite reverse;
 }
@@ -34,16 +34,9 @@
   z-index: 0;
 }
 
-/* Film grain overlay */
+/* Film grain overlay — disabled for cleaner Revolut-aligned aesthetic */
 .grain {
-  position: absolute;
-  inset: 0;
-  z-index: 10;
-  pointer-events: none;
-  opacity: 0.03;
-  background-image: url('../assets/grain.svg');
-  background-repeat: repeat;
-  background-size: 256px;
+  display: none;
 }
 
 /* Shared header components */
@@ -51,9 +44,10 @@
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  font-family: 'Space Mono', monospace;
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 600;
   font-size: 10px;
-  letter-spacing: 3px;
+  letter-spacing: 1.5px;
   text-transform: uppercase;
   color: var(--muted);
   margin-bottom: 6px;
@@ -62,7 +56,7 @@
 .section-badge::before {
   content: '';
   width: 18px; height: 2px;
-  background: linear-gradient(135deg, #8b5cf6, #d946ef);
+  background: linear-gradient(135deg, #0066ff, #8b5cf6);
   border-radius: 2px;
 }
 
@@ -76,7 +70,7 @@
 }
 
 .slide-title {
-  font-family: 'Space Grotesk', sans-serif;
+  font-family: 'Plus Jakarta Sans', sans-serif;
   font-weight: 800;
   font-size: 32px;
   letter-spacing: -1px;
@@ -99,7 +93,7 @@
   align-items: center;
   justify-content: space-between;
   padding: 0 50px;
-  border-top: 1px solid rgba(139,92,246,0.06);
+  border-top: 1px solid rgba(255,255,255,0.06);
   z-index: 3;
 }
 
@@ -110,12 +104,11 @@
 }
 
 .footer-revolut-text {
-  font-family: 'DM Sans', sans-serif;
+  font-family: 'Plus Jakarta Sans', sans-serif;
   font-weight: 700;
-  font-size: 12px;
-  letter-spacing: 1.5px;
-  text-transform: lowercase;
-  color: rgba(139,92,246,0.6);
+  font-size: 13px;
+  letter-spacing: -0.2px;
+  color: rgba(255,255,255,0.82);
 }
 
 .footer-divider {
@@ -125,15 +118,17 @@
 }
 
 .footer-product-text {
-  font-family: 'Space Mono', monospace;
-  font-size: 9px;
-  letter-spacing: 1px;
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 500;
+  font-size: 10px;
+  letter-spacing: 0.3px;
   color: var(--dim);
 }
 
 .slide-number {
-  font-family: 'Space Mono', monospace;
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 500;
   font-size: 10px;
   color: var(--dim);
-  letter-spacing: 2px;
+  letter-spacing: 0.5px;
 }

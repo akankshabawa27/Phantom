@@ -1,0 +1,149 @@
+/* Slide 09 — The Disappearing Billboard */
+
+.slide {
+  padding: 32px 52px 46px;
+  display: flex;
+  flex-direction: column;
+}
+
+.s9-body {
+  flex: 1;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 44px;
+  position: relative;
+  z-index: 2;
+  min-height: 0;
+}
+
+/* ── Left column ─────────────────────── */
+
+.s9-left {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  opacity: 0;
+  animation: fadeUp 0.7s ease-out 0.4s forwards;
+}
+
+.s9-block { display: flex; flex-direction: column; gap: 6px; }
+
+.s9-block-label {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 8px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--purple);
+}
+
+.s9-body-text {
+  font-size: 13px;
+  line-height: 1.7;
+  color: var(--muted);
+}
+
+.s9-body-text .em {
+  color: var(--text);
+  font-weight: 700;
+}
+
+.s9-sep {
+  height: 1px;
+  background: linear-gradient(90deg, rgba(139,92,246,0.2), transparent);
+  flex-shrink: 0;
+}
+
+/* Physical variant footnote tag */
+.s9-physical-tag {
+  font-size: 11px;
+  color: var(--dim);
+  line-height: 1.5;
+  margin-top: 8px;
+  padding: 7px 10px;
+  border-radius: 6px;
+  background: rgba(139,92,246,0.05);
+  border: 1px solid rgba(139,92,246,0.1);
+}
+
+.s9-pt-label {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 7.5px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--purple);
+  display: inline-block;
+  margin-right: 6px;
+}
+
+/* Why it works */
+.s9-why {
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+  margin-top: 2px;
+}
+
+.s9-why-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  font-size: 12px;
+  color: var(--muted);
+  line-height: 1.55;
+}
+
+.s9-why-dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--magenta);
+  flex-shrink: 0;
+  margin-top: 5px;
+}
+
+/* Bottom campaign line bar */
+.s9-tagline-bar {
+  padding: 14px 18px;
+  border-radius: 10px;
+  background: linear-gradient(135deg, rgba(139,92,246,0.07), rgba(217,70,239,0.04));
+  border: 1px solid rgba(139,92,246,0.14);
+  border-left: 3px solid var(--purple);
+  margin-top: auto;
+  flex-shrink: 0;
+}
+
+.s9-tagline-bar-label {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 8px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--purple);
+  margin-bottom: 6px;
+}
+
+.s9-tagline-bar-text {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-weight: 700;
+  font-size: 15px;
+  letter-spacing: 0.5px;
+  background: linear-gradient(135deg, #c4b5fd, #e879f9, #fbbf24);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ── Right column — city animation ─────────── */
+
+.s9-right {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  animation: fadeUp 0.7s ease-out 0.6s forwards;
+}
+
+#s9Scene {
+  display: block;
+  border-radius: 12px;
+  border: 1px solid rgba(139,92,246,0.08);
+}

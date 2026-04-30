@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Phantom - Discovery</title>
+<link rel="stylesheet" href="../css/base.css">
+<link rel="stylesheet" href="../css/slide.css">
+<link rel="stylesheet" href="../css/nav.css">
+<link rel="stylesheet" href="../css/slide-14.css">
+<meta name="theme-color" content="#06060e">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Phantom">
+<meta name="mobile-web-app-capable" content="yes">
+<link rel="manifest" href="../manifest.json">
+<link rel="apple-touch-icon" href="../icon-192.svg">
+</head>
+<body data-prev="slide-08.html" data-next="slide-11.html" data-label="09 / 15">
+
+<div class="slide">
+  <div class="grain"></div>
+  <div class="nebula1"></div>
+  <div class="nebula2"></div>
+  <canvas id="stars"></canvas>
+
+  <div class="slide-header">
+    <div class="section-badge">09 / Discovery</div>
+    <h2 class="slide-title">Phantom's discovery inside the <span class="gradient">Revolut app.</span></h2>
+  </div>
+
+  <div class="s14-body">
+
+    <!-- Left: discovery rationale -->
+    <div class="s14-left">
+
+      <p class="s14-eyebrow">Phantom is hosted within Revolut's Virtual Card section, right where the most likely adopters already are.</p>
+
+      <div class="s14-insight s14-i1">
+        <span class="s14-insight-num">01 / Placement</span>
+        <div class="s14-insight-title">Lives in Virtual Cards</div>
+        <div class="s14-insight-body">Phantom is a new card type within Revolut's existing Virtual Card section. The nudge to use Phantom pops up right when a virtual card user is copying their card details to paste it on a merchant site to complete payment.</div>
+      </div>
+
+      <div class="s14-insight s14-i2">
+        <span class="s14-insight-num">02 / Audience</span>
+        <div class="s14-insight-title">Users who avidly use the virtual card feature</div>
+        <div class="s14-insight-body">These are Revolut's most digitally-fluent users. They already chose virtual over physical. Switching from a standard virtual card to Phantom is the shortest adoption path possible, with zero learning curve.</div>
+      </div>
+
+      <div class="s14-insight s14-i3">
+        <span class="s14-insight-num">03 / Adoption</span>
+        <div class="s14-insight-title">Same ritual. Zero risk.</div>
+        <div class="s14-insight-body">No new habit needed. The user copies a Phantom number instead of their real one. The action is identical, but now the number self-destructs the moment the transaction clears.</div>
+      </div>
+
+    </div>
+
+    <!-- Right: Revolut app mockup -->
+    <div class="s14-right">
+      <div class="s14-phone">
+
+        <!-- Dynamic island -->
+        <div class="s14-island"></div>
+
+        <!-- Status bar -->
+        <div class="s14-status">
+          <span class="s14-time">5:25</span>
+          <div class="s14-status-right">
+            <div class="s14-signal">
+              <div class="s14-signal-bar"></div>
+              <div class="s14-signal-bar"></div>
+              <div class="s14-signal-bar"></div>
+              <div class="s14-signal-bar"></div>
+            </div>
+            <svg width="14" height="10" viewBox="0 0 14 10" fill="none">
+              <path d="M7 8.5a1 1 0 1 1 0-2 1 1 0 0 1 0 2Z" fill="rgba(255,255,255,0.85)"/>
+              <path d="M4.5 6.3A3.5 3.5 0 0 1 7 5.2a3.5 3.5 0 0 1 2.5 1.1" stroke="rgba(255,255,255,0.85)" stroke-width="1.2" stroke-linecap="round" fill="none"/>
+              <path d="M2.2 4.1A6 6 0 0 1 7 2a6 6 0 0 1 4.8 2.1" stroke="rgba(255,255,255,0.85)" stroke-width="1.2" stroke-linecap="round" fill="none"/>
+            </svg>
+            <div class="s14-batt"><div class="s14-batt-fill"></div></div>
+          </div>
+        </div>
+
+        <!-- App header: back arrow + ? -->
+        <div class="s14-app-nav">
+          <div class="s14-back-icon">←</div>
+          <div class="s14-nav-help">?</div>
+        </div>
+
+        <!-- Vivid purple Revolut virtual card -->
+        <div class="s14-card-wrap">
+          <div class="s14-revolut-card">
+            <div class="s14-card-top">
+              <span class="s14-card-label">My Virtual Card</span>
+              <span class="s14-virtual-pill">Virtual</span>
+            </div>
+            <div class="s14-card-bottom">
+              <span class="s14-card-dots">•• 7291</span>
+              <span class="s14-card-visa">VISA</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- White bottom panel -->
+        <div class="s14-panel">
+          <div class="s14-panel-handle"></div>
+
+          <!-- 3 action buttons -->
+          <div class="s14-actions">
+            <div class="s14-action">
+              <div class="s14-action-icon">
+                <svg width="17" height="12" viewBox="0 0 17 12" fill="none">
+                  <ellipse cx="8.5" cy="6" rx="8" ry="5.5" stroke="#111" stroke-width="1.4"/>
+                  <circle cx="8.5" cy="6" r="2.5" fill="#111"/>
+                </svg>
+              </div>
+              <span class="s14-action-label">Show details</span>
+            </div>
+            <div class="s14-action">
+              <div class="s14-action-icon">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                  <line x1="8" y1="1" x2="8" y2="15" stroke="#111" stroke-width="1.4" stroke-linecap="round"/>
+                  <line x1="1" y1="8" x2="15" y2="8" stroke="#111" stroke-width="1.4" stroke-linecap="round"/>
+                  <line x1="2.9" y1="2.9" x2="13.1" y2="13.1" stroke="#111" stroke-width="1.4" stroke-linecap="round"/>
+                  <line x1="13.1" y1="2.9" x2="2.9" y2="13.1" stroke="#111" stroke-width="1.4" stroke-linecap="round"/>
+                  <circle cx="8" cy="1" r="1.2" fill="#111"/>
+                  <circle cx="8" cy="15" r="1.2" fill="#111"/>
+                  <circle cx="1" cy="8" r="1.2" fill="#111"/>
+                  <circle cx="15" cy="8" r="1.2" fill="#111"/>
+                </svg>
+              </div>
+              <span class="s14-action-label">Freeze</span>
+            </div>
+            <div class="s14-action">
+              <div class="s14-action-icon">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                  <circle cx="8" cy="8" r="2.5" stroke="#111" stroke-width="1.4"/>
+                  <path d="M8 1v2M8 13v2M1 8h2M13 8h2M2.9 2.9l1.4 1.4M11.7 11.7l1.4 1.4M13.1 2.9l-1.4 1.4M4.3 11.7l-1.4 1.4" stroke="#111" stroke-width="1.4" stroke-linecap="round"/>
+                </svg>
+              </div>
+              <span class="s14-action-label">Settings</span>
+            </div>
+          </div>
+
+          <div class="s14-divider"></div>
+
+          <!-- Card details -->
+          <div class="s14-details">
+
+            <!-- Card number row: animated copy tap -->
+            <div class="s14-drow s14-drow-num" id="s14RowNum">
+              <span class="s14-dlabel">Card number</span>
+              <div class="s14-dval-wrap">
+                <span class="s14-dval">4832 •••• •••• 7291</span>
+                <div class="s14-copied-toast" id="s14Toast">✓ Copied</div>
+                <div class="s14-copy-icon s14-copy-active" id="s14CopyIcon"></div>
+              </div>
+            </div>
+
+            <div class="s14-drow">
+              <span class="s14-dlabel">Expiry date</span>
+              <div class="s14-dval-wrap">
+                <span class="s14-dval">12 / 26</span>
+                <div class="s14-copy-icon"></div>
+              </div>
+            </div>
+            <div class="s14-drow">
+              <span class="s14-dlabel">CVV</span>
+              <div class="s14-dval-wrap">
+                <span class="s14-dval">• • •</span>
+                <div class="s14-copy-icon"></div>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Phantom nudge card -->
+          <div class="s14-nudge" id="s14Nudge">
+            <div class="s14-nudge-header">
+              <div class="s14-nudge-icon">
+                <div class="s14-ghost-card"></div>
+              </div>
+              <div class="s14-nudge-brand-wrap">
+                <span class="s14-nudge-brand">PHANTOM</span>
+                <span class="s14-nudge-by">by Revolut</span>
+              </div>
+            </div>
+            <div class="s14-nudge-copy"><strong>A card that disappears after every purchase.</strong> No site can ever store, reuse, or charge your real card again.</div>
+            <button class="s14-nudge-cta">Get Phantom. It's free →</button>
+          </div>
+
+        </div><!-- end white panel -->
+
+      </div><!-- end phone -->
+    </div>
+
+  </div>
+
+  <div class="bottom-bar">
+    <div class="footer-brand">
+      <span class="footer-revolut-text">Revolut</span>
+      <span class="footer-divider">|</span>
+      <span class="footer-product-text">Phantom - A Card Built to Disappear</span>
+    </div>
+    <span class="slide-number">09 / 15</span>
+  </div>
+</div>
+
+<script src="../js/stars.js"></script>
+<script>
+/* ── Slide 14: looping copy-tap → Phantom nudge sequence ── */
+(function () {
+  var CYCLE      = 5800;   /* ms between loop resets */
+  var FADE_START = 5000;   /* ms after reset when nudge starts fading out */
+
+  var row    = document.getElementById('s14RowNum');
+  var icon   = document.getElementById('s14CopyIcon');
+  var toast  = document.getElementById('s14Toast');
+  var nudge  = document.getElementById('s14Nudge');
+
+  if (!row || !icon || !toast || !nudge) return;
+
+  function restartAnims() {
+    /* 1. Fade nudge out gently before resetting */
+    nudge.style.transition = 'opacity 0.4s ease-out';
+    nudge.style.opacity    = '0';
+
+    setTimeout(function () {
+      /* 2. Strip all inline overrides, force reflow, let CSS animations replay */
+      [row, icon, toast, nudge].forEach(function (el) {
+        el.style.transition = '';
+        el.style.opacity    = '';
+        el.style.animation  = 'none';
+        void el.offsetHeight;   /* flush style so animation re-triggers */
+        el.style.animation  = '';
+      });
+    }, 420);
+  }
+
+  /* Schedule the pre-fade slightly before each reset so the nudge
+     has time to become invisible before the animation restarts */
+  function scheduleFade() {
+    setTimeout(function () {
+      nudge.style.transition = 'opacity 0.5s ease-out';
+      nudge.style.opacity    = '0';
+    }, FADE_START);
+  }
+
+  /* First cycle: the CSS delays handle the initial run.
+     We just need to kick off the fade + loop timer. */
+  scheduleFade();
+  setInterval(function () {
+    restartAnims();
+    scheduleFade();
+  }, CYCLE);
+})();
+</script>
+<script src="../js/scaler.js"></script>
+<script src="../js/nav.js"></script>
+<script src="../js/pwa.js"></script>
+</body>
+</html>

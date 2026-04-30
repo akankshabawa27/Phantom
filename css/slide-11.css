@@ -1,0 +1,170 @@
+/* Slide 11 — Two hero social creatives */
+
+.slide { padding: 28px 52px 40px; display: flex; flex-direction: column; }
+.slide-header { margin-bottom: 18px; }
+
+.s11-body {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 24px;
+  min-height: 0;
+}
+
+/* ── Base post ── */
+.s11-post {
+  width: 518px; height: 518px;
+  border-radius: 16px;
+  overflow: hidden;
+  position: relative;
+  background: #06060e;
+  box-shadow: 0 12px 70px rgba(0,0,0,0.7);
+  flex-shrink: 0;
+  opacity: 0;
+  animation: s11In 0.65s ease-out forwards;
+}
+
+.s11-post:nth-child(1) { animation-delay: 0.15s; }
+.s11-post:nth-child(2) { animation-delay: 0.30s; }
+
+@keyframes s11In {
+  from { opacity: 0; transform: translateY(18px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ══════════════════════
+   POST 1 — Pay. Then Poof.
+══════════════════════ */
+.s11-p1 {
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  text-align: center; padding: 40px 36px;
+}
+
+.s11-p1-bg {
+  position: absolute; inset: 0;
+  background: radial-gradient(circle at 50% 44%,
+    rgba(139,92,246,0.22) 0%,
+    rgba(217,70,239,0.11) 36%,
+    transparent 66%);
+}
+
+.s11-p1-particles {
+  position: absolute; inset: 0; z-index: 1; overflow: hidden; pointer-events: none;
+}
+
+.s11-p-dot {
+  position: absolute; border-radius: 50%; opacity: 0;
+  animation: s11Float var(--dur) ease-out var(--del) infinite;
+}
+
+@keyframes s11Float {
+  0%   { opacity: 0; transform: translateY(0) scale(1); }
+  18%  { opacity: 0.75; }
+  100% { opacity: 0; transform: translateY(-120px) scale(0.2); }
+}
+
+.s11-p1-inner { position: relative; z-index: 2; }
+
+.s11-p1-brand {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 10px; letter-spacing: 1.5px; text-transform: lowercase;
+  color: rgba(139,92,246,0.45);
+  margin-bottom: 22px;
+}
+
+.s11-p1-headline {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-weight: 800; font-size: 72px;
+  line-height: 1.0; letter-spacing: -2px;
+  color: var(--text); margin-bottom: 14px;
+}
+
+.s11-p1-headline .poof {
+  background: linear-gradient(135deg, #c4b5fd, #e879f9, #fbbf24);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+}
+
+.s11-p1-sub {
+  font-size: 14px; color: rgba(240,238,246,0.35);
+  margin-bottom: 28px; letter-spacing: 0.2px;
+}
+
+.s11-p1-badge {
+  display: inline-flex; align-items: center;
+  padding: 6px 18px; border-radius: 100px;
+  background: rgba(139,92,246,0.09); border: 1px solid rgba(139,92,246,0.22);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 8.5px; letter-spacing: 1px; text-transform: uppercase; color: #a78bfa;
+}
+
+/* ══════════════════════
+   POST 2 — Internet Remembers
+══════════════════════ */
+.s11-p2 {
+  padding: 0;
+  justify-content: flex-end;
+}
+
+.s11-p2-bg {
+  position: absolute; inset: 0;
+  background:
+    radial-gradient(circle at 68% 25%, rgba(248,113,113,0.12) 0%, transparent 44%),
+    radial-gradient(circle at 25% 68%, rgba(139,92,246,0.10) 0%, transparent 50%),
+    radial-gradient(circle at 50% 50%, rgba(248,113,113,0.04) 0%, transparent 70%);
+}
+
+/* Pills scattered absolutely over the card */
+.s11-pill {
+  position: absolute; white-space: nowrap;
+  padding: 5px 13px; border-radius: 8px;
+  font-family: 'DM Sans', sans-serif; font-size: 9.5px; letter-spacing: 0.3px;
+  background: rgba(248,113,113,0.09); border: 1px solid rgba(248,113,113,0.20);
+  color: rgba(248,113,113,0.72); z-index: 2;
+}
+
+.s11-faded { opacity: 0.32; }
+.s11-dim   { opacity: 0.14; }
+
+/* Dark gradient rising from bottom — text lives here */
+.s11-p2-overlay {
+  position: absolute; bottom: 0; left: 0; right: 0; height: 52%;
+  background: linear-gradient(to top,
+    rgba(6,6,14,1.00) 0%,
+    rgba(6,6,14,0.92) 44%,
+    rgba(6,6,14,0.55) 72%,
+    transparent 100%);
+  z-index: 3;
+}
+
+.s11-p2-bottom {
+  position: absolute; bottom: 0; left: 0; right: 0;
+  z-index: 4;
+  padding: 0 28px 28px;
+}
+
+.s11-p2-headline {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-weight: 700; font-size: 20px;
+  line-height: 1.45; color: var(--text);
+  margin-bottom: 10px;
+}
+
+.s11-gr {
+  background: linear-gradient(90deg, #c4b5fd, #e879f9);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+}
+
+.s11-p2-sub {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 8.5px; letter-spacing: 1px;
+  color: rgba(240,238,246,0.20);
+}
+
+.s11-p2-logo {
+  position: absolute; bottom: 30px; right: 28px;
+  font-family: 'DM Sans', sans-serif; font-size: 9px;
+  letter-spacing: 1.5px; text-transform: lowercase;
+  color: rgba(139,92,246,0.32); z-index: 6;
+}

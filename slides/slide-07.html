@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Phantom — The Creative Pitch</title>
+<title>Phantom - The Creative Pitch</title>
 <link rel="stylesheet" href="../css/base.css">
 <link rel="stylesheet" href="../css/slide.css">
 <link rel="stylesheet" href="../css/nav.css">
@@ -16,7 +16,7 @@
 <link rel="manifest" href="../manifest.json">
 <link rel="apple-touch-icon" href="../icon-192.svg">
 </head>
-<body data-prev="slide-06.html" data-next="slide-08.html" data-label="07 / 08">
+<body data-prev="slide-06.html" data-next="slide-08.html" data-label="07 / 15">
 
 <div class="slide">
   <div class="grain"></div>
@@ -26,92 +26,70 @@
 
   <div class="slide-header">
     <div class="section-badge">07 / Creative Platform</div>
-    <h2 class="slide-title">The <span class="gradient">Creative</span> Pitch</h2>
+    <h2 class="slide-title">Our Pitch to Every <span class="gradient">Zoe</span></h2>
   </div>
 
   <div class="s7-body">
 
-    <!-- Left: concept + taglines + connection note -->
+    <!-- Left: concept + taglines + Zoe connection -->
     <div class="s7-left">
 
-      <div>
+      <div class="s7-block">
         <div class="s7-block-label">The Big Idea</div>
         <div class="s7-concept-text">
-          Phantom is the first payment product built on the principle of <span class="em">deliberate impermanence.</span> It does not protect your card details. It eliminates them. In a world designed to remember everything, Phantom is built to forget.
+          Phantom is the first payment product built on the principle of <span class="em">chosen invisibility.</span> It does not protect your card details. It eliminates them. In a world designed to remember everything, Phantom is built to forget.
         </div>
       </div>
 
       <div class="s7-sep"></div>
 
-      <div>
-        <div class="s7-block-label">Campaign Tagline</div>
-        <div class="s7-master">Made to Disappear.</div>
-        <div class="s7-variant">Pay. Then Poof.</div>
-        <div class="s7-tagline-note">Parent and child. "Made to Disappear" is the campaign platform. "Pay. Then Poof." is the playful execution line for social, Stories, and in-app moments.</div>
+      <div class="s7-block">
+        <div class="s7-block-label">Campaign Idea</div>
+        <div class="s7-master">Built to Disappear.</div>
+        <div class="s7-variant-wrap">
+          <div class="s7-variant">Pay. Then Poof.</div>
+          <div class="s7-variant-note">Extension for social, Stories, and in-app moments</div>
+        </div>
       </div>
 
       <div class="s7-sep"></div>
 
       <div class="s7-zoe">
         <div class="s7-zoe-tag">Connection to Zoe</div>
-        <div class="s7-zoe-body">Zoe doesn't want to be "protected." She wants to be free. Phantom removes the consequences of being adventurous. <em>"Made to Disappear" is not a warning. It's a permission slip.</em></div>
+        <div class="s7-zoe-body">Zoe doesn't want to be &#x201C;protected.&#x201D; She wants to be <em>free.</em> Phantom removes the consequences of being adventurous.<br><br><em>&#x201C;Built to Disappear&#x201D; is not a warning. It&#x2019;s a permission slip.</em></div>
       </div>
 
     </div>
 
-    <!-- Right: rationale chain -->
+    <!-- Right: card dissolving into the sky animation -->
     <div class="s7-right">
-      <div class="s7-chain-label">The Rationale</div>
-      <div class="s7-chain">
+      <div class="s7-anim-wrap">
+        <canvas id="s7Particles"></canvas>
 
-        <div class="s7-step s7-step-insight">
-          <div class="s7-node">01</div>
-          <div class="s7-step-body">
-            <div class="s7-step-type">Insight</div>
-            <div class="s7-step-text">We are security-obsessed in every part of our digital lives except the one moment that actually costs us money.</div>
+        <div class="s7-orbit s7-orb1"></div>
+        <div class="s7-orbit s7-orb2"></div>
+
+        <div id="s7Card" class="s7-card">
+          <div class="s7-card-holo"></div>
+          <div class="s7-card-inner">
+            <div class="s7-card-top">
+              <span class="s7-card-brand">PHANTOM</span>
+              <div class="s7-card-revo">
+                      <span>revolut</span>
+              </div>
+            </div>
+            <div class="s7-card-mid">
+              <div class="s7-card-chip"></div>
+              <div id="s7CardNum" class="s7-card-num">4832 &#x2022;&#x2022;&#x2022;&#x2022; &#x2022;&#x2022;&#x2022;&#x2022; 7291</div>
+            </div>
+            <div class="s7-card-bot">
+              <span>Single Use Only</span>
+              <span>VISA</span>
+            </div>
           </div>
         </div>
 
-        <div class="s7-connector"></div>
-
-        <div class="s7-step s7-step-tension">
-          <div class="s7-node">02</div>
-          <div class="s7-step-body">
-            <div class="s7-step-type">Tension</div>
-            <div class="s7-step-text">Card details outlive the transaction. They sit in forgotten databases, waiting to be reused, breached, or charged again.</div>
-          </div>
-        </div>
-
-        <div class="s7-connector"></div>
-
-        <div class="s7-step s7-step-truth">
-          <div class="s7-node">03</div>
-          <div class="s7-step-body">
-            <div class="s7-step-type">Product Truth</div>
-            <div class="s7-step-text">Phantom generates fresh card details for every transaction. The moment you pay, the old details stop existing.</div>
-          </div>
-        </div>
-
-        <div class="s7-connector"></div>
-
-        <div class="s7-step s7-step-leap">
-          <div class="s7-node">04</div>
-          <div class="s7-step-body">
-            <div class="s7-step-type">Creative Leap</div>
-            <div class="s7-step-text">Don't market this as "security" — passive and forgettable. Position it as a deliberate act of digital impermanence. Not a feature. A statement.</div>
-          </div>
-        </div>
-
-        <div class="s7-connector"></div>
-
-        <div class="s7-step s7-step-tagline">
-          <div class="s7-node">✦</div>
-          <div class="s7-step-body">
-            <div class="s7-step-type">Tagline</div>
-            <div class="s7-step-text">Made to Disappear.</div>
-          </div>
-        </div>
-
+        <div id="s7Ghost" class="s7-ghost">&#x2736; Gone &#x2736;</div>
       </div>
     </div>
 
@@ -119,20 +97,151 @@
 
   <div class="bottom-bar">
     <div class="footer-brand">
-      <svg viewBox="0 0 24 24" fill="none" width="16" height="16">
-        <circle cx="12" cy="12" r="11" stroke="rgba(139,92,246,0.4)" stroke-width="1.5"/>
-        <path d="M9 7h4.5a3 3 0 0 1 0 6H12l3.5 4.5" stroke="rgba(139,92,246,0.6)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
-        <line x1="9" y1="7" x2="9" y2="17.5" stroke="rgba(139,92,246,0.6)" stroke-width="1.8" stroke-linecap="round"/>
-      </svg>
-      <span class="footer-revolut-text">revolut</span>
+            <span class="footer-revolut-text">Revolut</span>
       <span class="footer-divider">|</span>
-      <span class="footer-product-text">Phantom / Single-Use Card</span>
+      <span class="footer-product-text">Phantom - A Card Built to Disappear</span>
     </div>
-    <span class="slide-number">07 / 08</span>
+    <span class="slide-number">07 / 15</span>
   </div>
 </div>
 
 <script src="../js/stars.js"></script>
+<script>
+/* ── Slide 07: Card-dissolves-into-the-sky animation ── */
+(function () {
+  var canvas = document.getElementById('s7Particles');
+  var ctx    = canvas.getContext('2d');
+  canvas.width  = 440;
+  canvas.height = 420;
+
+  var COLORS = ['#8b5cf6','#d946ef','#c4b5fd','#f9a8d4','#22d3ee','#a78bfa','#f472b6','#fbbf24'];
+  var particles = [];
+
+  function spawnParticles() {
+    particles = [];
+    for (var i = 0; i < 80; i++) {
+      var angle = -Math.PI / 2 + (Math.random() - 0.5) * Math.PI * 1.1;
+      var spd   = 0.7 + Math.random() * 2.8;
+      particles.push({
+        x:     180 + (Math.random() - 0.5) * 240,
+        y:     210 + (Math.random() - 0.5) * 130,
+        vx:    Math.cos(angle) * spd * 0.55,
+        vy:    Math.sin(angle) * spd - 0.3,
+        r:     1.2 + Math.random() * 3.2,
+        color: COLORS[Math.floor(Math.random() * COLORS.length)],
+        life:  1,
+        decay: 0.0045 + Math.random() * 0.007,
+        delay: Math.floor(Math.random() * 25)
+      });
+    }
+  }
+
+  function drawParticles() {
+    ctx.clearRect(0, 0, 440, 420);
+    particles.forEach(function (p) {
+      if (p.delay > 0) { p.delay--; return; }
+      p.x  += p.vx;
+      p.y  += p.vy;
+      p.vy -= 0.018;
+      p.life -= p.decay;
+      if (p.life <= 0) return;
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, p.r * p.life, 0, Math.PI * 2);
+      ctx.fillStyle    = p.color;
+      ctx.globalAlpha  = p.life * 0.8;
+      ctx.fill();
+      /* soft halo */
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, p.r * p.life * 2.2, 0, Math.PI * 2);
+      ctx.fillStyle    = p.color;
+      ctx.globalAlpha  = p.life * 0.12;
+      ctx.fill();
+      ctx.globalAlpha  = 1;
+    });
+  }
+
+  var card  = document.getElementById('s7Card');
+  var ghost = document.getElementById('s7Ghost');
+
+  var NUMS = [
+    '4832 •••• •••• 7291',
+    '5104 •••• •••• 3658',
+    '4917 •••• •••• 0442'
+  ];
+  var numIdx = 0;
+
+  var PHASES = [
+    { name: 'summon',  dur: 1300 },
+    { name: 'solid',   dur:  700 },
+    { name: 'float',   dur: 1400 },
+    { name: 'dissolve',dur: 2100 },
+    { name: 'gone',    dur:  900 },
+    { name: 'pause',   dur:  600 }
+  ];
+  var pi = 0, ps = 0;
+  var spawned = false;
+
+  function enterPhase(idx, now) {
+    pi = idx; ps = now; spawned = false;
+    var n = PHASES[idx].name;
+
+    if (n === 'summon') {
+      numIdx = (numIdx + 1) % NUMS.length;
+      document.getElementById('s7CardNum').textContent = NUMS[numIdx];
+      ghost.style.opacity = '0';
+      card.style.transition = 'none';
+      card.style.opacity   = '0';
+      card.style.transform = 'translateY(32px) scale(0.86)';
+      card.style.filter    = 'blur(8px)';
+      requestAnimationFrame(function () {
+        card.style.transition = 'transform 1.1s cubic-bezier(0.22,1,0.36,1), opacity 0.9s ease, filter 0.9s ease';
+        card.style.opacity    = '1';
+        card.style.transform  = 'translateY(0px) scale(1)';
+        card.style.filter     = 'blur(0px)';
+      });
+    }
+    if (n === 'float') {
+      card.style.transition = 'transform 2.2s ease-in-out';
+      card.style.transform  = 'translateY(-20px) rotate(1.8deg)';
+    }
+    if (n === 'dissolve') {
+      card.style.transition = 'transform 1.9s ease-in, opacity 1.7s ease-in, filter 1.9s ease-in';
+      card.style.opacity    = '0';
+      card.style.transform  = 'translateY(-52px) scale(1.1)';
+      card.style.filter     = 'blur(14px)';
+    }
+    if (n === 'gone') {
+      ghost.style.opacity = '0.7';
+    }
+    if (n === 'pause') {
+      ghost.style.opacity = '0';
+      particles = [];
+      card.style.transition = 'none';
+      card.style.transform  = 'translateY(32px) scale(0.86)';
+      card.style.filter     = 'blur(8px)';
+    }
+  }
+
+  function tick(now) {
+    drawParticles();
+    var n = PHASES[pi].name;
+    if (n === 'dissolve' && !spawned) {
+      var elapsed = now - ps;
+      if (elapsed > 100) { spawnParticles(); spawned = true; }
+    }
+    if (now - ps >= PHASES[pi].dur) {
+      enterPhase((pi + 1) % PHASES.length, now);
+    }
+    requestAnimationFrame(tick);
+  }
+
+  requestAnimationFrame(function (now) {
+    ps = now;
+    enterPhase(0, now);
+    requestAnimationFrame(tick);
+  });
+})();
+</script>
 <script src="../js/scaler.js"></script>
 <script src="../js/nav.js"></script>
 <script src="../js/pwa.js"></script>

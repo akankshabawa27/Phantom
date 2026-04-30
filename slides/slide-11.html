@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Phantom - Social Creatives</title>
+<link rel="stylesheet" href="../css/base.css">
+<link rel="stylesheet" href="../css/slide.css">
+<link rel="stylesheet" href="../css/nav.css">
+<link rel="stylesheet" href="../css/slide-11.css">
+<meta name="theme-color" content="#06060e">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Phantom">
+<meta name="mobile-web-app-capable" content="yes">
+<link rel="manifest" href="../manifest.json">
+<link rel="apple-touch-icon" href="../icon-192.svg">
+</head>
+<body data-prev="slide-14.html" data-next="slide-12.html" data-label="10 / 15">
+
+<div class="slide">
+  <div class="grain"></div>
+  <div class="nebula1"></div>
+  <div class="nebula2"></div>
+  <canvas id="stars"></canvas>
+
+  <div class="slide-header">
+    <div class="section-badge">10 / Social Content</div>
+    <h2 class="slide-title">Built to <span class="gradient">Disappear.</span></h2>
+  </div>
+
+  <div class="s11-body">
+
+    <!-- POST 1: Pay. Then Poof. -->
+    <div class="s11-post s11-p1">
+      <div class="s11-p1-bg"></div>
+      <div class="s11-p1-particles" id="s11p1"></div>
+      <div class="s11-p1-inner">
+        <div class="s11-p1-brand">revolut</div>
+        <div class="s11-p1-headline">Pay.<br>Then <span class="poof">Poof.</span></div>
+        <div class="s11-p1-sub">New card details. Every single transaction.</div>
+        <div class="s11-p1-badge">Phantom &nbsp;·&nbsp; Built to Disappear</div>
+      </div>
+    </div>
+
+    <!-- POST 2: The internet remembers -->
+    <div class="s11-post s11-p2">
+      <div class="s11-p2-bg"></div>
+
+      <!-- Pills scattered across the entire card -->
+      <span class="s11-pill"          style="left:4%;  top:7%">lampshop.io</span>
+      <span class="s11-pill s11-faded" style="left:33%; top:5%">trendy-deals.net</span>
+      <span class="s11-pill"          style="left:60%; top:8%">quickbuy.store</span>
+      <span class="s11-pill s11-faded" style="left:74%; top:3%">niche-finds.co</span>
+
+      <span class="s11-pill"          style="left:6%;  top:20%">vintage-gems.eu</span>
+      <span class="s11-pill s11-faded" style="left:42%; top:19%">flash-drop.sale</span>
+      <span class="s11-pill"          style="left:63%; top:21%">style-hub.xyz</span>
+
+      <span class="s11-pill s11-faded" style="left:16%; top:33%">2am-impulse.com</span>
+      <span class="s11-pill"          style="left:50%; top:32%">random-ad.shop</span>
+      <span class="s11-pill s11-faded" style="left:72%; top:35%">viral-drop.xyz</span>
+
+      <span class="s11-pill s11-dim"   style="left:5%;  top:45%">that-one-site.co</span>
+      <span class="s11-pill s11-faded" style="left:38%; top:44%">forgot-name.store</span>
+      <span class="s11-pill s11-dim"   style="left:64%; top:46%">insta-find.deals</span>
+
+      <!-- Gradient overlay so text is readable -->
+      <div class="s11-p2-overlay"></div>
+
+      <div class="s11-p2-bottom">
+        <div class="s11-p2-headline">
+          The internet remembers your searches, your clicks, your history.<br><br>
+          <span class="s11-gr">It should not also have your card.</span>
+        </div>
+        <div class="s11-p2-sub">Phantom by Revolut &nbsp;·&nbsp; Built to Disappear</div>
+      </div>
+      <div class="s11-p2-logo">revolut</div>
+    </div>
+
+  </div>
+
+  <div class="bottom-bar">
+    <div class="footer-brand">
+            <span class="footer-revolut-text">Revolut</span>
+      <span class="footer-divider">|</span>
+      <span class="footer-product-text">Phantom - A Card Built to Disappear</span>
+    </div>
+    <span class="slide-number">10 / 15</span>
+  </div>
+</div>
+
+<script src="../js/stars.js"></script>
+<script>
+  (function() {
+    var c = document.getElementById('s11p1');
+    if (!c) return;
+    var cols = ['#8b5cf6','#d946ef','#c4b5fd','#f9a8d4','#fbbf24','#a78bfa','#22d3ee'];
+    for (var i = 0; i < 28; i++) {
+      var p = document.createElement('div');
+      p.className = 's11-p-dot';
+      var sz = (1.8 + Math.random() * 4) + 'px';
+      p.style.width  = sz; p.style.height = sz;
+      p.style.left   = (10 + Math.random() * 80) + '%';
+      p.style.bottom = (5  + Math.random() * 35) + '%';
+      p.style.background = cols[Math.floor(Math.random() * cols.length)];
+      p.style.setProperty('--dur', (2 + Math.random() * 3.5) + 's');
+      p.style.setProperty('--del', (Math.random() * 5) + 's');
+      c.appendChild(p);
+    }
+  })();
+</script>
+<script src="../js/scaler.js"></script>
+<script src="../js/nav.js"></script>
+<script src="../js/pwa.js"></script>
+</body>
+</html>

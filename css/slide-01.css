@@ -20,9 +20,9 @@
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  font-family: 'Space Mono', monospace;
+  font-family: 'DM Sans', sans-serif;
   font-size: 11px;
-  letter-spacing: 3px;
+  letter-spacing: 1.5px;
   text-transform: uppercase;
   color: var(--muted);
   margin-bottom: 30px;
@@ -36,7 +36,7 @@
 }
 
 .product-name {
-  font-family: 'Space Grotesk', sans-serif;
+  font-family: 'Plus Jakarta Sans', sans-serif;
   font-weight: 800;
   font-size: 82px;
   line-height: 0.9;
@@ -49,7 +49,7 @@
 }
 
 .product-subtitle {
-  font-family: 'Space Grotesk', sans-serif;
+  font-family: 'Plus Jakarta Sans', sans-serif;
   font-weight: 500;
   font-size: 17px;
   color: var(--muted);
@@ -84,7 +84,7 @@
 .step { flex: 1; }
 
 .step-number {
-  font-family: 'Space Grotesk', sans-serif;
+  font-family: 'Plus Jakarta Sans', sans-serif;
   font-weight: 800;
   font-size: 28px;
   background: linear-gradient(135deg, var(--purple), var(--magenta));
@@ -144,9 +144,9 @@
 }
 
 #statusLabel {
-  font-family: 'Space Mono', monospace;
+  font-family: 'DM Sans', sans-serif;
   font-size: 11px;
-  letter-spacing: 3px;
+  letter-spacing: 1.5px;
   text-transform: uppercase;
   margin-bottom: 20px;
   height: 20px;
@@ -163,25 +163,49 @@
 .phantom-card {
   width: 100%; height: 100%;
   background:
+    /* Primary metallic highlight — angled catch-light across top-left */
+    linear-gradient(
+      128deg,
+      rgba(255,255,255,0.10) 0%,
+      rgba(230,220,255,0.16) 12%,
+      rgba(255,255,255,0.08) 20%,
+      transparent 34%,
+      rgba(200,190,255,0.04) 52%,
+      transparent 68%,
+      rgba(220,210,255,0.06) 84%,
+      rgba(255,255,255,0.04) 100%
+    ),
+    /* Secondary metallic scatter — depth shimmer */
     linear-gradient(
       118deg,
       rgba(210,200,240,0.07) 0%,
       transparent 18%,
-      rgba(180,165,230,0.09) 28%,
-      rgba(255,255,255,0.04) 38%,
+      rgba(190,175,240,0.11) 28%,
+      rgba(255,255,255,0.05) 38%,
       transparent 50%,
-      rgba(180,165,230,0.07) 62%,
-      rgba(255,255,255,0.03) 72%,
+      rgba(190,175,240,0.08) 62%,
+      rgba(255,255,255,0.04) 72%,
       transparent 85%,
-      rgba(210,200,240,0.06) 100%
+      rgba(210,200,240,0.07) 100%
     ),
-    linear-gradient(145deg, #16122e 0%, #221a50 28%, #1b1444 50%, #20185a 72%, #110e24 100%);
+    /* Base card — cool purple-indigo */
+    linear-gradient(145deg, #18133a 0%, #241c56 28%, #1c1648 50%, #221a5e 72%, #130f28 100%);
   border-radius: 16px;
   position: relative;
   overflow: hidden;
-  box-shadow: 0 0 60px rgba(139,92,246,0.18), 0 0 120px rgba(217,70,239,0.08), 0 20px 60px rgba(0,0,0,0.6),
-              inset 0 1px 0 rgba(255,255,255,0.08), inset 0 -1px 0 rgba(0,0,0,0.3);
-  border: 1px solid rgba(180,160,240,0.22);
+  box-shadow:
+    0 0 60px rgba(139,92,246,0.20),
+    0 0 120px rgba(217,70,239,0.09),
+    0 20px 60px rgba(0,0,0,0.65),
+    /* Metallic top-edge bright line */
+    inset 0 1px 0 rgba(255,255,255,0.16),
+    /* Left-edge subtle catch */
+    inset 1px 0 0 rgba(220,210,255,0.07),
+    /* Bottom-edge shadow for depth */
+    inset 0 -1px 0 rgba(0,0,0,0.45),
+    /* Inner depth glow */
+    inset 0 0 50px rgba(160,140,230,0.05);
+  border: 1px solid rgba(210,190,255,0.28);
 }
 
 .phantom-card .holo {
@@ -190,11 +214,13 @@
   width: 200%; height: 200%;
   background: conic-gradient(from 0deg,
     transparent,
-    rgba(139,92,246,0.1),
-    rgba(255,255,255,0.04),
+    rgba(139,92,246,0.12),
+    rgba(255,255,255,0.07),
+    rgba(200,190,255,0.05),
     transparent,
-    rgba(217,70,239,0.08),
-    rgba(255,255,255,0.03),
+    rgba(217,70,239,0.10),
+    rgba(255,255,255,0.06),
+    rgba(180,170,240,0.04),
     transparent
   );
   animation: holo 6s linear infinite;
@@ -207,11 +233,13 @@
   inset: 0;
   border-radius: 16px;
   background: radial-gradient(
-    ellipse 68% 58% at 50% 50%,
-    transparent 52%,
-    rgba(6,6,14,0.45) 70%,
-    rgba(6,6,14,0.86) 88%,
-    rgba(6,6,14,0.97) 100%
+    ellipse 58% 50% at 50% 50%,
+    transparent 36%,
+    rgba(6,6,14,0.30) 52%,
+    rgba(6,6,14,0.65) 68%,
+    rgba(6,6,14,0.88) 82%,
+    rgba(6,6,14,0.98) 94%,
+    rgba(6,6,14,1.00) 100%
   );
   pointer-events: none;
   z-index: 7;
@@ -230,7 +258,7 @@
 .card-top { display: flex; justify-content: space-between; align-items: flex-start; }
 
 .card-brand {
-  font-family: 'Space Grotesk', sans-serif;
+  font-family: 'Plus Jakarta Sans', sans-serif;
   font-weight: 800;
   font-size: 16px;
   letter-spacing: 1px;
@@ -273,18 +301,18 @@
 }
 
 #cardNumber {
-  font-family: 'Space Mono', monospace;
+  font-family: 'DM Sans', sans-serif;
   font-size: 16px;
-  letter-spacing: 3px;
+  letter-spacing: 1.5px;
   color: rgba(240,238,246,0.5);
 }
 
 .card-bottom { display: flex; justify-content: space-between; align-items: flex-end; }
 
 .card-holder {
-  font-family: 'Space Mono', monospace;
+  font-family: 'DM Sans', sans-serif;
   font-size: 10px;
-  letter-spacing: 2px;
+  letter-spacing: 1px;
   text-transform: uppercase;
   color: rgba(240,238,246,.35);
 }
@@ -352,7 +380,7 @@
   position: absolute;
   bottom: -28px; left: 50%;
   transform: translateX(-50%);
-  font-family: 'Space Mono', monospace;
+  font-family: 'DM Sans', sans-serif;
   font-size: 11px;
   letter-spacing: 1px;
   color: var(--gold);
@@ -365,7 +393,7 @@
   position: absolute;
   top: 50%; left: 50%;
   transform: translate(-50%,-50%);
-  font-family: 'Space Grotesk', sans-serif;
+  font-family: 'Plus Jakarta Sans', sans-serif;
   font-weight: 700;
   font-size: 15px;
   letter-spacing: 6px;

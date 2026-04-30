@@ -1,0 +1,174 @@
+/* Slide 10 — The Phantom Magic Show */
+
+.slide {
+  padding: 32px 52px 46px;
+  display: flex;
+  flex-direction: column;
+}
+
+.s10-body {
+  flex: 1;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 44px;
+  position: relative;
+  z-index: 2;
+  min-height: 0;
+}
+
+/* ── Left column — stage animation ──── */
+
+.s10-left {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  animation: fadeUp 0.7s ease-out 0.4s forwards;
+}
+
+#s10Scene {
+  display: block;
+  border-radius: 12px;
+  border: 1px solid rgba(139,92,246,0.08);
+}
+
+/* ── Right column — concept text ─────── */
+
+.s10-right {
+  display: flex;
+  flex-direction: column;
+  gap: 11px;
+  opacity: 0;
+  animation: fadeUp 0.7s ease-out 0.6s forwards;
+}
+
+.s10-block { display: flex; flex-direction: column; gap: 6px; }
+
+.s10-block-label {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 8px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--purple);
+}
+
+.s10-body-text {
+  font-size: 13px;
+  line-height: 1.7;
+  color: var(--muted);
+}
+
+.s10-body-text .em {
+  color: var(--text);
+  font-weight: 700;
+}
+
+.s10-sep {
+  height: 1px;
+  background: linear-gradient(90deg, rgba(139,92,246,0.2), transparent);
+  flex-shrink: 0;
+}
+
+/* Why it works */
+.s10-why {
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+  margin-top: 2px;
+}
+
+.s10-why-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  font-size: 12px;
+  color: var(--muted);
+  line-height: 1.55;
+}
+
+.s10-why-dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--magenta);
+  flex-shrink: 0;
+  margin-top: 5px;
+}
+
+/* Gold dot variant for contest bullet */
+.s10-why-dot-gold {
+  background: var(--gold) !important;
+}
+
+/* The Kicker — PROMINENT gold treatment */
+.s10-kicker {
+  padding: 18px 20px;
+  border-radius: 12px;
+  background: linear-gradient(135deg,
+    rgba(251,191,36,0.10) 0%,
+    rgba(251,191,36,0.05) 50%,
+    rgba(217,70,239,0.04) 100%
+  );
+  border: 1px solid rgba(251,191,36,0.22);
+  border-left: 4px solid var(--gold);
+  margin-top: auto;
+  flex-shrink: 0;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Subtle glow in corner */
+.s10-kicker::before {
+  content: '';
+  position: absolute;
+  top: -20px; right: -20px;
+  width: 100px; height: 100px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(251,191,36,0.10), transparent 70%);
+  pointer-events: none;
+}
+
+.s10-kicker-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 6px;
+}
+
+.s10-kicker-icon {
+  font-size: 12px;
+  color: var(--gold);
+}
+
+.s10-kicker-tag {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 9px;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+  color: var(--gold);
+}
+
+.s10-kicker-hero {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-weight: 800;
+  font-size: 22px;
+  letter-spacing: -0.3px;
+  line-height: 1.1;
+  background: linear-gradient(135deg, #fbbf24, #f59e0b, #fcd34d);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: 10px;
+}
+
+.s10-kicker-text {
+  font-size: 12.5px;
+  color: var(--muted);
+  line-height: 1.65;
+}
+
+.s10-kicker-text .em {
+  color: var(--text);
+  font-style: normal;
+  font-weight: 700;
+}

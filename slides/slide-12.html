@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Phantom - Carousel</title>
+<link rel="stylesheet" href="../css/base.css">
+<link rel="stylesheet" href="../css/slide.css">
+<link rel="stylesheet" href="../css/nav.css">
+<link rel="stylesheet" href="../css/slide-12.css">
+<meta name="theme-color" content="#06060e">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Phantom">
+<meta name="mobile-web-app-capable" content="yes">
+<link rel="manifest" href="../manifest.json">
+<link rel="apple-touch-icon" href="../icon-192.svg">
+</head>
+<body data-prev="slide-11.html" data-next="slide-10.html" data-label="11 / 15">
+
+<div class="slide">
+  <div class="grain"></div>
+  <div class="nebula1"></div>
+  <div class="nebula2"></div>
+  <canvas id="stars"></canvas>
+
+  <div class="slide-header">
+    <div class="section-badge">11 / Social Content</div>
+    <h2 class="slide-title">Scenes from <span class="gradient">Zoe's</span> Life</h2>
+  </div>
+
+  <div class="s12-body">
+
+    <!-- Label row -->
+    <div class="s12-label-row">
+      <span class="s12-format-tag">Carousel</span>
+      <span class="s12-series-name">Instagram / 4-slide swipeable series</span>
+      <div class="s12-dots">
+        <div class="s12-dot on"></div>
+        <div class="s12-dot"></div>
+        <div class="s12-dot"></div>
+        <div class="s12-dot"></div>
+      </div>
+    </div>
+
+    <!-- Four carousel cards -->
+    <div class="s12-cards">
+
+      <!-- Card 1: The Setup -->
+      <div class="s12-card s12-c1">
+        <div class="s12-c1-bg"></div>
+        <span class="s12-card-num">01</span>
+        <svg class="s12-c1-lamp" width="90" height="120" viewBox="0 0 90 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <!-- Glow bloom below shade -->
+          <ellipse cx="45" cy="72" rx="46" ry="20" fill="rgba(251,191,36,0.10)"/>
+          <ellipse cx="45" cy="68" rx="30" ry="13" fill="rgba(251,191,36,0.08)"/>
+          <!-- Lamp shade outer -->
+          <path d="M16 38 L74 38 L64 68 L26 68 Z" fill="#100e08" stroke="rgba(251,191,36,0.50)" stroke-width="1.5" stroke-linejoin="round"/>
+          <!-- Shade top rim -->
+          <ellipse cx="45" cy="38" rx="29" ry="6" fill="#100e08" stroke="rgba(251,191,36,0.28)" stroke-width="1"/>
+          <!-- Shade bottom rim (warm glow) -->
+          <ellipse cx="45" cy="68" rx="19" ry="4.5" fill="rgba(251,191,36,0.38)" stroke="rgba(251,191,36,0.20)" stroke-width="0.5"/>
+          <!-- Inner warm glow -->
+          <ellipse cx="45" cy="52" rx="18" ry="12" fill="rgba(251,191,36,0.10)"/>
+          <!-- Filament hint -->
+          <circle cx="45" cy="44" r="4" fill="rgba(251,191,36,0.22)"/>
+          <!-- Stem -->
+          <rect x="42.5" y="68" width="5" height="36" rx="2.5" fill="rgba(180,155,80,0.45)"/>
+          <!-- Base outer -->
+          <ellipse cx="45" cy="107" rx="26" ry="7" fill="rgba(90,72,32,0.40)"/>
+          <!-- Base inner -->
+          <ellipse cx="45" cy="105" rx="18" ry="4.5" fill="rgba(110,88,38,0.35)"/>
+          <!-- Light ray lines (very subtle) -->
+          <line x1="45" y1="68" x2="28" y2="95" stroke="rgba(251,191,36,0.06)" stroke-width="1.5"/>
+          <line x1="45" y1="68" x2="45" y2="98" stroke="rgba(251,191,36,0.08)" stroke-width="1.5"/>
+          <line x1="45" y1="68" x2="62" y2="95" stroke="rgba(251,191,36,0.06)" stroke-width="1.5"/>
+        </svg>
+        <div class="s12-sponsored">SPONSORED · INSTAGRAM AD</div>
+        <div class="s12-c1-text">
+          Found a gorgeous lamp<br>on an Instagram ad at<br><span class="gold">midnight.</span><br><br>
+          The site looked...<br>fine?
+        </div>
+        <span class="s12-card-rv">revolut</span>
+      </div>
+
+      <!-- Card 2: The Doubt -->
+      <div class="s12-card s12-c2">
+        <div class="s12-c2-bg"></div>
+        <span class="s12-card-num">02</span>
+        <div class="s12-c2-card-art">
+          <div class="s12-ghost-card">
+            <div class="s12-ghost-num">4832 **** **** ????</div>
+            <div class="s12-ghost-q">WHO HAS THIS NOW?</div>
+          </div>
+        </div>
+        <div class="s12-c2-text">
+          Entered my card details.<br><br>
+          Immediately thought:<br><br>
+          <span class="gold">"Should I have<br>done that?"</span>
+        </div>
+        <span class="s12-card-rv">revolut</span>
+      </div>
+
+      <!-- Card 3: The Relief -->
+      <div class="s12-card s12-c3">
+        <div class="s12-c3-bg"></div>
+        <span class="s12-card-num">03</span>
+        <div class="s12-c3-relief">
+          <div class="s12-c3-but">But, I just used...</div>
+          <div class="s12-c3-poof">Pay Then<br><span class="s12-poof-gr">Poof.</span></div>
+          <div class="s12-c3-sub">No details stored.<br>Nothing to steal.</div>
+        </div>
+        <span class="s12-card-rv">revolut</span>
+      </div>
+
+      <!-- Card 4: The Reveal -->
+      <div class="s12-card s12-c4">
+        <div class="s12-c4-bg"></div>
+        <span class="s12-card-num">04</span>
+        <div class="s12-c4-brand">Phantom</div>
+        <div class="s12-c4-divider"></div>
+        <div class="s12-c4-text">
+          A card that disappears<br>after every purchase.<br><br>
+          No site can ever store,<br>reuse, or charge your<br>real card again.
+        </div>
+        <div class="s12-c4-cta">Activate Phantom</div>
+        <div class="s12-c4-tag">Built to Disappear.</div>
+        <span class="s12-card-rv">revolut</span>
+      </div>
+
+    </div>
+
+  </div>
+
+  <div class="bottom-bar">
+    <div class="footer-brand">
+            <span class="footer-revolut-text">Revolut</span>
+      <span class="footer-divider">|</span>
+      <span class="footer-product-text">Phantom - A Card Built to Disappear</span>
+    </div>
+    <span class="slide-number">11 / 15</span>
+  </div>
+</div>
+
+<script src="../js/stars.js"></script>
+<script src="../js/scaler.js"></script>
+<script src="../js/nav.js"></script>
+<script src="../js/pwa.js"></script>
+</body>
+</html>

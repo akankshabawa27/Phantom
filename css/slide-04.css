@@ -20,9 +20,9 @@
 /* ── Shared col label ───────────── */
 
 .s4-col-label {
-  font-family: 'Space Mono', monospace;
+  font-family: 'DM Sans', sans-serif;
   font-size: 8px;
-  letter-spacing: 3px;
+  letter-spacing: 1.5px;
   text-transform: uppercase;
   color: var(--muted);
   margin-bottom: 14px;
@@ -47,7 +47,7 @@
 .s4-score-badge {
   position: absolute;
   top: 14px; right: 14px;
-  font-family: 'Space Grotesk', sans-serif;
+  font-family: 'Plus Jakarta Sans', sans-serif;
   font-weight: 800;
   font-size: 20px;
   background: linear-gradient(135deg, #d946ef, #f472b6);
@@ -72,7 +72,7 @@
 }
 
 .s4-zoe-name {
-  font-family: 'Space Grotesk', sans-serif;
+  font-family: 'Plus Jakarta Sans', sans-serif;
   font-weight: 800;
   font-size: 26px;
   color: var(--text);
@@ -80,7 +80,7 @@
 }
 
 .s4-zoe-type {
-  font-family: 'Space Mono', monospace;
+  font-family: 'DM Sans', sans-serif;
   font-size: 8px;
   letter-spacing: 1.5px;
   text-transform: uppercase;
@@ -108,14 +108,20 @@
 }
 
 .s4-zoe-quote {
-  font-size: 10.5px;
-  color: var(--muted);
+  font-size: 11px;
+  color: rgba(240,238,246,0.78);
   line-height: 1.6;
   text-align: center;
   font-style: italic;
-  border-top: 1px solid rgba(217,70,239,0.1);
+  border-top: 1px solid rgba(217,70,239,0.18);
   padding-top: 12px;
   margin-top: auto;
+  background: rgba(217,70,239,0.04);
+  border-radius: 0 0 10px 10px;
+  margin-left: -20px;
+  margin-right: -20px;
+  margin-bottom: -20px;
+  padding: 12px 18px 16px;
 }
 
 /* ── Column 2: Context / Stats ──── */
@@ -147,7 +153,7 @@
 }
 
 .s4-stat-num {
-  font-family: 'Space Grotesk', sans-serif;
+  font-family: 'Plus Jakarta Sans', sans-serif;
   font-weight: 800;
   font-size: 40px;
   letter-spacing: -1px;
@@ -170,7 +176,7 @@
 }
 
 .s4-stat-desc {
-  font-family: 'Space Grotesk', sans-serif;
+  font-family: 'Plus Jakarta Sans', sans-serif;
   font-weight: 700;
   font-size: 12.5px;
   color: var(--text);
@@ -186,7 +192,7 @@
 
 .s4-source {
   display: inline-block;
-  font-family: 'Space Mono', monospace;
+  font-family: 'DM Sans', sans-serif;
   font-size: 8px;
   letter-spacing: 1px;
   color: var(--dim);
@@ -207,7 +213,7 @@
   border-radius: 8px;
   background: rgba(255,255,255,0.02);
   border: 1px solid rgba(255,255,255,0.05);
-  font-family: 'Space Grotesk', sans-serif;
+  font-family: 'Plus Jakarta Sans', sans-serif;
   font-size: 11px;
   font-weight: 600;
   color: var(--muted);
@@ -232,7 +238,7 @@
 }
 
 .s4-beat-num {
-  font-family: 'Space Grotesk', sans-serif;
+  font-family: 'Plus Jakarta Sans', sans-serif;
   font-size: 14px;
   font-weight: 800;
   color: rgba(139,92,246,0.5);
@@ -244,7 +250,7 @@
 .s4-beat-body { flex: 1; }
 
 .s4-beat-title {
-  font-family: 'Space Grotesk', sans-serif;
+  font-family: 'Plus Jakarta Sans', sans-serif;
   font-weight: 700;
   font-size: 12.5px;
   color: var(--text);
@@ -282,7 +288,7 @@
   border-radius: 10px;
   background: linear-gradient(135deg, rgba(139,92,246,0.08), rgba(217,70,239,0.05));
   border: 1px solid rgba(139,92,246,0.2);
-  font-family: 'Space Grotesk', sans-serif;
+  font-family: 'Plus Jakarta Sans', sans-serif;
   font-size: 11px;
   font-weight: 600;
   color: var(--text);

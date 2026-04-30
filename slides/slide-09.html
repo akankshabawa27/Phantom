@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Phantom - The Disappearing Billboard</title>
+<link rel="stylesheet" href="../css/base.css">
+<link rel="stylesheet" href="../css/slide.css">
+<link rel="stylesheet" href="../css/nav.css">
+<link rel="stylesheet" href="../css/slide-09.css">
+<meta name="theme-color" content="#06060e">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Phantom">
+<meta name="mobile-web-app-capable" content="yes">
+<link rel="manifest" href="../manifest.json">
+<link rel="apple-touch-icon" href="../icon-192.svg">
+</head>
+<body data-prev="slide-10.html" data-next="slide-13.html" data-label="13 / 15">
+
+<div class="slide">
+  <div class="grain"></div>
+  <div class="nebula1"></div>
+  <div class="nebula2"></div>
+  <canvas id="stars"></canvas>
+
+  <div class="slide-header">
+    <div class="section-badge">13 / Activation</div>
+    <h2 class="slide-title">The <span class="gradient">Disappearing</span> Billboard</h2>
+  </div>
+
+  <div class="s9-body">
+
+    <!-- Left: concept text -->
+    <div class="s9-left">
+
+      <div class="s9-block">
+        <div class="s9-block-label">The Concept</div>
+        <div class="s9-body-text">
+          A <span class="em">dissolvable digital billboard</span> at high-footfall hotspots - Piccadilly Circus, Times Square, Connaught Place. Every 30 seconds, the card details disappear and a fresh card generates. The Revolut logo and tagline stay fixed on screen. <span class="em">The card never does.</span>
+        </div>
+
+      </div>
+
+      <div class="s9-sep"></div>
+
+      <div class="s9-block">
+        <div class="s9-block-label">Why It Works</div>
+        <div class="s9-why">
+          <div class="s9-why-item">
+            <div class="s9-why-dot"></div>
+            <span>Every card dissolve is a potential shareable moment on social - time-lapses write themselves</span>
+          </div>
+          <div class="s9-why-item">
+            <div class="s9-why-dot"></div>
+            <span>Conventional media hook: a billboard that never shows the same card twice</span>
+          </div>
+          <div class="s9-why-item">
+            <div class="s9-why-dot"></div>
+            <span>First digital OOH that demonstrates its product in real time</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="s9-tagline-bar">
+        <div class="s9-tagline-bar-label">Campaign Line - stays on screen always</div>
+        <div class="s9-tagline-bar-text">Phantom - A Card Built to Disappear</div>
+      </div>
+
+    </div>
+
+    <!-- Right: city animation canvas -->
+    <div class="s9-right">
+      <canvas id="s9Scene" width="528" height="404"></canvas>
+    </div>
+
+  </div>
+
+  <div class="bottom-bar">
+    <div class="footer-brand">
+            <span class="footer-revolut-text">Revolut</span>
+      <span class="footer-divider">|</span>
+      <span class="footer-product-text">Phantom - A Card Built to Disappear</span>
+    </div>
+    <span class="slide-number">13 / 15</span>
+  </div>
+</div>
+
+<script src="../js/stars.js"></script>
+<script>
+/* ── Slide 09: Disappearing Billboard - realistic night city ── */
+(function () {
+  var canvas = document.getElementById('s9Scene');
+  var ctx    = canvas.getContext('2d');
+  var W = 528, H = 404;
+
+  /* ── Billboard (card) geometry ── */
+  var BBx = 134, BBy = 46, BBw = 260, BBh = 164;
+  var BBcx = BBx + BBw / 2;
+  var BBcy = BBy + BBh / 2;
+
+  /* ── Card number pool ── */
+  var NUMS = [
+    '4832  ••••  ••••  7291',
+    '5104  ••••  ••••  3658',
+    '4917  ••••  ••••  0442',
+    '3782  ••••  ••••  9015'
+  ];
+  var numIdx = 0;
+
+  /* ── Buildings: x, w, h (anchored bottom) ── */
+  var BLDGS = [
+    {x:0,   w:50,  h:162},
+    {x:53,  w:36,  h:115},
+    {x:92,  w:44,  h:142},
+    {x:139, w:25,  h:86 },
+    {x:167, w:62,  h:64 },
+    {x:232, w:82,  h:64 },
+    {x:317, w:25,  h:86 },
+    {x:345, w:44,  h:142},
+    {x:392, w:36,  h:115},
+    {x:431, w:50,  h:162},
+    {x:484, w:44,  h:92 }
+  ];
+
+  /* Pre-generate stable window layouts */
+  var WIN_DATA = BLDGS.map(function (b) {
+    var wins = [], cols = Math.max(1, Math.floor((b.w - 7) / 9));
+    var rows = Math.max(1, Math.floor((b.h - 10) / 12));
+    for (var r = 0; r < rows; r++) {
+      for (var c = 0; c < cols; c++) {
+        wins.push({ x: 5 + c*9, y: 6 + r*12, lit: Math.random() > 0.50 });
+      }
+    }
+    return wins;
+  });
+
+  /* Street light x-positions */
+  var SLIGHTS = [62, 194, 334, 466];
+
+  /* ── Particles ── */
+  var particles = [];
+  var PCOLS = ['#8b5cf6','#d946ef','#c4b5fd','#f9a8d4','#22d3ee','#a78bfa','#fbbf24'];
+
+  function spawnParticles() {
+    particles = [];
+    for (var i = 0; i < 150; i++) {
+      var a = Math.random() * Math.PI * 2, spd = 0.5 + Math.random() * 4.2;
+      particles.push({
+        x: BBcx + (Math.random()-0.5)*BBw*0.82,
+        y: BBcy + (Math.random()-0.5)*BBh*0.82,
+        vx: Math.cos(a)*spd*0.7,
+        vy: Math.sin(a)*spd - 1.3,
+        r: 1+Math.random()*3.2,
+        color: PCOLS[Math.floor(Math.random()*PCOLS.length)],
+        life: 1,
+        decay: 0.005+Math.random()*0.01,
+        delay: Math.floor(Math.random()*14)
+      });
+    }
+  }
+
+  function tickParticles() {
+    particles.forEach(function (p) {
+      if (p.delay > 0) { p.delay--; return; }
+      p.x += p.vx; p.y += p.vy; p.vy -= 0.024; p.life -= p.decay;
+    });
+  }
+
+  function drawParticles() {
+    particles.forEach(function (p) {
+      if (p.delay > 0 || p.life <= 0) return;
+      ctx.beginPath(); ctx.arc(p.x, p.y, p.r*p.life, 0, Math.PI*2);
+      ctx.fillStyle = p.color; ctx.globalAlpha = p.life * 0.9; ctx.fill();
+      ctx.beginPath(); ctx.arc(p.x, p.y, p.r*p.life*2.6, 0, Math.PI*2);
+      ctx.fillStyle = p.color; ctx.globalAlpha = p.life * 0.09; ctx.fill();
+      ctx.globalAlpha = 1;
+    });
+  }
+
+  /* ── Helpers ── */
+  function rr(x, y, w, h, r) {
+    ctx.beginPath();
+    ctx.moveTo(x+r, y); ctx.lineTo(x+w-r, y);
+    ctx.quadraticCurveTo(x+w, y, x+w, y+r);
+    ctx.lineTo(x+w, y+h-r); ctx.quadraticCurveTo(x+w, y+h, x+w-r, y+h);
+    ctx.lineTo(x+r, y+h); ctx.quadraticCurveTo(x, y+h, x, y+h-r);
+    ctx.lineTo(x, y+r); ctx.quadraticCurveTo(x, y, x+r, y);
+    ctx.closePath();
+  }
+
+  function easeOut(t) { return 1 - Math.pow(1-t, 3); }
+  function easeIn(t)  { return t * t * t; }
+
+  /* ── Scene draw functions ── */
+
+  function drawSky() {
+    /* Deep night sky with warm city glow at horizon */
+    var sky = ctx.createLinearGradient(0, 0, 0, H);
+    sky.addColorStop(0,    '#01010d');
+    sky.addColorStop(0.45, '#030312');
+    sky.addColorStop(0.78, '#06051a');
+    sky.addColorStop(1,    '#0b0920');
+    ctx.fillStyle = sky; ctx.fillRect(0, 0, W, H);
+
+    /* Warm orange city-light pollution near horizon */
+    var horiz = ctx.createLinearGradient(0, H*0.65, 0, H);
+    horiz.addColorStop(0, 'transparent');
+    horiz.addColorStop(1, 'rgba(255,130,20,0.055)');
+    ctx.fillStyle = horiz; ctx.fillRect(0, 0, W, H);
+
+    /* Subtle star clusters */
+    var starPositions = [
+      [30,18],[90,30],[145,12],[220,22],[310,8],[380,25],[440,15],[500,28],
+      [65,50],[175,38],[285,48],[420,40],[70,68],[350,55],[480,62]
+    ];
+    starPositions.forEach(function(s) {
+      var r = 0.4 + Math.random()*0.7;
+      ctx.beginPath(); ctx.arc(s[0], s[1], r, 0, Math.PI*2);
+      ctx.fillStyle = 'rgba(240,235,255,0.55)'; ctx.fill();
+    });
+  }
+
+  function drawBillboardSkyGlow(intensity) {
+    if (intensity <= 0.02) return;
+    /* Purple/magenta glow around billboard */
+    var bg = ctx.createRadialGradient(BBcx, BBy - 20, 0, BBcx, BBy - 20, 300);
+    bg.addColorStop(0,   'rgba(139,92,246,'  + (0.18*intensity) + ')');
+    bg.addColorStop(0.3, 'rgba(217,70,239,'  + (0.06*intensity) + ')');
+    bg.addColorStop(0.6, 'rgba(139,92,246,'  + (0.02*intensity) + ')');
+    bg.addColorStop(1,   'transparent');
+    ctx.fillStyle = bg; ctx.fillRect(0, 0, W, H);
+  }
+
+  function drawStreetLights() {
+    SLIGHTS.forEach(function (lx) {
+      var ly = H - 268;
+
+      /* Pole */
+      ctx.fillStyle = 'rgba(28,28,55,0.88)';
+      ctx.fillRect(lx-1, ly+14, 2, H-ly-14);
+
+      /* Lamp bulb */
+      ctx.beginPath(); ctx.arc(lx, ly+11, 5, 0, Math.PI*2);
+      ctx.fillStyle = 'rgba(255,218,120,0.92)'; ctx.fill();
+
+      /* Warm halo */
+      var lh = ctx.createRadialGradient(lx, ly+11, 0, lx, ly+11, 42);
+      lh.addColorStop(0, 'rgba(255,210,80,0.22)');
+      lh.addColorStop(0.5, 'rgba(255,185,60,0.08)');
+      lh.addColorStop(1, 'transparent');
+      ctx.fillStyle = lh; ctx.fillRect(lx-42, ly-30, 84, 82);
+
+      /* Downward light cone */
+      ctx.beginPath();
+      ctx.moveTo(lx-5, ly+14);
+      ctx.lineTo(lx-38, H-28); ctx.lineTo(lx+38, H-28);
+      ctx.closePath();
+      var cone = ctx.createLinearGradient(lx, ly+14, lx, H-28);
+      cone.addColorStop(0, 'rgba(255,200,70,0.09)');
+      cone.addColorStop(1, 'rgba(255,200,70,0.008)');
+      ctx.fillStyle = cone; ctx.fill();
+    });
+  }
+
+  function drawPoles() {
+    ctx.fillStyle = 'rgba(10,10,24,0.95)';
+    var py = BBy + BBh + 28;
+    ctx.fillRect(BBx + BBw*0.28 - 2, py, 4, H - py);
+    ctx.fillRect(BBx + BBw*0.72 - 2, py, 4, H - py);
+    /* Cross-bar */
+    ctx.fillRect(BBx + BBw*0.28 - 1, py, BBw*0.44, 3);
+  }
+
+  function drawBuildings(bbIntensity) {
+    BLDGS.forEach(function (b, bi) {
+      var top = H - b.h, cx = b.x + b.w/2;
+
+      /* Body */
+      ctx.fillStyle = '#05050f';
+      ctx.fillRect(b.x, top, b.w, b.h);
+
+      /* Billboard light cast on adjacent buildings */
+      var dist = Math.abs(cx - BBcx);
+      if (dist < 220 && bbIntensity > 0.05) {
+        var tint = bbIntensity * (1 - dist/220) * 0.07;
+        ctx.fillStyle = 'rgba(139,92,246,' + tint + ')';
+        ctx.fillRect(b.x, top, b.w, b.h);
+        /* Top edge catches more light */
+        ctx.fillStyle = 'rgba(180,140,255,' + (tint * 1.8) + ')';
+        ctx.fillRect(b.x, top, b.w, 2);
+      }
+
+      /* Roofline purple glint */
+      ctx.fillStyle = 'rgba(100,70,200,0.07)';
+      ctx.fillRect(b.x, top, b.w, 1);
+
+      /* Windows */
+      WIN_DATA[bi].forEach(function (w) {
+        ctx.fillStyle = w.lit
+          ? 'rgba(255,188,60,0.40)'
+          : 'rgba(14,14,30,0.75)';
+        ctx.fillRect(b.x + w.x, top + w.y, 4, 6);
+      });
+    });
+  }
+
+  function drawGround(bbIntensity) {
+    /* Dark wet tarmac */
+    var gr = ctx.createLinearGradient(0, H-32, 0, H);
+    gr.addColorStop(0, '#04040e'); gr.addColorStop(1, '#020209');
+    ctx.fillStyle = gr; ctx.fillRect(0, H-32, W, 32);
+
+    /* Billboard glow reflected on wet pavement */
+    if (bbIntensity > 0.05) {
+      var refl = ctx.createRadialGradient(BBcx, H, 0, BBcx, H, 165);
+      refl.addColorStop(0,   'rgba(139,92,246,' + (0.22*bbIntensity) + ')');
+      refl.addColorStop(0.35,'rgba(217,70,239,' + (0.10*bbIntensity) + ')');
+      refl.addColorStop(0.7, 'rgba(139,92,246,' + (0.03*bbIntensity) + ')');
+      refl.addColorStop(1,   'transparent');
+      ctx.fillStyle = refl; ctx.fillRect(0, H-32, W, 32);
+    }
+
+    /* Street light puddle reflections */
+    SLIGHTS.forEach(function (lx) {
+      var sr = ctx.createRadialGradient(lx, H-2, 0, lx, H-2, 30);
+      sr.addColorStop(0, 'rgba(255,200,70,0.12)');
+      sr.addColorStop(1, 'transparent');
+      ctx.fillStyle = sr; ctx.fillRect(lx-30, H-32, 60, 32);
+    });
+
+    /* Road centre dashes */
+    ctx.fillStyle = 'rgba(255,255,255,0.035)';
+    for (var i = 40; i < W-40; i += 44) ctx.fillRect(i, H-14, 22, 3);
+  }
+
+  /* ── Billboard: split into dissolving body + permanent brand layer ── */
+
+  function drawBillboardBody(detailAlpha) {
+    /* Card fill + chip + number - all fade with detailAlpha */
+    if (detailAlpha <= 0.005) return;
+    ctx.save();
+    ctx.globalAlpha = detailAlpha;
+    ctx.shadowBlur  = 60; ctx.shadowColor = 'rgba(139,92,246,0.52)';
+
+    /* Main card gradient */
+    var bg = ctx.createLinearGradient(BBx, BBy, BBx+BBw, BBy+BBh);
+    bg.addColorStop(0,    '#18133a'); bg.addColorStop(0.28, '#241c56');
+    bg.addColorStop(0.50, '#1c1648'); bg.addColorStop(0.72, '#221a5e');
+    bg.addColorStop(1,    '#130f28');
+    rr(BBx, BBy, BBw, BBh, 10); ctx.fillStyle = bg; ctx.fill();
+
+    /* Holographic sheen */
+    var hl = ctx.createLinearGradient(BBx, BBy, BBx+BBw, BBy+BBh);
+    hl.addColorStop(0,   'rgba(220,210,255,0.09)');
+    hl.addColorStop(0.40,'rgba(255,255,255,0.03)');
+    hl.addColorStop(1,   'rgba(200,190,255,0.05)');
+    rr(BBx, BBy, BBw, BBh, 10); ctx.fillStyle = hl; ctx.fill();
+    ctx.shadowBlur = 0;
+    ctx.globalAlpha = 1;
+    ctx.restore();
+  }
+
+  function drawBillboardDetails(detailAlpha, cardNum, countdown) {
+    if (detailAlpha <= 0.005) return;
+    ctx.save();
+    ctx.globalAlpha = detailAlpha;
+
+    /* Chip */
+    var cg = ctx.createLinearGradient(BBx+20, BBy+62, BBx+52, BBy+84);
+    cg.addColorStop(0, '#fbbf24'); cg.addColorStop(1, '#f59e0b');
+    rr(BBx+20, BBy+62, 30, 20, 4);
+    ctx.globalAlpha = detailAlpha * 0.65; ctx.fillStyle = cg; ctx.fill();
+    ctx.globalAlpha = detailAlpha;
+
+    /* Card number */
+    ctx.font = '12px "Space Mono",monospace';
+    ctx.fillStyle = 'rgba(240,238,246,0.42)';
+    ctx.textAlign = 'left'; ctx.textBaseline = 'top';
+    ctx.fillText(cardNum, BBx+20, BBy+90);
+
+    /* Bottom labels */
+    ctx.font = '8px "Space Mono",monospace'; ctx.textBaseline = 'bottom';
+    ctx.fillStyle = 'rgba(240,238,246,0.26)';
+    ctx.textAlign = 'left';  ctx.fillText('SINGLE USE ONLY', BBx+20, BBy+BBh-12);
+    ctx.textAlign = 'right'; ctx.fillText('VISA', BBx+BBw-20, BBy+BBh-12);
+
+    /* Countdown */
+    if (countdown !== null) {
+      ctx.font = 'bold 11px "Space Mono",monospace';
+      ctx.fillStyle = 'rgba(139,92,246,0.88)';
+      ctx.textBaseline = 'top'; ctx.textAlign = 'right';
+      ctx.fillText(countdown, BBx+BBw-20, BBy+20);
+    }
+    ctx.restore();
+  }
+
+  function drawBillboardPermanent() {
+    /* These elements NEVER disappear - drawn last, always on top */
+    ctx.save();
+
+    /* Card border - always visible */
+    rr(BBx, BBy, BBw, BBh, 10);
+    ctx.strokeStyle = 'rgba(210,190,255,0.30)';
+    ctx.lineWidth = 1.2; ctx.stroke();
+
+    /* PHANTOM brand */
+    ctx.font = 'bold 14px "Space Grotesk",sans-serif';
+    ctx.fillStyle = 'rgba(196,181,253,0.92)';
+    ctx.textAlign = 'left'; ctx.textBaseline = 'top';
+    ctx.fillText('PHANTOM', BBx+20, BBy+18);
+
+    /* Revolut logo mark */
+    ctx.font = '9px "DM Sans",sans-serif';
+    ctx.fillStyle = 'rgba(240,238,246,0.28)';
+    ctx.textAlign = 'right';
+    ctx.fillText('revolut', BBx+BBw-20, BBy+21);
+
+    /* ── Tagline strip below card - ALWAYS visible ── */
+    var ty = BBy + BBh + 8;
+
+    /* Horizontal rule */
+    ctx.strokeStyle = 'rgba(139,92,246,0.22)';
+    ctx.lineWidth = 0.6;
+    ctx.beginPath();
+    ctx.moveTo(BBx+18, ty); ctx.lineTo(BBx+BBw-18, ty);
+    ctx.stroke();
+
+    /* Tagline */
+    ctx.font = 'bold 10px "Space Mono",monospace';
+    ctx.fillStyle = 'rgba(196,181,253,0.82)';
+    ctx.textAlign = 'center'; ctx.textBaseline = 'top';
+    ctx.fillText('Phantom - A Card Built to Disappear', BBcx, ty+5);
+
+    ctx.restore();
+  }
+
+  /* ── Phase machine ── */
+  var PHASES = [
+    { name:'summon',    dur:1000 },
+    { name:'solid',     dur: 550 },
+    { name:'countdown', dur:2500 },
+    { name:'dissolve',  dur:2100 },
+    { name:'dark',      dur: 850 },
+    { name:'newcard',   dur:1100 },
+    { name:'pause',     dur: 550 }
+  ];
+  var pi = 0, ps = 0, countdownStr = null, cdInt = null;
+
+  function enterPhase(idx, now) {
+    pi = idx; ps = now;
+    var n = PHASES[idx].name;
+    if (cdInt) { clearInterval(cdInt); cdInt = null; }
+
+    if (n === 'summon') {
+      numIdx = (numIdx+1) % NUMS.length;
+      countdownStr = null; particles = [];
+    }
+    if (n === 'countdown') {
+      var cnt = 5; countdownStr = '0:0' + cnt;
+      cdInt = setInterval(function () {
+        cnt--;
+        countdownStr = cnt > 0 ? '0:0'+cnt : '0:00';
+        if (cnt <= 0) { clearInterval(cdInt); cdInt = null; }
+      }, 500);
+    }
+    if (n === 'dissolve')  { countdownStr = null; spawnParticles(); }
+    if (n === 'dark' || n === 'solid' || n === 'newcard' || n === 'pause') {
+      countdownStr = null;
+    }
+  }
+
+  function tick(now) {
+    var elapsed = now - ps, dur = PHASES[pi].dur;
+    var t = Math.min(elapsed / dur, 1), n = PHASES[pi].name;
+
+    if (n === 'dissolve' || n === 'dark') tickParticles();
+
+    /* Per-phase values */
+    var detailA = 0, bbIntensity = 0;
+    switch (n) {
+      case 'summon':    detailA = easeOut(t);             bbIntensity = t * 0.9; break;
+      case 'solid':     detailA = 1;                      bbIntensity = 1;       break;
+      case 'countdown': detailA = 1;                      bbIntensity = 1;       break;
+      case 'dissolve':  detailA = 1 - easeIn(t)*0.97;    bbIntensity = 1 - t*0.45; break;
+      case 'dark':      detailA = 0;                      bbIntensity = 0.45;    break;
+      case 'newcard':   detailA = easeOut(t);             bbIntensity = 0.5 + t*0.5; break;
+      case 'pause':     detailA = 1;                      bbIntensity = 1;       break;
+    }
+
+    /* ── Composite draw order ── */
+    ctx.clearRect(0, 0, W, H);
+
+    drawSky();
+    drawBillboardSkyGlow(bbIntensity);
+
+    /* Billboard body (dissolves) */
+    drawBillboardBody(detailA);
+    drawBillboardDetails(detailA, NUMS[numIdx], n === 'countdown' ? countdownStr : null);
+
+    /* City */
+    drawPoles();
+    drawStreetLights();
+    drawBuildings(bbIntensity);
+    drawGround(bbIntensity);
+
+    /* Particles float over city */
+    drawParticles();
+
+    /* Permanent billboard text - always on top */
+    drawBillboardPermanent();
+
+    /* Phase transition */
+    if (now - ps >= dur) enterPhase((pi+1) % PHASES.length, now);
+    requestAnimationFrame(tick);
+  }
+
+  requestAnimationFrame(function (now) {
+    ps = now; enterPhase(0, now); requestAnimationFrame(tick);
+  });
+})();
+</script>
+<script src="../js/scaler.js"></script>
+<script src="../js/nav.js"></script>
+<script src="../js/pwa.js"></script>
+</body>
+</html>

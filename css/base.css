@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;0,9..40,800;1,9..40,400&family=Space+Grotesk:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;0,9..40,800;1,9..40,400&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Space+Mono:wght@400;700&display=swap');
 
 *, *::before, *::after {
   margin: 0;
@@ -15,10 +15,11 @@
   --gold: #fbbf24;
   --green: #34d399;
   --orange: #fb923c;
+  --blue: #0066ff;
   --text: #f0eef6;
   --muted: #8a85a0;
   --dim: #5a5670;
-  /* Aliases for backward compatibility with older slide naming */
+    /* Aliases for backward compatibility with older slide naming */
   --bg-deep: #06060e;
   --purple-glow: #8b5cf6;
   --cyan-accent: #22d3ee;
@@ -43,7 +44,7 @@ body {
 
 /* Gradient text utility */
 .gradient {
-  background: linear-gradient(135deg, #c4b5fd 0%, #e879f9 50%, #fbbf24 100%);
+  background: linear-gradient(135deg, #a78bfa 0%, #c4b5fd 45%, #e879f9 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;

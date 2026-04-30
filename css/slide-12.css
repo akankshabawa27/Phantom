@@ -1,0 +1,278 @@
+/* Slide 12 — Full Carousel: Scenes from Zoe's Life */
+
+.slide { padding: 28px 52px 40px; display: flex; flex-direction: column; }
+.slide-header { margin-bottom: 18px; }
+
+.s12-body {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  min-height: 0;
+}
+
+/* ── Carousel label row ── */
+.s12-label-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  opacity: 0;
+  animation: fadeUp 0.5s ease-out 0.2s forwards;
+}
+
+.s12-format-tag {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 8px; letter-spacing: 1.2px; text-transform: uppercase;
+  color: #fbbf24;
+  background: rgba(251,191,36,0.10); border: 1px solid rgba(251,191,36,0.20);
+  padding: 3px 10px; border-radius: 5px;
+}
+
+.s12-series-name {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 9px; letter-spacing: 1.5px;
+  color: rgba(240,238,246,0.28);
+}
+
+.s12-dots {
+  margin-left: auto;
+  display: flex; gap: 5px; align-items: center;
+}
+
+.s12-dot {
+  width: 6px; height: 6px; border-radius: 50%;
+  background: rgba(255,255,255,0.12);
+  transition: background 0.3s;
+}
+
+.s12-dot.on { background: #8b5cf6; width: 18px; border-radius: 3px; }
+
+/* ── Cards row ── */
+.s12-cards {
+  flex: 1;
+  display: flex;
+  gap: 14px;
+  align-items: stretch;
+  min-height: 0;
+}
+
+/* ── Each carousel card ── */
+.s12-card {
+  flex: 1;
+  border-radius: 14px;
+  overflow: hidden;
+  position: relative;
+  background: #06060e;
+  box-shadow: 0 10px 50px rgba(0,0,0,0.6);
+  display: flex;
+  flex-direction: column;
+  opacity: 0;
+  animation: s12CardIn 0.6s ease-out forwards;
+}
+
+.s12-card:nth-child(1) { animation-delay: 0.20s; }
+.s12-card:nth-child(2) { animation-delay: 0.34s; }
+.s12-card:nth-child(3) { animation-delay: 0.48s; }
+.s12-card:nth-child(4) { animation-delay: 0.62s; }
+
+@keyframes s12CardIn {
+  from { opacity: 0; transform: translateY(20px) scale(0.97); }
+  to   { opacity: 1; transform: translateY(0)    scale(1); }
+}
+
+/* Slide number pip */
+.s12-card-num {
+  position: absolute; top: 14px; left: 16px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 8px; letter-spacing: 1.5px;
+  color: rgba(255,255,255,0.18);
+  z-index: 3;
+}
+
+/* revolut logo */
+.s12-card-rv {
+  position: absolute; bottom: 14px; right: 16px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 8px; letter-spacing: 1.5px; text-transform: lowercase;
+  color: rgba(139,92,246,0.30);
+  z-index: 3;
+}
+
+/* ── Card 1: The Setup (lamp) ── */
+.s12-c1 {
+  background: #06060e;
+  align-items: center; justify-content: center;
+  text-align: center; padding: 28px 24px;
+}
+
+.s12-c1-bg {
+  position: absolute; inset: 0;
+  background: radial-gradient(circle at 50% 40%, rgba(251,191,36,0.09) 0%, transparent 55%);
+}
+
+.s12-c1-icon {
+  font-size: 48px; margin-bottom: 14px;
+  position: relative; z-index: 2;
+  filter: drop-shadow(0 0 18px rgba(251,191,36,0.30));
+}
+
+.s12-sponsored {
+  display: inline-flex; align-items: center;
+  padding: 3px 10px; border-radius: 100px;
+  background: rgba(251,191,36,0.08); border: 1px solid rgba(251,191,36,0.16);
+  font-family: 'DM Sans', sans-serif; font-size: 7px; letter-spacing: 1px;
+  color: rgba(251,191,36,0.55);
+  margin-bottom: 14px; position: relative; z-index: 2;
+}
+
+.s12-c1-text {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-weight: 600; font-size: 16px; line-height: 1.5;
+  color: var(--text); position: relative; z-index: 2;
+}
+
+.s12-c1-text .gold { color: #fbbf24; font-weight: 800; }
+
+/* ── Card 2: The Doubt ── */
+.s12-c2 {
+  align-items: center; justify-content: center;
+  text-align: center; padding: 28px 22px;
+}
+
+.s12-c2-bg {
+  position: absolute; inset: 0;
+  background: radial-gradient(circle at 50% 50%, rgba(248,113,113,0.07) 0%, transparent 55%);
+}
+
+.s12-c2-card-art {
+  position: relative; z-index: 2; margin-bottom: 16px;
+}
+
+.s12-ghost-card {
+  width: 140px; height: 88px;
+  border-radius: 10px;
+  border: 1px solid rgba(248,113,113,0.25);
+  background: rgba(248,113,113,0.04);
+  display: flex; flex-direction: column;
+  justify-content: center; align-items: center; gap: 8px;
+  box-shadow: 0 0 30px rgba(248,113,113,0.12);
+}
+
+.s12-ghost-num {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 11px; letter-spacing: 1px;
+  color: rgba(248,113,113,0.45);
+}
+
+.s12-ghost-q {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 9px; color: rgba(248,113,113,0.3);
+  letter-spacing: 1px; text-transform: uppercase;
+}
+
+.s12-c2-text {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-weight: 600; font-size: 16px; line-height: 1.5;
+  color: var(--text); position: relative; z-index: 2;
+}
+
+.s12-c2-text .gold { color: #fbbf24; font-weight: 800; }
+
+/* ── Card 1 lamp SVG ── */
+.s12-c1-lamp {
+  margin-bottom: 14px;
+  position: relative; z-index: 2;
+  filter: drop-shadow(0 0 22px rgba(251,191,36,0.28));
+}
+
+/* ── Card 3: The Relief ── */
+.s12-c3 {
+  align-items: center; justify-content: center;
+  text-align: center; padding: 28px 22px;
+}
+
+.s12-c3-bg {
+  position: absolute; inset: 0;
+  background:
+    radial-gradient(circle at 50% 38%, rgba(139,92,246,0.20) 0%, rgba(217,70,239,0.10) 42%, transparent 68%);
+}
+
+.s12-c3-relief {
+  position: relative; z-index: 2;
+  display: flex; flex-direction: column; align-items: center; gap: 10px;
+}
+
+.s12-c3-but {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-weight: 400; font-style: italic;
+  font-size: 15px; color: var(--muted);
+  letter-spacing: 0.2px;
+}
+
+.s12-c3-poof {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-weight: 800; font-size: 42px;
+  line-height: 1.05; letter-spacing: -1px;
+  color: var(--text);
+}
+
+.s12-poof-gr {
+  background: linear-gradient(135deg, #c4b5fd, #e879f9, #fbbf24);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+}
+
+.s12-c3-sub {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-weight: 400; font-size: 13px;
+  line-height: 1.6; color: var(--muted);
+  margin-top: 4px;
+}
+
+/* ── Card 4: The Reveal (Phantom) ── */
+.s12-c4 {
+  align-items: center; justify-content: center;
+  text-align: center; padding: 28px 22px;
+}
+
+.s12-c4-bg {
+  position: absolute; inset: 0;
+  background:
+    radial-gradient(circle at 50% 38%, rgba(139,92,246,0.20) 0%, rgba(217,70,239,0.10) 40%, transparent 68%);
+}
+
+.s12-c4-brand {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-weight: 800; font-size: 38px; line-height: 1;
+  letter-spacing: -1px;
+  background: linear-gradient(135deg, #c4b5fd, #e879f9, #fbbf24);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+  margin-bottom: 8px; position: relative; z-index: 2;
+}
+
+.s12-c4-divider {
+  width: 36px; height: 2px; margin: 0 auto 16px;
+  background: linear-gradient(90deg, #8b5cf6, #d946ef);
+  border-radius: 2px; position: relative; z-index: 2;
+}
+
+.s12-c4-text {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-weight: 500; font-size: 14px; line-height: 1.65;
+  color: rgba(240,238,246,0.70); position: relative; z-index: 2;
+  margin-bottom: 22px;
+}
+
+.s12-c4-cta {
+  padding: 9px 24px; border-radius: 100px;
+  background: linear-gradient(135deg, #8b5cf6, #d946ef);
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-weight: 600; font-size: 11px; color: white; letter-spacing: 0.3px;
+  position: relative; z-index: 2;
+}
+
+.s12-c4-tag {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 8px; letter-spacing: 1.5px;
+  color: rgba(139,92,246,0.35);
+  margin-top: 10px; position: relative; z-index: 2;
+}
